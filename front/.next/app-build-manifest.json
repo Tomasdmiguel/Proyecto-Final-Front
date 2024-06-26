@@ -11,10 +11,10 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/Formsede/page": [
+    "/Dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/Formsede/page.js"
+      "static/chunks/app/Dashboard/page.js"
     ]
   }
 }
