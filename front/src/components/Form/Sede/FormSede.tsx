@@ -107,10 +107,10 @@ const FormSede = () => {
         <p className="text-terciario-color-white text-center mt-4">
           Si ya tienes una sede creada, ingresa para crear tu cancha.
           
-          <Link  href="#" className="text-secundario-color">
+        </p>
+          <Link  href="#" className="text-secundario-color text-center">
             <p>Ingresa</p>
           </Link>
-        </p>
 
       </div>
    
