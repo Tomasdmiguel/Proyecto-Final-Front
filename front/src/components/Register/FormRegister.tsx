@@ -1,4 +1,4 @@
-//*Este modulo FormSede es un componente del cliente que lo que hace es crear la sede, esta opcion solamente la va a tener un usuario admin (Los usuarios admin son cuentas creadas por nostros)
+//*Este modulo es para registrar usuarios 
 "use client";
 import { useState } from "react";
 import Link from "next/link";

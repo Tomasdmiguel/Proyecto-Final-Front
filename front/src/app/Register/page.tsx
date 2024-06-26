@@ -1,3 +1,4 @@
+//* Ruta para registrarse muestra el componente FormRegister
 import FormRegister from "@/components/Register/FormRegister";
 const rutaFormRegister = () => {
   return (

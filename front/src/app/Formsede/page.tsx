@@ -1,4 +1,4 @@
-//*Este componente importado es un formulario para crear una sede
+//*Este modulo es la ruta que muestra el componente FormSede
 import FormSede from "@/components/Sede/FormSede"
 const rutaFormsede = () => {
 return(
