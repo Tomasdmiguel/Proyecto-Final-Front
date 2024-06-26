@@ -1,6 +1,7 @@
 //*Este modulo FormSede es un componente del cliente que lo que hace es crear la sede, esta opcion solamente la va a tener un usuario admin (Los usuarios admin son cuentas creadas por nostros)
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 const FormSede = () => {
   const [datoSede, setdatoSede] = useState({
@@ -25,11 +26,11 @@ const FormSede = () => {
     
       <div className="bg-main-color max-w-md w-full p-8 rounded-lg shadow-lg text ">
 
-        <h1 className="text-white text-center text-3xl font-bold mb-6">
+        <h1 className="text-terciario-color-white text-center text-3xl  mb-6">
           CANCHITAS GOL
         </h1>
 
-        <p className="text-yellow-500 text-center mb-4">
+        <p className="text-secundario-color text-center mb-4">
           Bienvenido, crea tu sede para que los jugadores puedan reservar turnos
           en tu cancha
         </p>
@@ -38,7 +39,7 @@ const FormSede = () => {
 
 
           <div className="mb-4">
-            <label htmlFor="name" className="block text-white mb-2">
+            <label htmlFor="name" className="block text-terciario-color-white mb-2">
               Nombre
             </label>
             <input
@@ -53,7 +54,7 @@ const FormSede = () => {
 
 
           <div className="mb-4">
-            <label htmlFor="location" className="block text-white mb-2">
+            <label htmlFor="location" className="block text-terciario-color-white mb-2">
               Locacion
             </label>
             <input
@@ -68,7 +69,7 @@ const FormSede = () => {
 
 
           <div className="mb-4">
-            <label htmlFor="describe" className="block text-white mb-2">
+            <label htmlFor="describe" className="block text-terciario-color-white mb-2">
               Descripcion
             </label>
             <input
@@ -82,7 +83,7 @@ const FormSede = () => {
           </div>
 
           <div className="mb-6">
-            <label htmlFor="img" className="block text-white mb-2">
+            <label htmlFor="img" className="block text-terciario-color-white mb-2">
               Imagen
             </label>
             <input
@@ -97,17 +98,18 @@ const FormSede = () => {
 
           <button
             type="submit"
-            className="w-full bg-yellow-500 text-white p-3 rounded-lg hover:bg-yellow-600">
+            className="w-full bg-secundario-color text-terciario-color-white p-3 rounded-lg hover:bg-yellow-600">
             Crear sede
           </button>
 
         </form>
 
-        <p className="text-white text-center mt-4">
-          Si ya tienes una sede creada, ingresa para crear tu cancha{" "}
-          <a href="#" className="text-yellow-500">
-            Ingresa
-          </a>
+        <p className="text-terciario-color-white text-center mt-4">
+          Si ya tienes una sede creada, ingresa para crear tu cancha.
+          
+          <Link  href="#" className="text-secundario-color">
+            <p>Ingresa</p>
+          </Link>
         </p>
 
       </div>

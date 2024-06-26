@@ -614,6 +614,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
+.bg-secundario-color {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 206 20 / var(--tw-bg-opacity));
+}
 .p-3 {
   padding: 0.75rem;
 }
@@ -640,6 +644,14 @@ video {
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+.text-secundario-color {
+  --tw-text-opacity: 1;
+  color: rgb(244 206 20 / var(--tw-text-opacity));
+}
+.text-terciario-color-white {
+  --tw-text-opacity: 1;
+  color: rgb(245 247 248 / var(--tw-text-opacity));
 }
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
