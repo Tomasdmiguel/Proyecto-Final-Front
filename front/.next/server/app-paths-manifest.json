@@ -2,5 +2,6 @@
   "/page": "app/page.js",
   "/Formsede/page": "app/Formsede/page.js",
   "/Login/page": "app/Login/page.js",
-  "/Register/page": "app/Register/page.js"
+  "/Register/page": "app/Register/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
 }

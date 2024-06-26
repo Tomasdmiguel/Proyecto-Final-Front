@@ -9,10 +9,10 @@ export default function NotFound() {
       <p className="text-xl text-main-color mb-8">
         Vuelve a intentarlo mas tarde
       </p>
-      <Link href="/">
-        <a className="border border-secundario-color hover:bg-main-color text-white font-bold py-2 px-4 rounded">
+      <Link className="border border-secundario-color hover:bg-main-color text-white font-bold py-2 px-4 rounded"  href="/">
+     
           Ir a la página principal
-        </a>
+      
       </Link>
     </div>
   );
