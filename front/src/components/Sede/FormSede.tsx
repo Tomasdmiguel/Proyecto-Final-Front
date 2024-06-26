@@ -97,7 +97,7 @@ const FormSede = () => {
 
           <button
             type="submit"
-            className="w-full bg-secundario-color text-terciario-color-white p-3 rounded-lg hover:bg-yellow-600">
+            className="w-full border border-secundario-color text-terciario-color-white p-3 rounded-lg hover:bg-yellow-600">
             Crear sede
           </button>
 
@@ -107,7 +107,7 @@ const FormSede = () => {
           Si ya tienes una sede creada, ingresa para crear tu cancha.
           
         </p>
-          <Link  href="#" className="text-secundario-color text-center">
+          <Link  href="/FormCancha" className="text-secundario-color text-center">
             <p>Ingresa</p>
           </Link>
 

@@ -1,4 +1,8 @@
 {
-  "/page": "app/page.js",
-  "/Dashboard/page": "app/Dashboard/page.js"
+  "/Formsede/page": "app/Formsede/page.js",
+  "/Dashboard/page": "app/Dashboard/page.js",
+  "/Login/page": "app/Login/page.js",
+  "/Register/page": "app/Register/page.js",
+  "/FormCancha/page": "app/FormCancha/page.js",
+  "/page": "app/page.js"
 }

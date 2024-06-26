@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const FormSede = () => {
+const FormRegister = () => {
   const [data, setData] = useState({
     email: "",
     user: "",
@@ -29,7 +29,7 @@ const FormSede = () => {
         CANCHITAS GOL
       </h1>
 
-      <p className="text-secundario-color text-center mb-4">Registro</p>
+      <p className="text-secundario-color text-center mb-4">Registrate gratis</p>
 
       <form>
         <div className="mb-4">
@@ -90,7 +90,7 @@ const FormSede = () => {
 
         <div className="mb-4">
           <label htmlFor="passwordMatch" className="block text-terciario-color-white mb-2">
-            Contraseña
+            Repita la contraseña
           </label>
           <input
             type="text"
@@ -104,18 +104,19 @@ const FormSede = () => {
 
         <button
           type="submit"
-          className="w-full bg-secundario-color text-terciario-color-white p-3 rounded-lg hover:bg-yellow-600">
+          className="w-full border border-secundario-color text-terciario-color-white p-3 rounded-lg hover:bg-yellow-600">
           Registrarse
         </button>
       </form>
 
       <p className="text-terciario-color-white text-center mt-4">
-        Si ya tienes una cuenta creada, inicia sesion{" "}
-        <Link className="text-secundario-color" href="#">
-          <p>Ingresa</p>
+        Si ya tienes una cuenta creada 
+        <br />
+        <Link className="text-secundario-color" href="/Login">
+          Iniciar sesion 
         </Link>
       </p>
     </div>
   );
 };
-export default FormSede;
+export default FormRegister;
