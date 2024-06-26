@@ -22,8 +22,7 @@ const FormSede = () => {
   //*Funcion que envia el formulario
   const handleSubmit = () => {};
 
-  return (
-    
+  return (    
       <div className="bg-main-color max-w-md w-full p-8 rounded-lg shadow-lg text ">
 
         <h1 className="text-terciario-color-white text-center text-3xl  mb-6">
@@ -114,6 +113,7 @@ const FormSede = () => {
 
       </div>
    
+
   );
 };
 export default FormSede;
