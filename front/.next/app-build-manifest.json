@@ -15,6 +15,16 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/Formsede/page.js"
+    ],
+    "/Login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/Login/page.js"
+    ],
+    "/Register/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/Register/page.js"
     ]
   }
 }

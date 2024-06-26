@@ -19,6 +19,7 @@ const FormSede = () => {
       [name]: value,
     });
   };
+
   //*Funcion que envia el formulario
   const handleSubmit = () => {};
 

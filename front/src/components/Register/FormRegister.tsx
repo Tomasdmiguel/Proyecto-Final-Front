@@ -20,6 +20,7 @@ const FormSede = () => {
       [name]: value,
     });
   };
+ 
   //*Funcion que envia el formulario
   const handleSubmit = () => {};
 
@@ -104,17 +105,17 @@ const FormSede = () => {
 
         <button
           type="submit"
-          className="w-full bg-secundario-color text-terciario-color-white p-3 rounded-lg hover:bg-yellow-600">
+          className="w-full border  border-secundario-color text-terciario-color-white p-3 rounded-lg hover:bg-secundario-color">
           Registrarse
         </button>
       </form>
 
       <p className="text-terciario-color-white text-center mt-4">
-        Si ya tienes una cuenta creada, inicia sesion{" "}
-        <Link className="text-secundario-color" href="#">
+        Si ya tienes una cuenta creada, inicia sesion
+      </p>
+        <Link className="text-secundario-color text-center" href="/Login">
           <p>Ingresa</p>
         </Link>
-      </p>
     </div>
   );
 };
