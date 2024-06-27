@@ -3,15 +3,19 @@
 import { useState } from "react";
 import Link from "next/link";
 
+//*Importacion para controlar el formulario
+import { CCancha } from "@/helpers/Controllers/CCancha";
+import { IFormCancha } from "@/interface/IFormCancha";
+
 const FormCancha = () => {
-  const [data, setData] = useState({
-    sport: "",
+  const [data, setData] = useState<IFormCancha>({
+    sport: 0,
     timeopen: "",
     timeclose: "",
-    type: "",
-    price: "",
-    player: "",
-    techado: "",
+    type: 0,
+    price: 0,
+    player: 0,
+    techado: false,
     img: "",
   });
 
@@ -23,15 +27,17 @@ const FormCancha = () => {
     const { value, name } = event.target;
     setData({
       ...data,
-      [name]: value,
+      [name]: value
     });
   };
-  console.log(data);
-
+console.log(data)
   //*Funcion que envia el formulario
-  const handleSubmit = () => {};
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    CCancha(data)
+  };
 
-  return (
+  return ( 
     <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg">
       <h1 className="text-terciario-white text-center text-3xl font-bold mb-6">
         CANCHITAS GOL
@@ -90,10 +96,9 @@ const FormCancha = () => {
 
         <div className="mb-4">
           <label htmlFor="price" className="block text-terciario-white mb-2">
-            Precio por hora
+            Precio por jugador
           </label>
           <input
-          
             type="number"
             name="price"
             value={data.price}
@@ -113,7 +118,7 @@ const FormCancha = () => {
             value={data.player}
             placeholder="Escribi la cantidad de jugadores"
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg"
+            className="  text-black w-full p-3 rounded-lg bg"
           />
         </div>
 
@@ -123,12 +128,12 @@ const FormCancha = () => {
           </label>
           <select
             name="techado"
-            value={data.techado}
+            value={String(data.techado)} 
             onChange={handleChange}
             className=" text-black w-full p-3 rounded-lg bg">
             <option value="">Selecciona una opción</option>
-            <option value="si">Sí</option>
-            <option value="no">No</option>
+            <option value="true">Sí</option>
+            <option value="false">No</option>
           </select>
         </div>
 
@@ -163,4 +168,5 @@ const FormCancha = () => {
     </div>
   );
 };
+
 export default FormCancha;
