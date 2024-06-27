@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.sports-img {
+  @apply w-36 h-full rounded-full  ease-in-out duration-300 hover:grayscale;
+}
+.sports-button {
+  @apply w-36 rounded-full border-solid border-secundario border-4 flex items-center justify-center uppercase text-2xl font-black;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -24,6 +31,11 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  font-family: sans-serif;
 }
 
 @layer utilities {

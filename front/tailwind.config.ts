@@ -10,16 +10,15 @@ const config: Config = {
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        'main-color': '#369676',
-        'terciario-color': '#45474B', 
-        'secundario-color': '#F4CE14', 
-        'terciario-color-white': '#F5F7F8', 
-        
+        main: "#369676",
+        secundario: "#F4CE14",
+        terciario: "#45474B",
+        "terciario-white": "#F5F7F8",
       },
-      
     },
   },
   plugins: [],
