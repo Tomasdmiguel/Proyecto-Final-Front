@@ -76,7 +76,7 @@ const FormRegister = () => {
             Numero telefonico
           </label>
           <input
-            type="text"
+            type="number"
             name="phone"
             value={data.phone}
             placeholder="numero telefonico"
