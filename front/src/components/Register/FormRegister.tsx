@@ -14,7 +14,7 @@ const FormRegister = () => {
     password: "",
     passwordMatch: "",
   });
-console.log(data)
+  console.log(data);
   //*Funcion que guarda los cambios
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -28,15 +28,11 @@ console.log(data)
   //*Funcion que envia el formulario
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-   
-    if(CRegister(data)) {
-        // alert("Esto es verdadero")
-    }
 
-    
-    
+    if (CRegister(data)) {
+      // alert("Esto es verdadero")
+    }
   };
-  
 
   return (
     <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text ">

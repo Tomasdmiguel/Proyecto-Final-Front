@@ -1,14 +1,12 @@
-import { IRegister } from "@/interface/IRegister";
+import { ILogin } from "@/interface/ILogin";
 import Swal from "sweetalert2";
 
-export const CRegister = (data: IRegister) => {
-  const { email,phone, password, passwordMatch } = data;
+export const CLogin = (data: ILogin) => {
+  const { email } = data;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^\d+$/;
 
-  // Verifica si algún campo está vacío
   const emptyField = Object.keys(data).find(
-    (key) => data[key as keyof IRegister].trim() === ""
+    (key) => data[key as keyof ILogin].trim() === ""
   );
 
   if (emptyField) {
@@ -28,24 +26,6 @@ export const CRegister = (data: IRegister) => {
       timer: 3000,
     });
     return;
-  } else if (!phoneRegex.test(phone)) {
-    // Verifica la validación del número de teléfono
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Número de teléfono no válido.",
-      timer: 3000,
-    });
-    return;
-  } else if (password !== passwordMatch) {
-    // Verifica que las contraseñas coincidan
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Las contraseñas no coinciden.",
-      timer: 3000,
-    });
-    return;
   } else {
     // Si todas las validaciones pasan, muestra esta alerta
     Swal.fire({
@@ -56,5 +36,4 @@ export const CRegister = (data: IRegister) => {
     });
     return true;
   }
-
 };
