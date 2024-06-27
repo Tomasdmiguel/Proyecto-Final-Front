@@ -3,11 +3,30 @@
 import React, { useState } from "react";
 // array para simular map de canchas
 import { arrayClubes, arrayClubes2, arrayClubes3 } from "@/helpers/arrayClubes";
-export default function Home() {
+
+export const Home: React.FC = () => {
   const [sport, setSport] = useState<number>();
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredFields = arrayClubes.filter((field) =>
+    field.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const filteredFields2 = arrayClubes2.filter((field) =>
+    field.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const filteredFields3 = arrayClubes3.filter((field) =>
+    field.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleSport = (n: number) => {
     setSport(n);
+  };
+  const closeSport = () => {
+    setSport(0);
   };
 
   return (
@@ -46,9 +65,9 @@ export default function Home() {
           </div>
         </div>
         <div
-          className={`p-4 mt-2 rounded-md bg-slate-500 flex flex-col shadow-md ${
+          className={`p-4 mt-2 rounded-md bg-terciario-white flex flex-col justify-center items-center shadow-md ${
             sport == 1
-              ? "text-emerald-500 shadow-main"
+              ? "text-main shadow-main"
               : sport == 2
               ? "text-blue-400 shadow-blue-400"
               : sport == 3
@@ -56,66 +75,152 @@ export default function Home() {
               : "hidden absolute"
           }`}
         >
-          <h1 className="font-bold text-3xl">
-            {sport == 1 && "Fútbol"}
-            {sport == 2 && "Padel"}
-            {sport == 3 && "Tenis"}
-          </h1>
+          <div className="flex flex-row justify-between w-full">
+            <h1 className="font-bold text-4xl">
+              {sport == 1 && "Fútbol"}
+              {sport == 2 && "Padel"}
+              {sport == 3 && "Tenis"}
+            </h1>
+            <button
+              className={`border-2 py-2 px-3 rounded-full hover:text-terciario-white duration-300 ease-in-out ${
+                sport == 1
+                  ? "border-main hover:bg-main"
+                  : sport == 2
+                  ? "border-blue-400 hover:bg-blue-400"
+                  : sport == 3
+                  ? "border-orange-500 hover:bg-orange-500"
+                  : "hidden absolute"
+              }`}
+              onClick={closeSport}
+            >
+              X
+            </button>
+          </div>
 
-          <div className="flex flex-col space-y-4 mt-4">
-            {sport == 1
+          <input
+            className={`m-4 w-3/4 p-3 rounded border-2 focus:ring outline-0  font-semibold hover:shadow-md  ${
+              sport == 1
+                ? "ring-main border-main shadow-main"
+                : sport == 2
+                ? "ring-blue-400 border-blue-400 shadow-blue-400"
+                : sport == 3
+                ? "ring-orange-500 border-orange-500 shadow-orange-500"
+                : "hidden absolute"
+            }`}
+            type="text"
+            placeholder="Buscar cancha..."
+            value={searchTerm}
+            onChange={handleChange}
+          />
+
+          <div className="flex flex-col space-y-4 mt-4 w-full">
+            {searchTerm && sport == 1
+              ? filteredFields.map((field) => (
+                  <div
+                    key={field.id}
+                    className="border-4 border-main p-2 rounded flex flex-row hover:cursor-pointer hover:bg-main hover:text-terciario-white ease-in-out duration-300"
+                  >
+                    <img
+                      className="w-32 rounded-full"
+                      src="/futbol.jpg"
+                      alt=""
+                    />
+                    <div className="flex flex-col p-4 space-y-4 font-bold">
+                      <h1 className="text-xl">{field.nombre} </h1>
+                      <p>Ubicación: {field.ubicación} </p>
+                      <p>Cantidad de canchas: {field.cantidadCanchas} </p>
+                    </div>
+                  </div>
+                ))
+              : sport == 1
               ? arrayClubes.map((cancha) => {
                   return (
                     <div
                       key={cancha.id}
-                      className="border-2 border-emerald-500 p-2 rounded flex flex-row"
+                      className="border-4 border-main p-2 rounded flex flex-row hover:cursor-pointer hover:bg-main hover:text-terciario-white ease-in-out duration-300"
                     >
                       <img
                         className="w-32 rounded-full"
                         src="/futbol.jpg"
                         alt=""
                       />
-                      <div className="flex flex-col p-4">
-                        <h1>{cancha.nombre} </h1>
+                      <div className="flex flex-col p-4 space-y-4 font-bold">
+                        <h1 className="text-xl">{cancha.nombre} </h1>
                         <p>Ubicación: {cancha.ubicación} </p>
                         <p>Cantidad de canchas: {cancha.cantidadCanchas} </p>
                       </div>
                     </div>
                   );
                 })
+              : searchTerm && sport == 2
+              ? filteredFields2.map((field) => (
+                  <div
+                    key={field.id}
+                    className="border-4 border-blue-500 p-2 rounded flex flex-row hover:cursor-pointer hover:bg-main hover:text-terciario-white ease-in-out duration-300"
+                  >
+                    <img
+                      className="w-32 rounded-full"
+                      src="/padel.png"
+                      alt=""
+                    />
+                    <div className="flex flex-col p-4 space-y-4 font-bold">
+                      <h1 className="text-xl">{field.nombre} </h1>
+                      <p>Ubicación: {field.ubicación} </p>
+                      <p>Cantidad de canchas: {field.cantidadCanchas} </p>
+                    </div>
+                  </div>
+                ))
               : sport == 2
               ? arrayClubes2.map((cancha) => {
                   return (
                     <div
                       key={cancha.id}
-                      className="border-2 border-blue-400 p-2 rounded flex flex-row"
+                      className="border-4 border-blue-400 p-2 rounded flex flex-row hover:cursor-pointer hover:bg-blue-400 hover:text-terciario-white ease-in-out duration-300"
                     >
                       <img
                         className="w-32 rounded-full"
                         src="/padel.png"
                         alt=""
                       />
-                      <div className="flex flex-col p-4">
-                        <h1>{cancha.nombre} </h1>
+                      <div className="flex flex-col p-4 space-y-4 font-bold">
+                        <h1 className="text-xl">{cancha.nombre} </h1>
                         <p>Ubicación: {cancha.ubicación} </p>
                         <p>Cantidad de canchas: {cancha.cantidadCanchas} </p>
                       </div>
                     </div>
                   );
                 })
+              : searchTerm && sport == 3
+              ? filteredFields3.map((field) => (
+                  <div
+                    key={field.id}
+                    className="border-4 border-orange-500 p-2 rounded flex flex-row hover:cursor-pointer hover:bg-orange-500 hover:text-terciario-white ease-in-out duration-300"
+                  >
+                    <img
+                      className="w-32 rounded-full"
+                      src="/tenis.jpg"
+                      alt=""
+                    />
+                    <div className="flex flex-col p-4 space-y-4 font-bold">
+                      <h1 className="text-xl">{field.nombre} </h1>
+                      <p>Ubicación: {field.ubicación} </p>
+                      <p>Cantidad de canchas: {field.cantidadCanchas} </p>
+                    </div>
+                  </div>
+                ))
               : arrayClubes3.map((cancha) => {
                   return (
                     <div
                       key={cancha.id}
-                      className="border-2 border-orange-500 p-2 rounded flex flex-row"
+                      className="border-4 border-orange-500 p-2 rounded flex flex-row hover:cursor-pointer hover:bg-orange-500 hover:text-terciario-white ease-in-out duration-300"
                     >
                       <img
                         className="w-32 rounded-full"
                         src="/tenis.jpg"
                         alt=""
                       />
-                      <div className="flex flex-col p-4">
-                        <h1>{cancha.nombre} </h1>
+                      <div className="flex flex-col p-4 space-y-4 font-bold">
+                        <h1 className="text-xl">{cancha.nombre} </h1>
                         <p>Ubicación: {cancha.ubicación} </p>
                         <p>Cantidad de canchas: {cancha.cantidadCanchas} </p>
                       </div>
@@ -127,4 +232,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;
