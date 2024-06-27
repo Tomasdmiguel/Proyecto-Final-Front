@@ -6,7 +6,8 @@ import Link from "next/link";
 const FormCancha = () => {
   const [data, setData] = useState({
     sport: "",
-    time: "",
+    timeopen: "",
+    timeclose: "",
     type: "",
     price: "",
     player: "",
@@ -25,6 +26,7 @@ const FormCancha = () => {
       [name]: value,
     });
   };
+  console.log(data);
 
   //*Funcion que envia el formulario
   const handleSubmit = () => {};
@@ -42,42 +44,48 @@ const FormCancha = () => {
           <label htmlFor="sport" className="block text-terciario-white mb-2">
             Deporte
           </label>
-          <input
-            type="text"
+          <select
             name="sport"
             value={data.sport}
-            placeholder="Escribi el tipo de deporte"
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-terciario"
-          />
+            className="w-full p-3 rounded-lg bg text-black">
+            <option value="">Selecciona que deporte</option>
+            <option value={1}>Fotbol</option>
+            <option value={2}>Padel</option>
+            <option value={3}>Tenis</option>
+          </select>
         </div>
-
         <div className="mb-4">
+
           <label htmlFor="time" className="block text-terciario-white mb-2">
             Horario de apertura
           </label>
-          <input
-            type="text"
-            name="time"
-            value={data.time}
-            placeholder="Escribe el horario que abren y cierra el local"
-            onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-terciario"
-          />
+          <input className="text-black" type="time" value={data.timeopen} name="timeopen" onChange={handleChange} />
+
+          <label htmlFor="timeclose" className="block text-terciario-white mb-2">
+            Horario de cierre
+          </label>
+          <input className="text-black" type="time" value={data.timeclose} name="timeclose" onChange={handleChange} />
+
         </div>
 
         <div className="mb-4">
           <label htmlFor="type" className="block text-terciario-white mb-2">
             Tipo de cancha
           </label>
-          <input
-            type="text"
+          <select
             name="type"
             value={data.type}
-            placeholder="Escribi el tipo de cancha"
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-terciario"
-          />
+            className="w-full p-3 rounded-lg bg text-black">
+            <option value="">Tipo de cancha</option>
+            <option value={1}>Sintetico</option>
+            <option value={2}>Pasto</option>
+            <option value={3}>futsal</option>
+            <option value={4}>cemento</option>
+            <option value={5}>ladrillo</option>
+          </select>
+          
         </div>
 
         <div className="mb-4">
@@ -85,12 +93,13 @@ const FormCancha = () => {
             Precio por hora
           </label>
           <input
-            type="text"
+          
+            type="number"
             name="price"
             value={data.price}
             placeholder="Escribi el precio por hora"
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg"
+            className=" text-black w-full p-3 rounded-lg bg"
           />
         </div>
 
@@ -99,7 +108,7 @@ const FormCancha = () => {
             Cantidad de jugadores
           </label>
           <input
-            type="text"
+            type="number"
             name="player"
             value={data.player}
             placeholder="Escribi la cantidad de jugadores"
@@ -116,8 +125,7 @@ const FormCancha = () => {
             name="techado"
             value={data.techado}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg"
-          >
+            className=" text-black w-full p-3 rounded-lg bg">
             <option value="">Selecciona una opción</option>
             <option value="si">Sí</option>
             <option value="no">No</option>
@@ -129,7 +137,7 @@ const FormCancha = () => {
             Imagen
           </label>
           <input
-            type="text"
+            type="url"
             name="img"
             value={data.img}
             placeholder="URL de la imagen"
@@ -140,8 +148,7 @@ const FormCancha = () => {
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
-        >
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
           Crear
         </button>
       </form>
