@@ -156,7 +156,7 @@ export const Home: React.FC = () => {
               ? filteredFields2.map((field) => (
                   <div
                     key={field.id}
-                    className="border-4 border-blue-500 p-2 rounded flex flex-row hover:cursor-pointer hover:bg-main hover:text-terciario-white ease-in-out duration-300"
+                    className="border-4 border-blue-500 p-2 rounded flex flex-row hover:cursor-pointer hover:bg-blue-500 hover:text-terciario-white ease-in-out duration-300"
                   >
                     <img
                       className="w-32 rounded-full"
