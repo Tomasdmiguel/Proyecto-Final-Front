@@ -27,25 +27,25 @@ export const arrayClubes = [
 
 export const arrayClubes2 = [
   {
-    id: 1,
+    id: 5,
     nombre: "Sede 5",
     ubicación: "calle falsa 123",
     cantidadCanchas: 5,
   },
   {
-    id: 2,
+    id: 6,
     nombre: "Sede 6",
     ubicación: "calle falsa 123",
     cantidadCanchas: 5,
   },
   {
-    id: 3,
+    id: 7,
     nombre: "Sede 7",
     ubicación: "calle falsa 123",
     cantidadCanchas: 5,
   },
   {
-    id: 4,
+    id: 8,
     nombre: "Sede 8",
     ubicación: "calle falsa 123",
     cantidadCanchas: 5,
@@ -53,25 +53,25 @@ export const arrayClubes2 = [
 ];
 export const arrayClubes3 = [
   {
-    id: 1,
+    id: 9,
     nombre: "Sede 9",
     ubicación: "calle falsa 123",
     cantidadCanchas: 5,
   },
   {
-    id: 2,
+    id: 10,
     nombre: "Sede 10",
     ubicación: "calle falsa 123",
     cantidadCanchas: 5,
   },
   {
-    id: 3,
+    id: 11,
     nombre: "Sede 11",
     ubicación: "calle falsa 123",
     cantidadCanchas: 5,
   },
   {
-    id: 4,
+    id: 12,
     nombre: "Sede 12",
     ubicación: "calle falsa 123",
     cantidadCanchas: 5,
