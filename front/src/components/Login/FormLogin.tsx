@@ -3,11 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 
+//*Importacion de Controlador para este formulario
+import { CLogin } from "@/helpers/Controllers/CLogin";
+
 const FormLogin = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+
   //*Funcion que guarda los cambios
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -17,8 +21,12 @@ const FormLogin = () => {
       [name]: value,
     });
   };
+
   //*Funcion que envia el formulario
-  const handleSubmit = () => {};
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    CLogin(data);
+  };
 
   return (
     <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text ">
@@ -30,7 +38,7 @@ const FormLogin = () => {
         Inicia sesion a tu cuenta
       </p>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="email" className="block text-terciario-white mb-2">
             Email
@@ -61,8 +69,7 @@ const FormLogin = () => {
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
-        >
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
           Iniciar sesion
         </button>
       </form>
