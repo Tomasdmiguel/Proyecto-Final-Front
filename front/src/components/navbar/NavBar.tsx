@@ -1,22 +1,32 @@
-import React from "react";
+'use client'
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import imgUsuario from "@/assets/user_profile_man-256.webp";
+import { usePathname } from "next/navigation";
 
 export default function NavBar() {
+  const pathname = usePathname();
+  const [userData, setUserData] = useState<any>();
+  
+//Cada vez que el nav se carge va intentar traer el userSession y setearlo dentro de este estado local del componente
+  useEffect(() => {
+      if (typeof window !== "undefined" && window.localStorage){
+          const userData = localStorage.getItem("userSession")
+          setUserData(JSON.parse(userData!))
+      }
+  }, [pathname])
+
   return (
-    <nav className="flex gap-40 items-center w-[100%] p-1 mx-auto bg-[#F5F7F8] ">
-      {/* ESTA PARTE ES LA SERARCH BAR */}
-      {/* <div className="pl-32">
-                <input type="text" className="border rounded-xl border-[#F4CE14] pl-32 pb-1"/>
-            </div> */}
+    <nav className="flex justify-center items-center w-[100%] p-2 mx-auto bg-white">
+     
 
       <Link href={"/"}>
         <div>
-          <img src="#" alt="Companny Logo" className="w-24" />
+          <img src="/logoPagina.png" alt="Companny Logo" className="mr-16  h-[60px] w-[60px]" />
         </div>
       </Link>
 
-      <div className="md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 top-[9%] flex items-center px-5 pl-20 ">
+      <div className="md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 top-[9%] flex items-center px-5 ">
         <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] text-xl ">
           <li>
             <Link
@@ -49,14 +59,25 @@ export default function NavBar() {
               Mis canchas
             </Link>
           </li>
-
-          <li className="ml-20">
+          {userData?.token ? (
+            <li className="ml-20">
             <Link
               href={"/Dashboard"}
               className="text-[#369676] hover:underline hover:text-[#4ec29b] hover:text-[25px] p-2 text-2xl">
               <img src={imgUsuario.src} alt="" className="h-10" />
             </Link>
           </li>
+
+          ) : (
+            <div>
+                     <Link href={"/Login"}>
+                <button className="bg-black text-white p-2 rounded-lg hover:bg-emerald-500  hover:shadow-cyan-300 px-3 mr-6 ml-20">
+                    Log In
+                </button>
+                </Link>
+                </div>
+          )}
+          
         </ul>
       </div>
     </nav>
