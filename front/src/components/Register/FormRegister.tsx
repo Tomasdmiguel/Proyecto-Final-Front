@@ -14,12 +14,12 @@ import { IRegister } from "@/interface/IRegister";
 const FormRegister = () => {
   const [data, setData] = useState<IRegister>({
     email: "",
-    user: "",
+    name: "",
     phone: "",
     password: "",
-    passwordMatch: "",
+    confirmPassword: "",
   });
-  console.log(data);
+  
   //*Funcion que guarda los cambios
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -41,6 +41,8 @@ const FormRegister = () => {
           icon: response.success ? 'success' : 'error',
           title: response.message,
         });
+        console.log(response.success)
+        
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -79,8 +81,8 @@ const FormRegister = () => {
       </label>
       <input
         type="text"
-        name="user"
-        value={data.user}
+        name="name"
+        value={data.name}
         placeholder="Nombre de usuario"
         onChange={hanldeChange}
         className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
@@ -123,8 +125,8 @@ const FormRegister = () => {
       </label>
       <input
         type="password"
-        name="passwordMatch"
-        value={data.passwordMatch}
+        name="confirmPassword"
+        value={data.confirmPassword}
         placeholder="Escribe tu contraseña nuevamente"
         onChange={hanldeChange}
         className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"

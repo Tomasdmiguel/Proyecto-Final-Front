@@ -1,12 +1,13 @@
 import { IRegister } from "@/interface/IRegister";
-import Swal from "sweetalert2";
+
 
 //* Este módulo lo que hace es hacer la petición a la BD para registrarse. Esta función está hecha para que solo haga la petición y después el formulario maneje los errores.
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
+console.log(apiKey);
 
 export const FetchRegister = async (data: IRegister) => {
   try {
-    const response = await fetch(`${apiKey}/auth/signup`, {
+    const response = await fetch(`${apiKey}/auth/singup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
