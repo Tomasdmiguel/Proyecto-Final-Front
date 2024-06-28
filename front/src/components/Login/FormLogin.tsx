@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Swal from "sweetalert2";
-
+import { useRouter } from "next/navigation";
 //*Importacion de Controlador para este formulario
 import { CLogin } from "@/helpers/Controllers/CLogin";
 
@@ -15,7 +15,7 @@ const FormLogin = () => {
     email: "",
     password: "",
   });
-
+  const history = useRouter();
   //*Funcion que guarda los cambios
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -47,6 +47,7 @@ const FormLogin = () => {
             title: "Login exitoso",
             text: "Sesión iniciada correctamente",
           });
+          history.push('/')
         } else {
           Swal.fire({
             icon: "error",

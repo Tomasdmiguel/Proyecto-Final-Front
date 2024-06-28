@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 //*Importacion de funcion que controlara este formulario
 import { CRegister } from "@/helpers/Controllers/CRegister";
@@ -19,7 +20,9 @@ const FormRegister = () => {
     password: "",
     confirmPassword: "",
   });
-  
+  const history = useRouter();
+
+
   //*Funcion que guarda los cambios
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -37,11 +40,19 @@ const FormRegister = () => {
     if (CRegister(data)) {
       try {
         const response = await FetchRegister(data);
-        Swal.fire({
-          icon: response.success ? 'success' : 'error',
-          title: response.message,
-        });
-        console.log(response.success)
+        if(response.success){
+          Swal.fire({
+            icon:  'success',
+            title: response.message,
+          });
+          history.push('/Login')
+        } else {
+          Swal.fire({
+            icon:  'error',
+            title: response.message,
+          });
+        }
+       
         
       } catch (error) {
         Swal.fire({
