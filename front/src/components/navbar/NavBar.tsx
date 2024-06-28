@@ -12,7 +12,7 @@ export default function NavBar() {
   //Cada vez que el nav se carge va intentar traer el userSession y setearlo dentro de este estado local del componente
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
-      const userData = localStorage.getItem("userSession");
+      const userData = localStorage.getItem("usuarioSesion");
       setUserData(JSON.parse(userData!));
     }
   }, [pathname]);
