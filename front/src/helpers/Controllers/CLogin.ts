@@ -28,12 +28,12 @@ export const CLogin = (data: ILogin) => {
     return;
   } else {
     // Si todas las validaciones pasan, muestra esta alerta
-    Swal.fire({
-      icon: "success",
-      title: "Registro exitoso",
-      text: "Tu registro es válido.",
-      timer: 3000,
-    });
+    // Swal.fire({
+    //   icon: "success",
+    //   title: "Registro exitoso",
+    //   text: "Tu registro es válido.",
+    //   timer: 3000,
+    // });
     return true;
   }
 };

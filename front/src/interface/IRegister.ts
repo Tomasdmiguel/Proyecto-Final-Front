@@ -1,7 +1,7 @@
 export interface IRegister {
   email: string;
-  user: string;
+  name: string;
   phone: string;
   password: string;
-  passwordMatch:string;
+  confirmPassword:string;
 }

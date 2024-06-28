@@ -19,12 +19,12 @@ export const CSede = (data: IFormSede) => {
     return;
   }else {
     // Si todas las validaciones pasan, muestra esta alerta
-    Swal.fire({
-      icon: "success",
-      title: "Registro exitoso",
-      text: "Tu sede ha sido registrada correctamente.",
-      timer: 3000,
-    });
+    // Swal.fire({
+    //   icon: "success",
+    //   title: "Registro exitoso",
+    //   text: "Tu sede ha sido registrada correctamente.",
+    //   timer: 3000,
+    // });
     return true;
   }
 }
