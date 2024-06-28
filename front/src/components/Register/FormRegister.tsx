@@ -69,7 +69,7 @@ const FormRegister = () => {
         value={data.email}
         placeholder="Escribí tu email"
         onChange={hanldeChange}
-        className="w-full p-3 rounded-lg bg-white text-black placeholder-dark focus:border-yellow-600"
+        className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
       />
     </div>
 
@@ -83,7 +83,7 @@ const FormRegister = () => {
         value={data.user}
         placeholder="Nombre de usuario"
         onChange={hanldeChange}
-        className="w-full p-3 rounded-lg bg-white text-black placeholder-dark focus:border-yellow-600"
+        className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
       />
     </div>
 
@@ -97,7 +97,7 @@ const FormRegister = () => {
         value={data.phone}
         placeholder="Número telefónico"
         onChange={hanldeChange}
-        className="w-full p-3 rounded-lg bg-white text-black placeholder-dark focus:border-yellow-600"
+        className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
       />
     </div>
 
@@ -111,7 +111,7 @@ const FormRegister = () => {
         value={data.password}
         placeholder="Escribe tu contraseña"
         onChange={hanldeChange}
-        className="w-full p-3 rounded-lg bg-white text-black placeholder-dark focus:border-yellow-600"
+        className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
       />
     </div>
 
@@ -127,7 +127,7 @@ const FormRegister = () => {
         value={data.passwordMatch}
         placeholder="Escribe tu contraseña nuevamente"
         onChange={hanldeChange}
-        className="w-full p-3 rounded-lg bg-white text-black placeholder-dark focus:border-yellow-600"
+        className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
       />
     </div>
 

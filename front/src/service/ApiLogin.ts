@@ -6,7 +6,7 @@ const apiKey = process.env.NEXT_PUBLIC_API_URL;
 // Esta función realiza la petición al API de login y devuelve el token
 export const fetchLogin = async (data: ILogin) => {
   try {
-    const response = await fetch(`${apiKey}/users/login`, {
+    const response = await fetch(`${apiKey}/auth/singin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
