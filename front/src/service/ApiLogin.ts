@@ -1,10 +1,9 @@
 import { ILogin } from "@/interface/ILogin";
-import Swal from "sweetalert2";
 
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
 // Esta función realiza la petición al API de login y devuelve el token
-export const ApiLogin = async (data: ILogin) => {
+export const fetchLogin = async (data: ILogin) => {
   try {
     const response = await fetch(`${apiKey}/users/login`, {
       method: "POST",
@@ -15,16 +14,13 @@ export const ApiLogin = async (data: ILogin) => {
     });
 
     if (response.ok) {
-      return response.json();
+      const result = await response.json();
+      return { success: true, data: result };
     } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Fallo en logearse, Incorrect password or email",
-        timer: 3000,
-      });
+      const errorMessage = await response.text();
+      return { success: false, message: errorMessage || "Fallo en logearse, Contraseña o Email no existe" };
     }
   } catch (error: any) {
-    throw new Error(error.message);
+    return { success: false, message: error.message || "Error desconocido, intenta más tarde" };
   }
 };
