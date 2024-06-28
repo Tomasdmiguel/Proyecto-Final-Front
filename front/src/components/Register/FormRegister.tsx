@@ -30,19 +30,21 @@ const FormRegister = () => {
   };
 
   //*Funcion que envia el formulario
-  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     if (CRegister(data)) {
       try {
-        const response = await FetchRegister(data)
-        if(response.succes) {
-          Swal.fire(response.message)
-        }else {
-          Swal.fire(response.message)
-        }
+        const response = await FetchRegister(data);
+        Swal.fire({
+          icon: response.success ? 'success' : 'error',
+          title: response.message,
+        });
       } catch (error) {
-        Swal.fire("Error del servidor, intenta mas tarde")
+        Swal.fire({
+          icon: 'error',
+          title: "Error del servidor, intenta más tarde",
+        });
       }
     }
   };
