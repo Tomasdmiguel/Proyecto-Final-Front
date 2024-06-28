@@ -2,7 +2,7 @@ import { IRegister } from "@/interface/IRegister";
 import Swal from "sweetalert2";
 
 export const CRegister = (data: IRegister) => {
-  const { email,phone, password, passwordMatch } = data;
+  const { email,phone, password,  confirmPassword } = data;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^\d+$/;
 
@@ -37,7 +37,7 @@ export const CRegister = (data: IRegister) => {
       timer: 3000,
     });
     return;
-  } else if (password !== passwordMatch) {
+  } else if (password !==  confirmPassword) {
     // Verifica que las contraseñas coincidan
     Swal.fire({
       icon: "error",
