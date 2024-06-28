@@ -3,6 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 
+
+//*Importacion para controlar el form 
+import { CSede } from "@/helpers/Controllers/CSede";
+
 const FormSede = () => {
   const [datoSede, setdatoSede] = useState({
     name: "",
@@ -20,7 +24,11 @@ const FormSede = () => {
     });
   };
   //*Funcion que envia el formulario
-  const handleSubmit = () => {};
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    CSede(datoSede)
+  };
+
 
   return (
     <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text ">
@@ -33,7 +41,7 @@ const FormSede = () => {
         en tu cancha
       </p>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="name" className="block text-terciario-white mb-2">
             Nombre
@@ -81,7 +89,7 @@ const FormSede = () => {
             Imagen
           </label>
           <input
-            type="text"
+            type="url"
             name="img"
             value={datoSede.img}
             placeholder="Imagen"

@@ -2,9 +2,13 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Swal from "sweetalert2";
 
 //*Importacion de funcion que controlara este formulario
 import { CRegister } from "@/helpers/Controllers/CRegister";
+
+//*Importamos para hacer la peticion POST para registrarse
+import { FetchRegister } from "@/service/ApiRegister";
 
 const FormRegister = () => {
   const [data, setData] = useState({
@@ -26,11 +30,20 @@ const FormRegister = () => {
   };
 
   //*Funcion que envia el formulario
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (CRegister(data)) {
-      // alert("Esto es verdadero")
+      try {
+        const response = await FetchRegister(data)
+        if(response.succes) {
+          Swal.fire(response.message)
+        }else {
+          Swal.fire(response.message)
+        }
+      } catch (error) {
+        Swal.fire("Error del servidor, intenta mas tarde")
+      }
     }
   };
 
