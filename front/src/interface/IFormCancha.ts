@@ -1,10 +1,12 @@
 export interface IFormCancha {
-sport: number;
-timeopen:string;
-timeclose:string;
-type: number;
-price:number;
-player:number;
-techado:boolean;
-img:string;
+  sedeName: string;
+  name: string;
+  sport: number;
+  timeopen: string;
+  timeclose: string;
+  type: string;
+  price: number;
+  player: number;
+  techado: boolean;
+  imgUrl: string;
 }

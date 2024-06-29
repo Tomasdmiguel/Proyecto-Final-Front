@@ -41,18 +41,18 @@ export default function NavBar() {
               </Link>
             </li>
 
-            <li>
+            {/* <li>
               <Link
                 href={"/"}
                 className="text-main hover:font-black p-2 text-2xl duration-300 ease-in-out"
               >
                 Mis reservas
               </Link>
-            </li>
+            </li> */}
 
             <li>
               <Link
-                href={"/"}
+                href={"/Sedeuser"}
                 className="text-main hover:font-black p-2 text-2xl duration-300 ease-in-out"
               >
                 Mis sedes
