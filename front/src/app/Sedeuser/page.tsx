@@ -1,11 +1,11 @@
 "use client"
-
+import MiSede from "@/components/CardSede/MiSede";
 
 const Sedeuser = () => {
 
     return (
-        <div className="bg-white">
-           
+        <div >
+           <MiSede/>
         </div>
     )
 }
