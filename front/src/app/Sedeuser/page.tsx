@@ -1,8 +1,11 @@
+"use client"
+
+
 const Sedeuser = () => {
 
     return (
-        <div>
-            <h1>Sedeuser</h1>
+        <div className="bg-white">
+           
         </div>
     )
 }

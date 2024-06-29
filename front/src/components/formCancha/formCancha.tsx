@@ -24,7 +24,7 @@ const FormCancha = () => {
     price: 0,
     player: 0,
     techado: false,
-    file: "",
+    imgUrl: "",
   });
 
   //*Funcion que guarda los cambios
@@ -225,13 +225,13 @@ const FormCancha = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="file" className="block text-terciario-white mb-2">
+          <label htmlFor="imgUrl" className="block text-terciario-white mb-2">
             Imagen
           </label>
           <input
             type="url"
-            name="file"
-            value={data.file}
+            name="imgUrl"
+            value={data.imgUrl}
             placeholder="URL de la imagen"
             onChange={handleChange}
             className="w-full p-3 rounded-lg bg-terciario"

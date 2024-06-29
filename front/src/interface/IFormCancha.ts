@@ -8,5 +8,5 @@ export interface IFormCancha {
   price: number;
   player: number;
   techado: boolean;
-  file: string;
+  imgUrl: string;
 }
