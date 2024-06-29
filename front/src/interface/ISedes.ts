@@ -1,5 +1,6 @@
-export interface IFormSede {
+export interface ISede {
   name: string;
   location: string;
   description: string;
+  id: string;
 }
