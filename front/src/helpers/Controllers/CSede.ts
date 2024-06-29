@@ -2,8 +2,7 @@ import Swal from "sweetalert2";
 import { IFormSede } from "@/interface/IFormSede";
 
 export const CSede = (data: IFormSede) => {
-  const { name, location, describe, img } = data;
-
+  
   
   const emptyField = Object.keys(data).find(
     (key) => data[key as keyof IFormSede].trim() === ""

@@ -16,7 +16,7 @@ export default function Dashboard() {
       setUserData(JSON.parse(userData!));
     }
   }, []);
-
+console.log(userData)
 //   useEffect(() => {
 //     const fetchData = async () => {
 //         const sedesResponse = await getSedes(userData?.token);
@@ -44,10 +44,10 @@ export default function Dashboard() {
       <div className=" bg-[#F5F7F8] p-8 rounded-lg shadow-xl w-[60%] text-terciario mt-10 text-xl flex flex-row items-center justify-evenly">
 
         <div className="space-y-8 space-x-4">
-        <h1 className="text-3xl font-Marko text-black">Bienvenido, {userData?.user.name}!</h1>
-        <p className="hover:font-black duration-300 ease-in-out">Nombre: <span className="hover:text-main">{userData?.user.name}</span></p>
-        <p className="hover:font-black duration-300 ease-in-out">Correo electronico: <span className="hover:text-main">{userData?.user.email}</span></p>
-        <p className="hover:font-black duration-300 ease-in-out">Numero: <span className="hover:text-main">{userData?.user.phone}</span></p>
+        <h1 className="text-3xl font-Marko text-black">Bienvenido, {userData?.userDb.name}!</h1>
+        <p className="hover:font-black duration-300 ease-in-out">Nombre: <span className="hover:text-main">{userData?.userDb.name}</span></p>
+        <p className="hover:font-black duration-300 ease-in-out">Correo electronico: <span className="hover:text-main">{userData?.userDb.email}</span></p>
+        <p className="hover:font-black duration-300 ease-in-out">Numero: <span className="hover:text-main">{userData?.userDb.phone}</span></p>
         <button className="text-black md:text-lg p-3 rounded-lg border border-x-2 border-y-2 border-secundario hover:border-red-400 hover:shadow-md hover:shadow-black hover:bg-red-600 hover:text-white duration-200 ease-in-out" onClick={handleLogOut}>Cerrar sesion</button>
         </div>
 

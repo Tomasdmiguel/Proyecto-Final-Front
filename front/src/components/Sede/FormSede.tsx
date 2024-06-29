@@ -2,18 +2,25 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
-
-//*Importacion para controlar el form 
+//*Importacion para controlar el form
 import { CSede } from "@/helpers/Controllers/CSede";
+
+
+//*Importacion para crear sede
+import { fetchFormSede } from "@/service/ApiFormSede";
 
 const FormSede = () => {
   const [datoSede, setdatoSede] = useState({
     name: "",
     location: "",
-    describe: "",
-    img: "",
+    description: "",
+    
   });
+
+  const route = useRouter();
   //*Funcion que guarda los cambios
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -24,11 +31,48 @@ const FormSede = () => {
     });
   };
   //*Funcion que envia el formulario
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    CSede(datoSede)
-  };
 
+    if (CSede(datoSede)) {
+      try {
+        const response = await fetchFormSede(datoSede);
+        if (response.success) {
+          Swal.fire({
+            icon: "success",
+            title: "Se creo la sede con exito",
+          });
+          console.log("Sede creada exitosamente");
+          
+          route.push("/Dashboard");
+        } else {
+          console.error(
+            "Error al crear la sede, la peticion a la api fue buena pero por algo no se pudo crear:",
+            response.message
+          );
+          Swal.fire({
+            icon: "error",
+            title: "Error al crear el formulario revisa los datos",
+            text: response.message,
+          });
+        }
+      } catch (error) {
+        console.error("Error inesperado:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error inesperado",
+          text: "Error desconocido, intenta más tarde",
+        });
+      }
+    } else {
+      //Se maneja el error de la validacion si salio todo mal
+      Swal.fire({
+        icon: "warning",
+        title: "Datos inválidos",
+        text: "Por favor, revisa los datos e intenta nuevamente",
+      });
+    }
+  };
 
   return (
     <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text ">
@@ -76,15 +120,15 @@ const FormSede = () => {
           </label>
           <input
             type="text"
-            name="describe"
-            value={datoSede.describe}
+            name="description"
+            value={datoSede.description}
             placeholder="Descripcion"
             onChange={hanldeChange}
             className="w-full p-3  rounded-lg bg-terciario"
           />
         </div>
 
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <label htmlFor="img" className="block text-terciario-white mb-2">
             Imagen
           </label>
@@ -96,12 +140,11 @@ const FormSede = () => {
             onChange={hanldeChange}
             className="w-full p-3   rounded-lg bg-terciario"
           />
-        </div>
+        </div> */}
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
-        >
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
           Crear sede
         </button>
       </form>
