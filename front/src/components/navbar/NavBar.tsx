@@ -52,7 +52,7 @@ export default function NavBar() {
 
             <li>
               <Link
-                href={"/"}
+                href={"/Sedeuser"}
                 className="text-main hover:font-black p-2 text-2xl duration-300 ease-in-out"
               >
                 Mis sedes
