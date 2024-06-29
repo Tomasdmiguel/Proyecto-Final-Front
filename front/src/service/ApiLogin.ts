@@ -6,7 +6,7 @@ const apiKey = process.env.NEXT_PUBLIC_API_URL;
 // Esta función realiza la petición al API de login y devuelve el token
 export const fetchLogin = async (data: ILogin) => {
   try {
-    const response = await fetch(`${apiKey}/auth/singin`, {
+    const response = await fetch(`${apiKey}/auth/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const fetchLogin = async (data: ILogin) => {
       return { success: true, data: result };
     } else {
       const errorMessage = await response.text();
-      return { success: false, message: errorMessage || "Fallo en logearse, Contraseña o Email no existe" };
+      return { success: false, message: errorMessage || "Fallo en logearse, Contraseña o Email no existe"};
     }
   } catch (error: any) {
     return { success: false, message: error.message || "Error desconocido, intenta más tarde" };

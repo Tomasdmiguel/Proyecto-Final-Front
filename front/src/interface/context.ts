@@ -43,7 +43,7 @@ export interface IRegisterErrorsProps {
 
 export interface IUserSession {
   token: string;
-  user: {
+  userDb: {
     address: string;
     email: string;
     id: number;

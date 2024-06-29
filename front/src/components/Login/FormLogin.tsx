@@ -35,13 +35,12 @@ const FormLogin = () => {
         const response = await fetchLogin(data);
 
         if (response.success) {
-          const { token, user } = response.data;
-
+          const {  token,userDb } = response.data;
           localStorage.setItem(
             "usuarioSesion",
-            JSON.stringify({ token, userData: user })
+            JSON.stringify({ token,userDb})
           );
-
+          
           Swal.fire({
             icon: "success",
             title: "Login exitoso",

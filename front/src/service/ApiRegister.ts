@@ -7,7 +7,7 @@ console.log(apiKey);
 
 export const FetchRegister = async (data: IRegister) => {
   try {
-    const response = await fetch(`${apiKey}/auth/singup`, {
+    const response = await fetch(`${apiKey}/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
