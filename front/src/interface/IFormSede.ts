@@ -1,7 +1,5 @@
-
 export interface IFormSede {
-name: string;
-location: string;
-description: string;
-// img: string;
+  name: string;
+  location: string;
+  description: string;
 }
