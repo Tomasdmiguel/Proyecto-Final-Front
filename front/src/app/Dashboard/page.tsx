@@ -16,7 +16,7 @@ export default function Dashboard() {
       setUserData(JSON.parse(userData!));
     }
   }, []);
-console.log(userData)
+// console.log(userData)
 //   useEffect(() => {
 //     const fetchData = async () => {
 //         const sedesResponse = await getSedes(userData?.token);

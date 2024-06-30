@@ -3,4 +3,5 @@ export interface ISede {
   location: string;
   description: string;
   id: string;
+
 }
