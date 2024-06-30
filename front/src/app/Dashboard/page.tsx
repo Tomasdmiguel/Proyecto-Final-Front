@@ -38,6 +38,10 @@ export default function Dashboard() {
   const handleCreate = () => {
     router.push("/Formsede")
   }
+  
+  const handleCreateCancha = () => {
+    router.push("/FormCancha")
+  }
 
   return (
     <div className="bg-main flex flex-col justify-center items-center w-full p-4 gap-24 ">
@@ -80,7 +84,7 @@ export default function Dashboard() {
         </div>
 
           <button className="text-black md:text-lg p-3 rounded-lg border border-x-2 border-y-2 border-secundario hover:shadow-md hover:bg-secundario  duration-200 ease-in-out mt-8 w-[8vw]" onClick={handleCreate}>Crear sede</button>
-
+          <button className="text-black md:text-lg p-3 rounded-lg border border-x-2 border-y-2 border-secundario hover:shadow-md hover:bg-secundario  duration-200 ease-in-out mt-8 w-[8vw]" onClick={handleCreateCancha}>Crear Cancha</button>
       </div>
     </div>
   );
