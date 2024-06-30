@@ -8,7 +8,9 @@ import { ISede, IUserSession } from "@/interface/context";
 export default function Dashboard() {
   const router = useRouter();
   const [userData, setUserData] = useState<IUserSession>();
+
   const [sede, setSedes] = useState<ISede[]>([])
+  let sedes = userData?.userDb.sedes
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -17,6 +19,7 @@ export default function Dashboard() {
     }
   }, []);
 console.log(userData)
+
 //   useEffect(() => {
 //     const fetchData = async () => {
 //         const sedesResponse = await getSedes(userData?.token);
@@ -50,6 +53,7 @@ console.log(userData)
         <p className="hover:font-black duration-300 ease-in-out">Numero: <span className="hover:text-main">{userData?.userDb.phone}</span></p>
         <button className="text-black md:text-lg p-3 rounded-lg border border-x-2 border-y-2 border-secundario hover:border-red-400 hover:shadow-md hover:shadow-black hover:bg-red-600 hover:text-white duration-200 ease-in-out" onClick={handleLogOut}>Cerrar sesion</button>
         </div>
+        
 
         
           <img src={imgUsuario.src} alt="" className="w-[18vw]"/>
@@ -64,20 +68,34 @@ console.log(userData)
 
        
         
-        <div className="flex flex-col gap-16 text-2xl">
+        {/* <div className="flex flex-col gap-16 text-2xl">
         <div className="w-full max-h-60 rounded-sm shadow-xl hover:shadow-terciario hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6">
-            <h2 className="font-Marko font-bold text-3xl">Sede ficticia 1</h2>
-            <p>Direccion: Calle falsa 4 #32</p>
-            <p>Descripcion: Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quam animi voluptas labore iure ab! Cum sed provident, ea delectus dignissimos, eum quo earum eos reprehenderit soluta voluptatibus esse dolorem?</p>
-          </div>
-
-        <div className="w-full max-h-60 rounded-sm shadow-xl hover:shadow-terciario hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6 mb-4">
-            <h2 className="font-Marko font-bold text-3xl">Sede ficticia 2</h2>
-            <p>Direccion: Calle falsa 10 #32-20</p>
-            <p>Descripcion: Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quam animi voluptas labore iure ab! Cum sed provident, ea delectus dignissimos, eum quo earum eos reprehenderit soluta voluptatibus esse dolorem?</p>
-          </div>
+        {
           
-        </div>
+                    sedes!.length > 0 ? (
+                     sedes?.map(() => {
+                      let i = 0
+                            return(
+                                <div>
+                                    <div className="text-xl">                     
+                                        <h2>{sedes[i]}</h2>
+                                        <p className="text-green-500">Descripcion: {}</p>          
+                                    </div>
+                                </div>
+                            )
+                        })
+                    ) : (
+                        <div>
+                            <p>
+                            No tienes ninguna sede aun!
+                            </p> 
+                            
+                        </div>
+                    )
+                }
+            
+          </div>    
+          </div> */}
 
           <button className="text-black md:text-lg p-3 rounded-lg border border-x-2 border-y-2 border-secundario hover:shadow-md hover:bg-secundario  duration-200 ease-in-out mt-8 w-[8vw]" onClick={handleCreate}>Crear sede</button>
 
