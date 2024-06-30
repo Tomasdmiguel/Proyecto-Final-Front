@@ -66,7 +66,7 @@ const FormRegister = () => {
   return (
     <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text">
   <h1 className="text-terciario-white text-center text-3xl font-bold mb-6">
-    CANCHITAS GOL
+    RESERVA GOL
   </h1>
 
   <p className="text-secundario text-center mb-4">Registrate gratis</p>
