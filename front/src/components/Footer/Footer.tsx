@@ -10,7 +10,7 @@ export default function Footer() {
             <a href="#" className="flex items-center">
               <img src="/icon.png" className="h-32 me-3" alt="FlowBite Logo" />
               <span className="self-center text-2xl font-semibold whitespace-nowrap text-black">
-                Canchitas Gol
+                Reserva Gol
               </span>
             </a>
           </div>
