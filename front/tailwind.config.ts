@@ -20,7 +20,7 @@ const config: Config = {
         "terciario-white": "#F5F7F8",
       },
       fontFamily: {
-        'Marko': ["Marko One", "serif"],
+        Marko: ["Marko One"],
       },
     },
   },

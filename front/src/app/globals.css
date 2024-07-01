@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Marko+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Marko+One&display=swap");
 
 .sports-img {
   @apply w-36 h-full rounded-full  ease-in-out duration-300 hover:grayscale;
@@ -36,7 +36,7 @@ body {
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
-  font-family: sans-serif;
+  font-family: Marko;
 }
 
 @layer utilities {

@@ -1,14 +1,6 @@
 // ReactNode
 import { ReactNode } from "react";
 
-export interface ISede {
-  id: string;
-  name: string;
-  description?: string;
-  location?: string;
-  imgUrl?: string;
-  canchas?: [];
-}
 export interface ICategory {
   name: string;
 }

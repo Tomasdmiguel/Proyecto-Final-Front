@@ -26,12 +26,7 @@ const Sedes = () => {
     <div className="bg-main flex flex-col justify-center items-center w-full p-4 gap-12">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto text-black space-y-8">
         {sedes.length > 0 ? (
-          sedes.map((sede) => (
-            <div key={sede.id} className="w-full">
-              <CardSede {...sede} />
-            </div>
-          ))
-       
+          sedes.map((sede) => <CardSede key={sede.id} {...sede} />)
         ) : (
           <p className="text-center">No hay sedes disponibles</p>
         )}
