@@ -3,7 +3,9 @@
 import React, { useEffect, useState } from "react";
 import imgUsuario from "@/assets/user_profile_man-256.webp";
 import { useRouter } from "next/navigation";
-import { ISede, IUserSession } from "@/interface/context";
+import { ISede } from "@/interface/ISedes";
+import { IUser } from "@/interface/IUser";
+import { IUserSession } from "@/interface/context";
 import Swal from "sweetalert2";
 
 export default function Dashboard() {
