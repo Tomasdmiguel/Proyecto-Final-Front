@@ -59,7 +59,7 @@ export default function NavBar() {
 
             <li>
               <Link
-                href={"/Sedecard"}
+                href={"/sedes"}
                 className=" hover:font-black p-2 text-2xl duration-300 ease-in-out"
               >
                 Sedes
