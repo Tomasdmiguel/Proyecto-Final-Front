@@ -4,33 +4,37 @@
 import React, { useEffect, useState } from "react";
 import imgUsuario from "@/assets/user_profile_man-256.webp";
 import { useRouter } from "next/navigation";
-import { ISede, IUserSession } from "@/interface/context";
+import { ISede } from "@/interface/ISedes";
+import { IUserSession } from "@/interface/context";
 import Swal from "sweetalert2";
 import { useSport } from "@/context/SportContext";
 
 export default function Dashboard() {
   const { sport } = useSport();
   const router = useRouter();
-  const [userData, setUserData] = useState<IUserSession>();
+  const [userData, setUserData] = useState<IUserSession | null>(null);
   const [sede, setSedes] = useState<ISede[]>([]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
       const userData = localStorage.getItem("usuarioSesion");
-      setUserData(JSON.parse(userData!));
+      if (userData) {
+        setUserData(JSON.parse(userData));
+      }
     }
   }, []);
 
-  // Pongo un alert de momento para cerrar sesion
+  // Función para cerrar sesión
   const handleLogOut = () => {
     localStorage.removeItem("usuarioSesion");
     Swal.fire({
       icon: "success",
-      title: "Se cerro secion exitosamente",
+      title: "Se cerró sesión exitosamente",
     });
     router.push("/Login");
   };
 
+  // Función para redirigir a la creación de sede
   const handleCreate = () => {
     router.push("/Formsede");
   };
@@ -48,7 +52,7 @@ export default function Dashboard() {
       <div className="bg-[#F5F7F8] p-8 rounded-lg shadow-xl w-[60%] text-terciario mt-10 text-xl flex flex-row items-center justify-evenly">
         <div className="space-y-8 space-x-4">
           <h1 className="text-3xl font-Marko text-black">
-            Bienvenido, {userData?.userDb.name}!
+            Bienvenido, {userData?.userDb.name || userData?.userDb.displayName}!
           </h1>
           <p className="hover:font-black duration-300 ease-in-out">
             Nombre:{" "}
@@ -135,7 +139,7 @@ export default function Dashboard() {
         </p>
 
         <div className="flex flex-col gap-16 text-2xl">
-          {userData?.userDb.sedes.map((sede) => (
+          {userData?.userDb?.sedes?.map((sede) => (
             <div
               key={sede.name}
               className={`w-full max-h-60 rounded-sm shadow-xl  ${
