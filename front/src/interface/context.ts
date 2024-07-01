@@ -42,6 +42,7 @@ export interface ISede {
 export interface IUserSession {
   token: string;
   userDb: {
+    displayName: string;
     address: string;
     email: string;
     id: number;
