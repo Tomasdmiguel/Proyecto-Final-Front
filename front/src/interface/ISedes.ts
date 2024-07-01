@@ -1,3 +1,5 @@
+import { IUser } from "./IUser";
+
 export interface ISede {
   id: string;
   name: string;
@@ -5,6 +7,7 @@ export interface ISede {
   location?: string;
   imgUrl?: string;
   canchas?: ICancha[];
+  user: IUser;
 }
 
 export interface ICancha {
