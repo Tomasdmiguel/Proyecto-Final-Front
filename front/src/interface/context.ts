@@ -33,6 +33,12 @@ export interface IRegisterErrorsProps {
   address?: string;
 }
 
+export interface ISede {
+  name: string;
+  location: string;
+  description: string;
+}
+
 export interface IUserSession {
   token: string;
   userDb: {
@@ -42,7 +48,7 @@ export interface IUserSession {
     name: string;
     phone: string;
     role: string;
-    orders: [];
+    sedes: ISede[];
   };
 }
 
@@ -53,7 +59,7 @@ export interface IUser {
   name: string;
   phone: string;
   role: string;
-  orders: [];
+  sedes: [];
 }
 
 export interface IOrder {

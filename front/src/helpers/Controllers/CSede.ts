@@ -2,13 +2,11 @@ import Swal from "sweetalert2";
 import { IFormSede } from "@/interface/IFormSede";
 
 export const CSede = (data: IFormSede) => {
-  
-  
   const emptyField = Object.keys(data).find(
     (key) => data[key as keyof IFormSede].trim() === ""
   );
 
-  if(emptyField){ 
+  if (emptyField) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -16,7 +14,7 @@ export const CSede = (data: IFormSede) => {
       timer: 3000,
     });
     return;
-  }else {
+  } else {
     // Si todas las validaciones pasan, muestra esta alerta
     // Swal.fire({
     //   icon: "success",
@@ -26,4 +24,4 @@ export const CSede = (data: IFormSede) => {
     // });
     return true;
   }
-}
+};

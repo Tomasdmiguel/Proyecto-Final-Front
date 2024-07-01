@@ -47,7 +47,7 @@ export const SedesPadel = ({ sedes }: { sedes: ISede[] }) => {
                 <Link
                   href={`/sede/${id}`}
                   key={id}
-                  className="border-4 max-w-[60vw] lg:max-w-[40vw] text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-blue-400 ease-in-out duration-300"
+                  className="border-4 w-full text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-blue-400 ease-in-out duration-300"
                 >
                   <img className="size-40 rounded-full" src={imgUrl} alt="" />
                   <div className="flex flex-col p-4 space-y-4 font-bold">
@@ -65,7 +65,7 @@ export const SedesPadel = ({ sedes }: { sedes: ISede[] }) => {
               <Link
                 href={`/sede/${id}`}
                 key={id}
-                className="border-4 max-w-[60vw] text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-blue-400 ease-in-out duration-300"
+                className="border-4 w-full text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-blue-400 ease-in-out duration-300"
               >
                 <img className="size-40 rounded-full" src={imgUrl} alt="" />
                 <div className="flex flex-col p-4 space-y-4 font-bold">
