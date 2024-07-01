@@ -1,6 +1,7 @@
 "use client";
 // Interfaces de contexto, sesion de usuario y props de proveedor
 import {
+  IUser,
   IUserContext,
   IUserProviderProps,
   IUserSession,
@@ -12,7 +13,7 @@ const UserContext = createContext<IUserContext | undefined>(undefined);
 
 export const UserProvider: React.FC<IUserProviderProps> = ({ children }) => {
   const [userData, setUserData] = useState<IUserSession | null>(null);
-  const user = userData?.user;
+  const user: IUserSession = userData?.token;
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {

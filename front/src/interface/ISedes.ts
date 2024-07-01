@@ -4,7 +4,7 @@ export interface ISede {
   description?: string;
   location?: string;
   imgUrl?: string;
-  canchas?: [];
+  canchas?: ICancha[];
 }
 
 export interface ICancha {
