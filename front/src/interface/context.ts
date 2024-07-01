@@ -45,7 +45,7 @@ export interface IUserSession {
     displayName: string;
     address: string;
     email: string;
-    id: number;
+    id: string;
     name: string;
     phone: string;
     role: string;
