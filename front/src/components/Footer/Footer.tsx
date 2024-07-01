@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 
 export default function Footer() {
@@ -7,11 +8,7 @@ export default function Footer() {
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <a href="#" className="flex items-center">
-              <img
-                src="/logoPagina.png"
-                className="h-8 me-3"
-                alt="FlowBite Logo"
-              />
+              <img src="/icon.png" className="h-32 me-3" alt="FlowBite Logo" />
               <span className="self-center text-2xl font-semibold whitespace-nowrap text-black">
                 Canchitas Gol
               </span>

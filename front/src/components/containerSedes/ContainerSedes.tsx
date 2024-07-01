@@ -1,24 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useSport } from "@/context/SportContext";
-import { ISede } from "@/interface/context";
-import Link from "next/link";
-import { useState } from "react";
+import { ICancha, ISede } from "@/interface/ISedes";
+import SedesFutbol from "../SedesFutbol/SedesFutbol";
+import SedesPadel from "../SedesPadel/SedesPadel";
+import SedesTenis from "../SedesTenis/SedesTenis";
 
 export const ContainerSedes = ({ sedes }: { sedes: ISede[] }) => {
-  const { sport, handleSport, closeSport } = useSport();
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+  const { sport, handleSport } = useSport();
 
-  const filteredSede = sedes.filter((sede) =>
-    sede.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredSedesFutbol = sedes.filter((sede) =>
+    sede?.canchas?.some((cancha: ICancha) => cancha.sport === 1)
+  );
+  const filteredSedesPadel = sedes.filter((sede) =>
+    sede?.canchas?.some((cancha: ICancha) => cancha.sport === 2)
+  );
+  const filteredSedesTenis = sedes.filter((sede) =>
+    sede?.canchas?.some((cancha: ICancha) => cancha.sport === 3)
   );
 
   return (
     <div
-      className={`w-full min-w-[70vw] lg:min-w-[45vw] lg:w-[45vw] h-full ${
+      className={`w-full min-w-[70vw] lg:min-w-[45vw] lg:w-[45vw] h-full font-Marko ${
         sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
       } p-6  shadow-xl rounded-lg space-y-4 flex flex-col items-center`}
     >
@@ -77,90 +80,13 @@ export const ContainerSedes = ({ sedes }: { sedes: ISede[] }) => {
           sport == 1 || sport == 2 || sport == 3 ? "flex" : "hidden absolute"
         }`}
       >
-        <div className="flex flex-row justify-between w-full">
-          <h1 className="font-bold text-4xl">
-            {sport == 1 && "Fútbol"}
-            {sport == 2 && "Padel"}
-            {sport == 3 && "Tenis"}
-          </h1>
-          <button
-            className={`border-2 py-2 px-3 rounded-full border-terciario-white duration-300 ease-in-out ${
-              sport == 1
-                ? " hover:bg-terciario-white hover:text-main"
-                : sport == 2
-                ? "hover:bg-terciario-white hover:text-blue-400"
-                : sport == 3
-                ? "hover:bg-terciario-white hover:text-orange-500"
-                : "hidden absolute"
-            }`}
-            onClick={closeSport}
-          >
-            X
-          </button>
-        </div>
-
-        <input
-          className={`m-4 w-3/4 p-3 rounded border-2 focus:ring  font-semibold hover:shadow-md  ${
-            sport == 1
-              ? "text-main outline-main"
-              : sport == 2
-              ? "text-blue-400 outline-blue-400"
-              : sport == 3
-              ? "text-orange-500 outline-orange-500"
-              : "hidden absolute"
-          }`}
-          type="text"
-          placeholder="Buscar .."
-          value={searchTerm}
-          onChange={handleChange}
-        />
-        {searchTerm && sport == 1
-          ? filteredSede.map(
-              ({ id, name, location, description, imgUrl, canchas }) => {
-                return (
-                  <Link
-                    href={`/sede/${id}`}
-                    key={id}
-                    className="border-4 max-w-[60vw] lg:max-w-[40vw] text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-main ease-in-out duration-300"
-                  >
-                    <img
-                      className="h-32 rounded-full"
-                      src="/futbol.jpg"
-                      alt=""
-                    />
-                    <div className="flex flex-col p-4 space-y-4 font-bold">
-                      <h1 className="text-xl">{name} </h1>
-                      <p>Ubicación: {location} </p>
-                      <p>Descripción: {description} </p>
-                    </div>
-                  </Link>
-                );
-              }
-            )
-          : sport == 1 &&
-            sedes &&
-            sedes?.map(
-              ({ id, name, location, description, imgUrl, canchas }) => {
-                return (
-                  <Link
-                    href={`/sede/${id}`}
-                    key={id}
-                    className="border-4 max-w-[60vw] text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-main ease-in-out duration-300"
-                  >
-                    <img
-                      className="h-32 rounded-full"
-                      src="/futbol.jpg"
-                      alt=""
-                    />
-                    <div className="flex flex-col p-4 space-y-4 font-bold">
-                      <h1 className="text-xl">{name} </h1>
-                      <p>Ubicación: {location} </p>
-                      <p>Descripción: {description} </p>
-                    </div>
-                  </Link>
-                );
-              }
-            )}
+        {sport == 1 ? (
+          <SedesFutbol sedes={filteredSedesFutbol} />
+        ) : sport == 2 ? (
+          <SedesPadel sedes={filteredSedesPadel} />
+        ) : sport == 3 ? (
+          <SedesTenis sedes={filteredSedesTenis} />
+        ) : null}
       </div>
     </div>
   );
