@@ -21,17 +21,29 @@ export default function Footer() {
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a href="https://github.com/Tomasdmiguel" className=" ">
+                  <a
+                    href="https://github.com/Tomasdmiguel"
+                    target="blank"
+                    className=" "
+                  >
                     Tomas de Miguel
                   </a>
                 </li>
                 <li className="mb-4">
-                  <a href="https://github.com/PabloSMeier" className="">
-                    Pablo
+                  <a
+                    href="https://github.com/PabloSMeier"
+                    target="blank"
+                    className=""
+                  >
+                    Pablo Meier
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/AndresDelac" className="">
+                  <a
+                    href="https://github.com/AndresDelac"
+                    target="blank"
+                    className=""
+                  >
                     Andres De la Cruz
                   </a>
                 </li>
@@ -43,18 +55,28 @@ export default function Footer() {
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a href="#" className="">
-                    Javier
+                  <a
+                    href="https://github.com/javi5456"
+                    target="blank"
+                    className=""
+                  >
+                    Javier Chang
                   </a>
                 </li>
                 <li className="mb-4">
-                  <a href="#">Facundo</a>
+                  <a target="blank" href="https://github.com/feka3">
+                    Facundo Arriola
+                  </a>
                 </li>
                 <li className="mb-4">
-                  <a href="#">Romina</a>
+                  <a target="blank" href="https://github.com/romigentile">
+                    Romina Gentile
+                  </a>
                 </li>
                 <li className="mb-4">
-                  <a href="#">Marcos Gomez</a>
+                  <a target="blank" href="https://github.com/Marcos48149">
+                    Marcos Gomez
+                  </a>
                 </li>
               </ul>
             </div>

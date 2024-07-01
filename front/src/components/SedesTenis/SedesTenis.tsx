@@ -22,7 +22,7 @@ export const SedesTenis = ({ sedes }: { sedes: ISede[] }) => {
       }`}
     >
       <div className="flex flex-row justify-between w-full">
-        <h1 className="font-bold text-4xl">Padel</h1>
+        <h1 className="font-bold text-4xl">Tenis</h1>
         <button
           className="border-2 py-2 px-3 rounded-full border-terciario-white duration-300 ease-in-out 
                hover:bg-terciario-white hover:text-orange-500
@@ -47,7 +47,7 @@ export const SedesTenis = ({ sedes }: { sedes: ISede[] }) => {
                 <Link
                   href={`/sede/${id}`}
                   key={id}
-                  className="border-4 max-w-[60vw] lg:max-w-[40vw] text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-orange-500 ease-in-out duration-300"
+                  className="border-4 w-full text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-orange-500 ease-in-out duration-300"
                 >
                   <img className="size-40 rounded-full" src={imgUrl} alt="" />
                   <div className="flex flex-col p-4 space-y-4 font-bold">
@@ -65,7 +65,7 @@ export const SedesTenis = ({ sedes }: { sedes: ISede[] }) => {
               <Link
                 href={`/sede/${id}`}
                 key={id}
-                className="border-4 max-w-[60vw] text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-orange-500 ease-in-out duration-300"
+                className="border-4 w-full text-terciario-white border-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer hover:bg-terciario-white hover:text-orange-500 ease-in-out duration-300"
               >
                 <img className="size-40 rounded-full" src={imgUrl} alt="" />
                 <div className="flex flex-col p-4 space-y-4 font-bold">

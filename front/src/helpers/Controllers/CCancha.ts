@@ -1,10 +1,15 @@
 import { IFormCancha } from "@/interface/IFormCancha";
 import Swal from "sweetalert2";
+
 export const CCancha = (data: IFormCancha) => {
-  
-  
-    const emptyField = Object.keys(data).find((key) => {
+  const emptyField = Object.keys(data).find((key) => {
     const value = data[key as keyof IFormCancha];
+
+    // Omite la validación para el campo imgUrl
+    if (key === "imgUrl") {
+      return false;
+    }
+
     return (
       (typeof value === "string" && value.trim() === "") ||
       (typeof value === "number" && value === 0)
@@ -18,8 +23,8 @@ export const CCancha = (data: IFormCancha) => {
       text: `No puede estar vacío o ser cero ningun campo.`,
       timer: 3000,
     });
-    return;
-  }else {
+    return false;
+  } else {
     // Si todas las validaciones pasan, muestra esta alerta
     // Swal.fire({
     //   icon: "success",

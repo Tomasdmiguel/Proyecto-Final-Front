@@ -30,7 +30,7 @@ const Sedes = () => {
         sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
       } flex flex-col justify-center items-center w-full p-4 gap-12`}
     >
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto text-black space-y-8">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full md:w-4/5 lg:w-3/4 xl:w-2/3 mx-auto text-black space-y-8">
         {sedes.length > 0 ? (
           sedes.map((sede) => <CardSede key={sede.id} {...sede} />)
         ) : (
