@@ -73,7 +73,24 @@ export default function NavBar() {
             href={"/Dashboard"}
             className=" hover:font-black p-2 text-2xl duration-300 ease-in-out"
           >
-            <img src={imgUsuario.src} alt="" className="h-10" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={`fill-none ${
+                sport == 2
+                  ? "stroke-blue-400"
+                  : sport == 3
+                  ? "stroke-orange-500"
+                  : "stroke-main"
+              }`}
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+            </svg>
           </Link>
         ) : (
           <div>

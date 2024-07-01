@@ -4,7 +4,7 @@ export async function getSedes() {
   try {
     const res = await fetch(`${apiUrl}/sede`, {
       method: "GET",
-      next: { revalidate: 10 },
+      next: { revalidate: 0 },
     });
     const sedes = await res.json();
     return sedes;
