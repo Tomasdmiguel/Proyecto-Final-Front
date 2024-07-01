@@ -10,7 +10,9 @@ import Swal from "sweetalert2";
 export default function Dashboard() {
   const router = useRouter();
   const [userData, setUserData] = useState<IUserSession>();
-  const [sede, setSedes] = useState<ISede[]>([]);
+
+  const [sede, setSedes] = useState<ISede[]>([])
+  let sedes = userData?.userDb.sedes
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -18,6 +20,18 @@ export default function Dashboard() {
       setUserData(JSON.parse(userData!));
     }
   }, []);
+console.log(userData)
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//         const sedesResponse = await getSedes(userData?.token);
+//         setSedes(sedesResponse)
+//     }
+//     userData?.token && fetchData()
+// }, [userData?.token]) 
+
+
+
 
   // Pongo un alert de momento para cerrar sesion
   const handleLogOut = () => {
@@ -63,28 +77,48 @@ export default function Dashboard() {
             Cerrar sesion
           </button>
         </div>
+        
 
-        <img src={imgUsuario.src} alt="" className="w-[18vw]" />
+        
+          <img src={imgUsuario.src} alt="" className="w-[18vw]"/>
+        
+
       </div>
 
       <div className="bg-white p-8 rounded-lg shadow-lg space-y-2 space-x-10 w-[60%] text-black">
         <h1 className="text-3xl font-bold text-black">Mis sedes</h1>
-        <p className="text-lg text-gray-400">
-          Esta es la sección de tus sedes creadas.
-        </p>
+        <p className="text-lg text-gray-400">Esta es la sección de tus sedes creadas.</p>
 
-        <div className="flex flex-col gap-16 text-2xl">
-          {userData?.userDb.sedes.map((sede) => (
-            <div
-              key={sede.name}
-              className="w-full max-h-60 rounded-sm shadow-xl hover:shadow-terciario hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6"
-            >
-              <h2 className="font-Marko font-bold text-3xl">{sede.name}</h2>
-              <p>Dirección: {sede.location}</p>
-              <p>Descripción: {sede.description}</p>
-            </div>
-          ))}
-        </div>
+       
+        
+        {/* <div className="flex flex-col gap-16 text-2xl">
+        <div className="w-full max-h-60 rounded-sm shadow-xl hover:shadow-terciario hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6">
+        {
+          
+                    sedes!.length > 0 ? (
+                     sedes?.map(() => {
+                      let i = 0
+                            return(
+                                <div>
+                                    <div className="text-xl">                     
+                                        <h2>{sedes[i]}</h2>
+                                        <p className="text-green-500">Descripcion: {}</p>          
+                                    </div>
+                                </div>
+                            )
+                        })
+                    ) : (
+                        <div>
+                            <p>
+                            No tienes ninguna sede aun!
+                            </p> 
+                            
+                        </div>
+                    )
+                }
+            
+          </div>    
+          </div> */}
 
         <button
           className="text-black md:text-lg p-3 rounded-lg border border-x-2 border-y-2 border-secundario hover:shadow-md hover:bg-secundario duration-200 ease-in-out mt-8 w-[8vw]"
