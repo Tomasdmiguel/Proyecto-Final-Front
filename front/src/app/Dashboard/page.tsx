@@ -8,7 +8,7 @@ import { IUserSession } from "@/interface/context";
 import Swal from "sweetalert2";
 import { useSport } from "@/context/SportContext";
 import { getSedes } from "@/service/ApiSedes";
-import SedesAdmin from "@/components/sedesAdmin/SedesAdmin";
+import SedesAdmin from "@/components/SedesAdmin/SedesAdmin";
 
 export default function Dashboard() {
   const { sport } = useSport();
