@@ -8,6 +8,7 @@ import { IUserSession } from "@/interface/context";
 import Swal from "sweetalert2";
 import { useSport } from "@/context/SportContext";
 import { getSedes } from "@/service/ApiSedes";
+import SedesAdmin from "@/components/SedesAdmin/SedesAdmin";
 
 export default function Dashboard() {
   const { sport } = useSport();
@@ -28,10 +29,6 @@ export default function Dashboard() {
     };
     fetchSedes();
   }, []);
-
-  const filteredSedes = sedes.filter(
-    (sede) => sede.user.id === userData?.userDb.id
-  );
 
   // Función para cerrar sesión
   const handleLogOut = () => {
@@ -78,27 +75,29 @@ export default function Dashboard() {
     <div
       className={` ${
         sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
-      } flex flex-col justify-center items-center w-full p-4 gap-24 `}
+      } flex flex-col justify-center items-center w-full p-4 gap-24 min-h-[85vh]`}
     >
       <div className="bg-[#F5F7F8] p-8 rounded-lg shadow-xl w-[60%] text-terciario mt-10 text-xl flex flex-row items-center justify-evenly">
         <div className="space-y-8 w-3/5">
           <h1 className="text-3xl font-Marko text-black">
             Bienvenido, {userData?.userDb.name || userData?.userDb.displayName}!
           </h1>
-          <p className="hover:font-black duration-300 ease-in-out">
-            Nombre:{" "}
-            <span
-              className={`${
-                sport == 2
-                  ? "hover:text-blue-400"
-                  : sport == 3
-                  ? "hover:text-orange-500"
-                  : "hover:text-main"
-              } `}
-            >
-              {userData?.userDb.name}
-            </span>
-          </p>
+          {userData?.userDb?.name && (
+            <p className="hover:font-black duration-300 ease-in-out">
+              Nombre:{" "}
+              <span
+                className={`${
+                  sport == 2
+                    ? "hover:text-blue-400"
+                    : sport == 3
+                    ? "hover:text-orange-500"
+                    : "hover:text-main"
+                } `}
+              >
+                {userData?.userDb.name}
+              </span>
+            </p>
+          )}
           <p className="hover:font-black duration-300 ease-in-out">
             Correo electrónico:{" "}
             <span
@@ -113,20 +112,22 @@ export default function Dashboard() {
               {userData?.userDb.email}
             </span>
           </p>
-          <p className="hover:font-black duration-300 ease-in-out">
-            Número:{" "}
-            <span
-              className={`${
-                sport == 2
-                  ? "hover:text-blue-400"
-                  : sport == 3
-                  ? "hover:text-orange-500"
-                  : "hover:text-main"
-              } `}
-            >
-              {userData?.userDb.phone}
-            </span>
-          </p>
+          {userData?.userDb.phone && (
+            <p className="hover:font-black duration-300 ease-in-out">
+              Número:{" "}
+              <span
+                className={`${
+                  sport == 2
+                    ? "hover:text-blue-400"
+                    : sport == 3
+                    ? "hover:text-orange-500"
+                    : "hover:text-main"
+                } `}
+              >
+                {userData?.userDb.phone}
+              </span>
+            </p>
+          )}
           <div className="w-full flex justify-end items-end">
             <button
               className={` ${
@@ -171,24 +172,7 @@ export default function Dashboard() {
           Esta es la sección de tus sedes creadas.
         </p>
 
-        <div className="flex flex-col gap-16 text-2xl">
-          {filteredSedes.map((sede) => (
-            <div
-              key={sede.name}
-              className={`w-full max-h-60 rounded-sm shadow-xl  ${
-                sport == 2
-                  ? "hover:bg-blue-400"
-                  : sport == 3
-                  ? "hover:bg-orange-500"
-                  : "hover:bg-main"
-              } hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6`}
-            >
-              <h2 className="font-Marko font-bold text-3xl">{sede.name}</h2>
-              <p>Dirección: {sede.location}</p>
-              <p>Descripción: {sede.description}</p>
-            </div>
-          ))}
-        </div>
+        <SedesAdmin sedes={sedes} />
 
         <div className="w-full flex flex-row items-end justify-end space-x-6 px-12">
           <button
