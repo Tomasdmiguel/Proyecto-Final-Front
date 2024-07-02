@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { IUser } from "@/interface/IUser";
+import { IFormSede } from "@/interface/IFormSede";
 
 //*Importacion para controlar el form
 import { CSede } from "@/helpers/Controllers/CSede";
@@ -14,11 +15,14 @@ import { CSede } from "@/helpers/Controllers/CSede";
 import { fetchFormSede } from "@/service/ApiFormSede";
 
 const FormSede = () => {
-  const [datoSede, setdatoSede] = useState({
+  const [datoSede, setdatoSede] = useState<IFormSede>({
     name: "",
     location: "",
     description: "",
+    file: null,
   });
+
+  console.log(datoSede)
   const [userData, setUserData] = useState<IUser | undefined>();
 
   useEffect(() => {
@@ -145,19 +149,24 @@ const FormSede = () => {
           />
         </div>
 
-        {/* <div className="mb-6">
-        <label htmlFor="img" className="block text-terciario-white mb-2">
-          Imagen
-        </label>
-        <input
-          type="url"
-          name="img"
-          value={datoSede.img}
-          placeholder="Imagen"
-          onChange={hanldeChange}
-          className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-        />
-      </div> */}
+        <div className="mb-6">
+          <label htmlFor="img" className="block text-terciario-white mb-2">
+            Imagen
+          </label>
+          <input
+            type="file"
+            name="file"
+            onChange={(e) => {
+              if (e.target.files) {
+                setdatoSede({
+                  ...datoSede,
+                  file: e.target.files[0],
+                });
+              }
+            }}
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
+          />
+        </div>
 
         <button
           type="submit"
