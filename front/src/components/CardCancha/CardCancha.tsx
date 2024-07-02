@@ -3,21 +3,19 @@ import { useSport } from "@/context/SportContext";
 import { ICancha } from "@/interface/ISedes";
 
 export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
-  const { sport } = useSport();
-
   return (
     <div
       key={cancha.id}
       className={`${
-        sport == 2
-          ? "hover:bg-blue-400 "
-          : sport == 3
-          ? "hover:bg-orange-500 text-orange-500"
-          : "hover:bg-main text-main"
-      } bg-terciario-white rounded-lg hover:text-terciario-white border-2 border-terciario-white flex flex-row w-4/5 p-2 justify-evenly items-center ease-in-out duration-300`}
+        cancha.sport == 2
+          ? "bg-blue-400 hover:text-blue-400 hover:border-blue-400"
+          : cancha.sport == 3
+          ? "bg-orange-500 hover:text-orange-500 hover:border-orange-500"
+          : "bg-main hover:text-main hover:border-main"
+      } hover:bg-terciario-white rounded-lg text-terciario-white border-2 border-terciario-white flex flex-row w-4/5 p-2 justify-evenly items-center ease-in-out duration-300`}
     >
       <div className="flex justify-center w-1/5">
-        {sport === 1 ? (
+        {cancha.sport === 1 ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="140"
@@ -30,7 +28,7 @@ export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
               fill="black"
             />
           </svg>
-        ) : sport === 2 ? (
+        ) : cancha.sport === 2 ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="140"
