@@ -21,4 +21,5 @@ export interface ICancha {
   timeclose?: Date;
   techado?: boolean;
   imgUrl?: string;
+  sedeName: string;
 }
