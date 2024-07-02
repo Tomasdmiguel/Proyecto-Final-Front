@@ -2,19 +2,26 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 //*Importacion de funcion que controlara este formulario
 import { CRegister } from "@/helpers/Controllers/CRegister";
 
+//*Importamos para hacer la peticion POST para registrarse
+import { FetchRegister } from "@/service/ApiRegister";
+import { IRegister } from "@/interface/IRegister";
+
 const FormRegister = () => {
-  const [data, setData] = useState({
+  const [data, setData] = useState<IRegister>({
     email: "",
-    user: "",
+    name: "",
     phone: "",
     password: "",
-    passwordMatch: "",
+    confirmPassword: "",
   });
-  console.log(data);
+  const history = useRouter();
+
   //*Funcion que guarda los cambios
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -26,18 +33,37 @@ const FormRegister = () => {
   };
 
   //*Funcion que envia el formulario
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (CRegister(data)) {
-      // alert("Esto es verdadero")
+      try {
+        const response = await FetchRegister(data);
+        if (response.success) {
+          Swal.fire({
+            icon: "success",
+            title: response.message,
+          });
+          history.push("/Login");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: response.message,
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error del servidor, intenta más tarde",
+        });
+      }
     }
   };
 
   return (
-    <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text ">
+    <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text">
       <h1 className="text-terciario-white text-center text-3xl font-bold mb-6">
-        CANCHITAS GOL
+        RESERVA GOL
       </h1>
 
       <p className="text-secundario text-center mb-4">Registrate gratis</p>
@@ -51,9 +77,9 @@ const FormRegister = () => {
             type="text"
             name="email"
             value={data.email}
-            placeholder="Escribi tu email"
+            placeholder="Escribí tu email"
             onChange={hanldeChange}
-            className="w-full p-3    rounded-lg bg-terciario"
+            className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
           />
         </div>
 
@@ -63,25 +89,25 @@ const FormRegister = () => {
           </label>
           <input
             type="text"
-            name="user"
-            value={data.user}
+            name="name"
+            value={data.name}
             placeholder="Nombre de usuario"
             onChange={hanldeChange}
-            className="w-full p-3  rounded-lg bg-terciario"
+            className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
           />
         </div>
 
         <div className="mb-4">
           <label htmlFor="phone" className="block text-terciario-white mb-2">
-            Numero telefonico
+            Número telefónico
           </label>
           <input
             type="number"
             name="phone"
             value={data.phone}
-            placeholder="numero telefonico"
+            placeholder="Número telefónico"
             onChange={hanldeChange}
-            className="w-full p-3  rounded-lg bg-terciario"
+            className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
           />
         </div>
 
@@ -90,34 +116,36 @@ const FormRegister = () => {
             Contraseña
           </label>
           <input
-            type="text"
+            type="password"
             name="password"
             value={data.password}
-            placeholder="Escribe su contraseña"
+            placeholder="Escribe tu contraseña"
             onChange={hanldeChange}
-            className="w-full p-3  rounded-lg bg-terciario"
+            className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
           />
         </div>
 
         <div className="mb-4">
           <label
             htmlFor="passwordMatch"
-            className="block text-terciario-white mb-2">
-            Repita la contraseña
+            className="block text-terciario-white mb-2"
+          >
+            Repite la contraseña
           </label>
           <input
-            type="text"
-            name="passwordMatch"
-            value={data.passwordMatch}
-            placeholder="Escribe su contraseña nuevamente"
+            type="password"
+            name="confirmPassword"
+            value={data.confirmPassword}
+            placeholder="Escribe tu contraseña nuevamente"
             onChange={hanldeChange}
-            className="w-full p-3  rounded-lg bg-terciario"
+            className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
+        >
           Registrarse
         </button>
       </form>
@@ -126,7 +154,7 @@ const FormRegister = () => {
         Si ya tienes una cuenta creada
         <br />
         <Link className="text-secundario" href="/Login">
-          Iniciar sesion
+          Iniciar sesión
         </Link>
       </p>
     </div>

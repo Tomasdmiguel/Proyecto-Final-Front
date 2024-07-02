@@ -3,13 +3,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/navbar/NavBar";
 import Footer from "@/components/Footer/Footer";
-
-
+import { SportProvider } from "@/context/SportContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Canchitas Gol",
+  title: "Reserva Gol",
   description: "Reservá tu turno",
 };
 
@@ -20,10 +19,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/icon2.jpg" />
+      </head>
       <body className={inter.className}>
-        <NavBar/>
-        {children}
-        <Footer/>
+        <SportProvider>
+          <NavBar />
+          {children}
+          <Footer />
+        </SportProvider>
       </body>
     </html>
   );
