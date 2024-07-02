@@ -6,12 +6,13 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { IUser } from "@/interface/IUser";
-
+//!eSTE FORMULARIO PASA EL FILE 
 //*Importacion para controlar el form
 import { CSede } from "@/helpers/Controllers/CSede";
 
 //*Importacion para crear sede
 import { fetchFormSede } from "@/service/ApiFormSede";
+import { IFile } from "@/interface/IFile";
 
 const FormSede = () => {
   const [datoSede, setdatoSede] = useState({
@@ -20,6 +21,7 @@ const FormSede = () => {
     description: "",
   });
   const [userData, setUserData] = useState<IUser | undefined>();
+  const [dataFile, setFile] = useState<IFile>({ file: null });
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -29,6 +31,13 @@ const FormSede = () => {
   }, []);
 
   const route = useRouter();
+
+  //* Funcion para guardar imagen
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setFile({ file: event.target.files[0] });
+    }
+  };
   //*Funcion que guarda los cambios
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -45,7 +54,7 @@ const FormSede = () => {
     if (CSede(datoSede)) {
       try {
         if (userData) {
-          const response = await fetchFormSede(datoSede, userData);
+          const response = await fetchFormSede(dataFile,datoSede, userData);
           if (response.success) {
             Swal.fire({
               icon: "success",
@@ -145,19 +154,21 @@ const FormSede = () => {
           />
         </div>
 
-        {/* <div className="mb-6">
-        <label htmlFor="img" className="block text-terciario-white mb-2">
-          Imagen
-        </label>
-        <input
-          type="url"
-          name="img"
-          value={datoSede.img}
-          placeholder="Imagen"
-          onChange={hanldeChange}
-          className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-        />
-      </div> */}
+        <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text">
+          <div className="mb-6">
+            <label htmlFor="img" className="block text-terciario-white mb-2">
+              Imagen
+            </label>
+            <input
+              type="file"
+              name="file"
+              placeholder="Imagen"
+              onChange={handleFileChange}
+              className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
+            />
+          </div>
+          
+        </div>
 
         <button
           type="submit"
