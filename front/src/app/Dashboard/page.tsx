@@ -63,13 +63,6 @@ export default function Dashboard() {
   };
 
   // Función para redirigir a la creación de sede
-  const handleCreate = () => {
-    router.push("/Formsede");
-  };
-
-  const handleCreateCancha = () => {
-    router.push("/FormCancha");
-  };
 
   return (
     <div
@@ -166,41 +159,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="bg-white p-8 rounded-lg shadow-lg space-y-4 space-x-10 w-[60%] text-black">
-        <h1 className="text-3xl font-bold text-black">Mis sedes</h1>
-        <p className="text-lg text-gray-400">
-          Esta es la sección de tus sedes creadas.
-        </p>
-
-        <SedesAdmin sedes={sedes} />
-
-        <div className="w-full flex flex-row items-end justify-end space-x-6 px-12">
-          <button
-            className={` ${
-              sport == 2
-                ? "hover:bg-blue-400 border-blue-400 text-blue-400"
-                : sport == 3
-                ? "hover:bg-orange-500 border-orange-500 text-orange-500"
-                : "hover:bg-main border-main text-main"
-            }  md:text-lg p-3 rounded-lg border border-x-2 border-y-2  font-semibold  hover:text-white duration-200 ease-in-out`}
-            onClick={handleCreate}
-          >
-            Crear sede
-          </button>
-          <button
-            className={` ${
-              sport == 2
-                ? "hover:bg-blue-400 border-blue-400 text-blue-400"
-                : sport == 3
-                ? "hover:bg-orange-500 border-orange-500 text-orange-500"
-                : "hover:bg-main border-main text-main"
-            }  md:text-lg p-3 rounded-lg border border-x-2 border-y-2  font-semibold  hover:text-white duration-200 ease-in-out`}
-            onClick={handleCreateCancha}
-          >
-            Crear Cancha
-          </button>
-        </div>
-      </div>
+      <SedesAdmin sedes={sedes} />
     </div>
   );
 }

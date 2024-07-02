@@ -11,9 +11,11 @@ import { IFormCancha } from "@/interface/IFormCancha";
 
 //*Importacion para crear una cancha peticion al back
 import { fetchFormCancha } from "@/service/ApiFormCancha";
-import { IUserSession, ISede } from "@/interface/context";
+import { ISede } from "@/interface/ISedes";
+import { IUserSession } from "@/interface/context";
+import { getSedes } from "@/service/ApiSedes";
 
-const FormCancha = () => {
+const FormCancha = ({ id }: { id: string }) => {
   const router = useRouter();
   const [data, setData] = useState<IFormCancha>({
     sedeName: "",
@@ -27,6 +29,7 @@ const FormCancha = () => {
     techado: false,
     imgUrl: "",
   });
+  const [userData, setUserData] = useState<IUserSession | null>(null);
 
   const [userSedes, setUserSedes] = useState<ISede[]>([]);
 
@@ -34,11 +37,19 @@ const FormCancha = () => {
     if (typeof window !== "undefined" && window.localStorage) {
       const userData = localStorage.getItem("usuarioSesion");
       if (userData) {
-        const parsedUserData: IUserSession = JSON.parse(userData);
-        setUserSedes(parsedUserData.userDb.sedes);
+        setUserData(JSON.parse(userData));
       }
     }
+    const fetchSedes = async () => {
+      const Sedes = await getSedes();
+      setUserSedes(Sedes);
+    };
+    fetchSedes();
   }, []);
+
+  const filteredSedes = userSedes?.filter(
+    (sede: ISede) => sede?.user?.id === id
+  );
 
   //*Funcion que guarda los cambios
   const handleChange = (
@@ -52,7 +63,6 @@ const FormCancha = () => {
     });
   };
 
-  console.log(data);
   //*Funcion que envia el formulario
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -120,7 +130,7 @@ const FormCancha = () => {
             className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
           >
             <option value="">Selecciona una sede</option>
-            {userSedes.map((sede) => (
+            {filteredSedes?.map((sede) => (
               <option key={sede.name} value={sede.name}>
                 {sede.name}
               </option>
