@@ -17,7 +17,7 @@ const FormSede = () => {
 
   const [userData, setUserData] = useState<IUser | undefined>();
   const [dataFile, setFile] = useState<File | null>(null);
-console.log(userData, dataFile)
+
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
       const userData = localStorage.getItem("usuarioSesion");

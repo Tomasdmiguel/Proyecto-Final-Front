@@ -3,7 +3,7 @@ import { IUser } from "@/interface/IUser";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export const fetchFormSede = async (file: File, data: IFormSede, userDB: any) => {
+export const fetchFormSede = async (file: File, data: IFormSede, userDB: IUser) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
