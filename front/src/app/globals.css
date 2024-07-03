@@ -9,6 +9,10 @@
 .sports-button {
   @apply w-36 rounded-full border-solid border-secundario border-4 flex items-center justify-center uppercase text-2xl font-black;
 }
+.border-gradient {
+  border-width: 4px; /* Ajusta el grosor del borde según sea necesario */
+  border-image: linear-gradient(45deg, #369676, #60a5fa, #f97316) 1;
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;

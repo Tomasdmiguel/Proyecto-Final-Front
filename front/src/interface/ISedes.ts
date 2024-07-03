@@ -21,4 +21,13 @@ export interface ICancha {
   timeclose?: Date;
   techado?: boolean;
   imgUrl?: string;
+  sedeName: string;
+  turnos: [];
+}
+
+export interface ITurno {
+  id: string;
+  date: string;
+  time: string;
+  status: string;
 }

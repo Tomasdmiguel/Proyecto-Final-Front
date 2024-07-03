@@ -21,7 +21,7 @@ export const ContainerSedes = ({ sedes }: { sedes: ISede[] }) => {
 
   return (
     <div
-      className={`w-full min-w-[70vw] lg:min-w-[45vw] lg:w-[45vw] h-full font-Marko ${
+      className={`w-full min-w-[60vw] max-w-[80vw] lg:min-w-[45vw] lg:w-[45vw] h-full font-Marko ${
         sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
       } p-6  shadow-xl rounded-lg space-y-4 flex flex-col items-center`}
     >
@@ -76,7 +76,7 @@ export const ContainerSedes = ({ sedes }: { sedes: ISede[] }) => {
         </div>
       </div>
       <div
-        className={`p-4 mt-2 rounded-md flex flex-col justify-center items-center shadow-md space-y-4 text-terciario-white w-full ${
+        className={`p-4 rounded-md flex flex-col justify-center items-center shadow-md space-y-4 text-terciario-white w-full ${
           sport == 1 || sport == 2 || sport == 3 ? "flex" : "hidden absolute"
         }`}
       >
