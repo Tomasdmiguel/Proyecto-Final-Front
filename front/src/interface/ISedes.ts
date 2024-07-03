@@ -1,3 +1,5 @@
+
+
 import { IUser } from "./IUser";
 import {IUserSede} from "./IUserSede";
 
@@ -31,4 +33,28 @@ export interface ITurno {
   date: string;
   time: string;
   status: string;
+}
+
+export interface IUserSession {
+  token: string;
+  userDb: {
+    displayName: string;
+    address: string;
+    email: string;
+    id: string;
+    name: string;
+    phone: string;
+    rol: string;
+    sedes: ISede[];
+  };
+}
+
+export interface IUser {
+  address: string;
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+  role: string;
+  sedes: [];
 }
