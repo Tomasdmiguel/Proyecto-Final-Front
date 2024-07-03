@@ -1,6 +1,8 @@
 "use client";
+
 import { ICancha, ITurno } from "@/interface/ISedes";
 import { FetchCanchaById } from "@/service/ApiGetCanchaById";
+
 import { useState } from "react";
 
 export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
@@ -15,10 +17,11 @@ export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
 
   const toggleOpen = async (id: string) => {
     setOpen(!open);
-
+    
     if (!open) {
       await getCanchaById(id);
     }
+
   };
 
   const mouseEnter = () => {
@@ -123,6 +126,7 @@ export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
           </div>
         </div>
         <div className="w-1/5 flex justify-center items-center">
+
           <button onClick={() => toggleOpen(cancha.id)}>
             {!open ? (
               <svg
