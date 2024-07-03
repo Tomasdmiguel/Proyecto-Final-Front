@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { IUser } from "@/interface/IUser";
 
 //*Importacion para controlar el formulario
 import { CCancha } from "@/helpers/Controllers/CCancha";
@@ -12,7 +13,6 @@ import { IFormCancha } from "@/interface/IFormCancha";
 //*Importacion para crear una cancha peticion al back
 import { fetchFormCancha } from "@/service/ApiFormCancha";
 import { ISede } from "@/interface/ISedes";
-import { IUserSession } from "@/interface/context";
 import { getSedes } from "@/service/ApiSedes";
 
 const FormCancha = ({ id }: { id: string }) => {
@@ -27,10 +27,9 @@ const FormCancha = ({ id }: { id: string }) => {
     price: 0,
     player: 0,
     techado: false,
-    imgUrl: "",
   });
-  const [userData, setUserData] = useState<IUserSession | null>(null);
-
+  const [userData, setUserData] = useState<IUser | null>(null);
+  const [dataFile, setFile] = useState<File | null>(null);
   const [userSedes, setUserSedes] = useState<ISede[]>([]);
 
   useEffect(() => {
@@ -62,33 +61,37 @@ const FormCancha = ({ id }: { id: string }) => {
       [name]: value,
     });
   };
-
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setFile(event.target.files[0]);
+    }
+  };
   //*Funcion que envia el formulario
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (CCancha(data)) {
       try {
-        const response = await fetchFormCancha(data);
+        if (userData && dataFile) {
+          const response = await fetchFormCancha(dataFile, data, userData);
 
-        if (response.success) {
-          Swal.fire({
-            icon: "success",
-            title: "Se creó la cancha con éxito",
-          });
-          console.log("Cancha creada exitosamente");
-
-          router.push("/Dashboard");
-        } else {
-          console.error(
-            "Error al crear la cancha, la petición a la API fue buena pero por algo no se pudo crear:",
-            response.message
-          );
-          Swal.fire({
-            icon: "error",
-            title: "Error al crear el formulario, revisa los datos",
-            text: response.message,
-          });
+          if (response.success) {
+            Swal.fire({
+              icon: "success",
+              title: "Se creó la cancha con éxito",
+            });
+            router.push("/Dashboard");
+          } else {
+            console.error(
+              "Error al crear la cancha, la petición a la API fue buena pero por algo no se pudo crear:",
+              response.message
+            );
+            Swal.fire({
+              icon: "error",
+              title: "Error al crear el formulario, revisa los datos",
+              text: response.message,
+            });
+          }
         }
       } catch (error) {
         console.error("Error inesperado:", error);
@@ -127,8 +130,7 @@ const FormCancha = ({ id }: { id: string }) => {
             name="sedeName"
             value={data.sedeName}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          >
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
             <option value="">Selecciona una sede</option>
             {filteredSedes?.map((sede) => (
               <option key={sede.name} value={sede.name}>
@@ -160,8 +162,7 @@ const FormCancha = ({ id }: { id: string }) => {
             name="sport"
             value={data.sport}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          >
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
             <option value="">Selecciona que deporte</option>
             <option value={1}>Fútbol</option>
             <option value={2}>Padel</option>
@@ -183,8 +184,7 @@ const FormCancha = ({ id }: { id: string }) => {
 
           <label
             htmlFor="timeclose"
-            className="block text-terciario-white mb-2"
-          >
+            className="block text-terciario-white mb-2">
             Horario de cierre
           </label>
           <input
@@ -204,8 +204,7 @@ const FormCancha = ({ id }: { id: string }) => {
             name="type"
             value={data.type}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          >
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
             <option value="">Tipo de cancha</option>
             <option>Sintético</option>
             <option>Pasto</option>
@@ -251,8 +250,7 @@ const FormCancha = ({ id }: { id: string }) => {
             name="techado"
             value={String(data.techado)}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          >
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
             <option value="">Selecciona una opción</option>
             <option value="true">Sí</option>
             <option value="false">No</option>
@@ -260,23 +258,21 @@ const FormCancha = ({ id }: { id: string }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="imgUrl" className="block text-terciario-white mb-2">
+          <label htmlFor="img" className="block text-terciario-white mb-2">
             Imagen
           </label>
           <input
-            type="url"
-            name="imgUrl"
-            value={data.imgUrl}
-            placeholder="URL de la imagen"
-            onChange={handleChange}
+            type="file"
+            name="file"
+            placeholder="Imagen"
+            onChange={handleFileChange}
             className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
-        >
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
           Crear
         </button>
       </form>
