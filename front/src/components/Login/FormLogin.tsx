@@ -15,7 +15,6 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { PostRegistroGoogle } from "@/service/ApiRegistroGoogle";
 //*Variables de entorno firebase
 
-// Configuración de Firebase
 dotenv.config();
 
 const firebaseConfig = {
@@ -27,7 +26,6 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
-
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();

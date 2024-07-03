@@ -1,4 +1,5 @@
 import { IUser } from "./IUser";
+import {IUserSede} from "./IUserSede";
 
 export interface ISede {
   id: string;
@@ -7,7 +8,7 @@ export interface ISede {
   location?: string;
   imgUrl?: string;
   canchas?: ICancha[];
-  user: IUser;
+  user: IUserSede;
 }
 
 export interface ICancha {
