@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import dotenv from "dotenv";
 //*Importación de Controlador para este formulario
 import { CLogin } from "@/helpers/Controllers/CLogin";
 //*Importación de función para hacer peticiones para este form
@@ -12,15 +13,19 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 //*Importacion para registrar uusuario que se logea de google
 import { PostRegistroGoogle } from "@/service/ApiRegistroGoogle";
+//*Variables de entorno firebase
+
 // Configuración de Firebase
+dotenv.config();
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAxvQJfqH7SpDhf-k5FecgwEOHL8c-zITQ",
-  authDomain: "reservagol-b6cce.firebaseapp.com",
-  projectId: "reservagol-b6cce",
-  storageBucket: "reservagol-b6cce.appspot.com",
-  messagingSenderId: "1091580255495",
-  appId: "1:1091580255495:web:aec6d970530cddc32e39a2",
-  measurementId: "G-EPD836Q6BK",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
 // Inicializar Firebase
@@ -44,7 +49,6 @@ const FormLogin = () => {
       const token = credential?.accessToken;
       const userDb = result.user;
       PostRegistroGoogle(userDb);
-      console.log(userDb);
 
       localStorage.setItem("usuarioSesion", JSON.stringify({ token, userDb }));
 

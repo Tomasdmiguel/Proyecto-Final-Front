@@ -1,32 +1,40 @@
 import { IFormSede } from "@/interface/IFormSede";
-
 import { IUser } from "@/interface/IUser";
 
+
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
-//!PASAMOS EL FILE 
-export const fetchFormSede = async (file:any, data: IFormSede, userDB:IUser ) => {
+
+export const fetchFormSede = async (
+  file: File,
+  data: IFormSede,
+  userDB: IUser
+) => {
   try {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("data", data.name);
+    formData.append("location", data.location);
+    formData.append("description", data.description);
+    formData.append("user", userDB.userDb.id);
+
     const response = await fetch(`${apiKey}/sede`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ file:file, data: data, userDB}),
+      body: formData,
     });
-    console.log({ file:file, data: data, userDB: userDB})
+
     if (response.ok) {
       return { success: true };
     } else {
       const errorMessage = await response.text();
       return {
         success: false,
-        message: errorMessage || "Fallo en crear la sede",
+        message: `${errorMessage} Fallo en crear la sede`,
       };
     }
   } catch (error: any) {
     return {
       success: false,
-      message: error.message || "Error desconocido, intenta más tarde",
+      message: `${error.message} Error desconocido, intenta más tarde`,
     };
   }
 };
