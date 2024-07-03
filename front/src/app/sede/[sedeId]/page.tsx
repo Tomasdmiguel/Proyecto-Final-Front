@@ -61,8 +61,8 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
       </div>
 
       <div
-        className={`min-w-[50vw] bg-terciario-white p-6 shadow-xl rounded-lg flex flex-row items-center justify-evenly ${
-          sport == 0 && "border-2 border-main"
+        className={`min-w-[50vw] bg-terciario-white space-x-4 p-6 shadow-xl rounded-lg flex flex-row items-center justify-evenly ${
+          sport == 0 && "border-gradient"
         }`}
       >
         <button

@@ -22,10 +22,10 @@ export const Carousel = ({ sedes }: { sedes: ISede[] }) => {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-full bg-white py-8">
+    <div className="relative flex items-center justify-center w-fit h-fit p-16 bg-white py-8">
       <button
         onClick={handlePrev}
-        className="absolute left-0 z-10 text-6xl text-secondary p-2 rounded-full ml-4"
+        className="absolute left-0 z-10 text-6xl text-terciario p-2 rounded-full ml-4"
       >
         &#8249;
       </button>
@@ -49,7 +49,7 @@ export const Carousel = ({ sedes }: { sedes: ISede[] }) => {
       </div>
       <button
         onClick={handleNext}
-        className="absolute right-0 z-10 text-6xl text-secondary p-2 rounded-full mr-4"
+        className="absolute right-0 z-10 text-6xl text-terciario p-2 rounded-full mr-4"
       >
         &#8250;
       </button>

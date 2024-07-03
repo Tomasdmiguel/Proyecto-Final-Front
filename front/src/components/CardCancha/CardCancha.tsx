@@ -1,10 +1,26 @@
 "use client";
-import { useSport } from "@/context/SportContext";
 import { ICancha } from "@/interface/ISedes";
+import { useState } from "react";
 
 export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
+  const [open, setOpen] = useState(false);
+  const [hover, setHover] = useState(false);
+
+  const toggleOpen = () => {
+    setOpen(!open);
+    console.log(open);
+  };
+
+  const mouseEnter = () => {
+    setHover(true);
+  };
+  const mouseLeave = () => {
+    setHover(false);
+  };
   return (
     <div
+      onMouseEnter={mouseEnter}
+      onMouseLeave={mouseLeave}
       key={cancha.id}
       className={`${
         cancha.sport == 2
@@ -12,9 +28,9 @@ export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
           : cancha.sport == 3
           ? "bg-orange-500 hover:text-orange-500 hover:border-orange-500"
           : "bg-main hover:text-main hover:border-main"
-      } hover:bg-terciario-white rounded-lg text-terciario-white border-2 border-terciario-white flex flex-row w-4/5 p-2 justify-evenly items-center ease-in-out duration-300`}
+      } hover:bg-terciario-white rounded-lg text-terciario-white border-2 border-terciario-white h-fit flex flex-row w-4/5 p-2 justify-evenly items-center ease-in-out duration-300`}
     >
-      <div className="flex justify-center w-1/5">
+      <div className="flex justify-center w-1/5 p-2">
         {cancha.sport === 1 ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -85,23 +101,36 @@ export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
           </svg>
         )}
       </div>
-      <div className="w-4/5 flex flex-col space-y-5">
-        <h1 className="font-Marko font-bold text-2xl sm:text-3xl text-center uppercase">
+      <div className="w-3/5 flex flex-col h-full items-center justify-between ">
+        <h1 className="font-Marko font-bold uppercase text-3xl p-2">
           {cancha.name}
         </h1>
-
-        <div className="flex flex-row w-full">
-          <div className="flex flex-col w-1/2 items-center lg:flex-row lg:justify-center lg:space-x-[35%]">
-            <p className="text-xl font-bold">Reserva: ${cancha.price}</p>
-            <p className="text-xl font-bold">Jugadores: {cancha.player}</p>
-          </div>
-          <div className="flex flex-col w-1/2 items-center lg:flex-row lg:justify-center lg:space-x-[35%]">
-            <p className="text-xl font-bold">
-              Techado: {cancha.techado ? "Sí" : "No"}
-            </p>
-            <p className="text-xl font-bold">Tipo: {cancha.type}</p>
-          </div>
+        <div className="flex flex-row p-2 w-full justify-evenly">
+          <h2>Reserva: ${cancha.price} </h2>
+          <h2>Jugadores: {cancha.player} </h2>
+          <h2>Techado: {cancha.techado ? "Sí" : "No"} </h2>
         </div>
+      </div>
+      <div className="w-1/5 flex justify-center items-center">
+        <button onClick={toggleOpen}>
+          <svg
+            className={` duration-300 ease-in-out hover:cursor-pointer ${
+              hover && cancha.sport == 1
+                ? "fill-main"
+                : hover && cancha.sport == 2
+                ? "fill-blue-400"
+                : hover && cancha.sport == 3
+                ? "fill-orange-500"
+                : "fill-terciario-white"
+            }`}
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="23"
+            viewBox="0 0 40 23"
+          >
+            <path d="M20 23L0 2.99995L2.8 0.199951L20 17.4L37.2 0.199951L40 2.99995L20 23Z" />
+          </svg>
+        </button>
       </div>
     </div>
   );
