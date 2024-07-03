@@ -15,7 +15,6 @@ export const fetchFormSede = async (
     formData.append("location", data.location);
     formData.append("description", data.description);
     formData.append("user", userDB.userDb.id);
-
     const response = await fetch(`${apiKey}/sede`, {
       method: "POST",
       body: formData,
