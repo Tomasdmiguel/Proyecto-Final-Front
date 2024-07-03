@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-import { IUser } from "@/interface/IUser";
 
 //*Importacion para controlar el formulario
 import { CCancha } from "@/helpers/Controllers/CCancha";
@@ -13,6 +12,7 @@ import { IFormCancha } from "@/interface/IFormCancha";
 //*Importacion para crear una cancha peticion al back
 import { fetchFormCancha } from "@/service/ApiFormCancha";
 import { ISede } from "@/interface/ISedes";
+import { IUserSession } from "@/interface/context";
 import { getSedes } from "@/service/ApiSedes";
 
 const FormCancha = ({ id }: { id: string }) => {
@@ -28,8 +28,8 @@ const FormCancha = ({ id }: { id: string }) => {
     player: 0,
     techado: false,
   });
-  const [userData, setUserData] = useState<IUser | null>(null);
-  const [dataFile, setFile] = useState<File | null>(null);
+  const [userData, setUserData] = useState<IUserSession | null>(null);
+
   const [userSedes, setUserSedes] = useState<ISede[]>([]);
 
   useEffect(() => {
@@ -61,37 +61,33 @@ const FormCancha = ({ id }: { id: string }) => {
       [name]: value,
     });
   };
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      setFile(event.target.files[0]);
-    }
-  };
+
   //*Funcion que envia el formulario
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (CCancha(data)) {
       try {
-        if (userData && dataFile) {
-          const response = await fetchFormCancha(dataFile, data, userData);
+        const response = await fetchFormCancha(data);
 
-          if (response.success) {
-            Swal.fire({
-              icon: "success",
-              title: "Se creó la cancha con éxito",
-            });
-            router.push("/Dashboard");
-          } else {
-            console.error(
-              "Error al crear la cancha, la petición a la API fue buena pero por algo no se pudo crear:",
-              response.message
-            );
-            Swal.fire({
-              icon: "error",
-              title: "Error al crear el formulario, revisa los datos",
-              text: response.message,
-            });
-          }
+        if (response.success) {
+          Swal.fire({
+            icon: "success",
+            title: "Se creó la cancha con éxito",
+          });
+          console.log("Cancha creada exitosamente");
+
+          router.push("/Dashboard");
+        } else {
+          console.error(
+            "Error al crear la cancha, la petición a la API fue buena pero por algo no se pudo crear:",
+            response.message
+          );
+          Swal.fire({
+            icon: "error",
+            title: "Error al crear el formulario, revisa los datos",
+            text: response.message,
+          });
         }
       } catch (error) {
         console.error("Error inesperado:", error);
@@ -255,19 +251,6 @@ const FormCancha = ({ id }: { id: string }) => {
             <option value="true">Sí</option>
             <option value="false">No</option>
           </select>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="img" className="block text-terciario-white mb-2">
-            Imagen
-          </label>
-          <input
-            type="file"
-            name="file"
-            placeholder="Imagen"
-            onChange={handleFileChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          />
         </div>
 
         <button
