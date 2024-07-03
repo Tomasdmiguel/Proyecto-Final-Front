@@ -1,7 +1,6 @@
 import { IFormSede } from "@/interface/IFormSede";
 import { IUser } from "@/interface/IUser";
 
-
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchFormSede = async (
@@ -16,7 +15,6 @@ export const fetchFormSede = async (
     formData.append("location", data.location);
     formData.append("description", data.description);
     formData.append("user", userDB.userDb.id);
-
     const response = await fetch(`${apiKey}/sede`, {
       method: "POST",
       body: formData,
