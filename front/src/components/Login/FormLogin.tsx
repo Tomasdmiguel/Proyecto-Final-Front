@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import dotenv from "dotenv";
 //*Importación de Controlador para este formulario
@@ -13,6 +12,11 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 //*Importacion para registrar uusuario que se logea de google
 import { PostRegistroGoogle } from "@/service/ApiRegistroGoogle";
+import { useUser } from "@/context/UserContext";
+import {
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/helpers/alert.helper/alert.helper";
 //*Variables de entorno firebase
 
 // Configuración de Firebase
@@ -34,6 +38,8 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth(app);
 
 const FormLogin = () => {
+  const { logIn } = useUser();
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -50,21 +56,16 @@ const FormLogin = () => {
       const userDb = result.user;
       PostRegistroGoogle(userDb);
 
-      localStorage.setItem("usuarioSesion", JSON.stringify({ token, userDb }));
+      localStorage.setItem("usuarioSession", JSON.stringify({ token, userDb }));
 
-      Swal.fire({
-        icon: "success",
-        title: "Login exitoso",
-        text: "Sesión iniciada correctamente con Google",
-      });
+      showSuccessAlert(
+        "Login exitoso",
+        "Sesión iniciada correctamente con Google"
+      );
 
       router.push("/");
     } catch (error: any) {
-      Swal.fire({
-        icon: "error",
-        title: "Error de inicio de sesión",
-        text: error.message,
-      });
+      showErrorAlert("Error de inicio de sesión");
     }
   };
   //*Función que guarda los cambios
@@ -85,38 +86,22 @@ const FormLogin = () => {
         const response = await fetchLogin(data);
 
         if (response.success) {
-          const { token, userDb } = response.data;
-          localStorage.setItem(
-            "usuarioSesion",
-            JSON.stringify({ token, userDb })
-          );
+          const user = response.data;
+          logIn(user);
 
-          Swal.fire({
-            icon: "success",
-            title: "Login exitoso",
-            text: "Sesión iniciada correctamente",
-          });
+          showSuccessAlert("Login exitoso.", "Sesión iniciada correctamente.");
           router.push("/");
         } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error de inicio de sesión",
-            text: response.message,
-          });
+          showErrorAlert("Email o contraseña incorrecto.");
         }
       } catch (error: any) {
-        Swal.fire({
-          icon: "error",
-          title: "Error del servidor",
-          text: "Intenta más tarde",
-        });
+        showErrorAlert("Error del servidor", "Intenta más tarde");
       }
     } else {
-      Swal.fire({
-        icon: "warning",
-        title: "Datos inválidos",
-        text: "Por favor, revisa los datos e intenta nuevamente",
-      });
+      showErrorAlert(
+        "Campos incompletos o datos inválidos",
+        "Por favor, revisa los datos e intenta nuevamente."
+      );
     }
   };
 
@@ -161,14 +146,16 @@ const FormLogin = () => {
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
+        >
           Iniciar sesión
         </button>
       </form>
 
       <button
         onClick={callLoginGoogle}
-        className="w-full mt-4 border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
+        className="w-full mt-4 border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
+      >
         Iniciar sesión con Google
       </button>
 

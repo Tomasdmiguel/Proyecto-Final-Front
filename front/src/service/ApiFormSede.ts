@@ -11,7 +11,7 @@ export const fetchFormSede = async (
   try {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("data", data.name);
+    formData.append("name", data.name);
     formData.append("location", data.location);
     formData.append("description", data.description);
     formData.append("user", userDB.userDb.id);

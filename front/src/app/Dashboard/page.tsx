@@ -5,24 +5,30 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ISede } from "@/interface/ISedes";
 import { IUserSession } from "@/interface/context";
-import Swal from "sweetalert2";
 import { useSport } from "@/context/SportContext";
 import { getSedes } from "@/service/ApiSedes";
 import SedesAdmin from "@/components/SedesAdmin/SedesAdmin";
 import MiReservas from "@/components/MiReservas/MiReservas";
+import {
+  showConfirmationAlert,
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/helpers/alert.helper/alert.helper";
+import { useUser } from "@/context/UserContext";
 
 export default function Dashboard() {
+  const { userData, logOut } = useUser();
   const { sport } = useSport();
   const router = useRouter();
-  const [userData, setUserData] = useState<IUserSession | null>(null);
   const [sedes, setSedes] = useState<ISede[]>([]);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.localStorage) {
-      const userData = localStorage.getItem("usuarioSesion");
-      if (userData) {
-        setUserData(JSON.parse(userData));
-      }
+    if (!userData) {
+      router.push("/");
+      showErrorAlert(
+        "Error",
+        "No puede acceder al dashboard sin estar logeado"
+      );
     }
     const fetchSedes = async () => {
       const Sedes = await getSedes();
@@ -33,34 +39,18 @@ export default function Dashboard() {
 
   // Función para cerrar sesión
   const handleLogOut = () => {
-    Swal.fire({
-      title: "¿Está seguro?",
-      text: "¿Quiere cerrar sesión?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Sí, estoy seguro",
-      cancelButtonText: "No, cancelar",
-      reverseButtons: true,
-      customClass: {
-        popup: "custom-alert",
-        confirmButton: "custom-confirm-button",
-        cancelButton: "custom-cancel-button",
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        localStorage.removeItem("usuarioSesion");
-        Swal.fire({
-          icon: "success",
-          title: "Se cerró sesión exitosamente",
-        });
+    showConfirmationAlert(
+      "¿Está seguro?",
+      "¿Quiere cerrar sesión?",
+      () => {
+        logOut();
+        showSuccessAlert("Se cerró sesión exitosamente");
         router.push("/Login");
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire({
-          icon: "error",
-          title: "Cierre de sesión cancelada",
-        });
+      },
+      () => {
+        showErrorAlert("Cierre de sesión cancelada");
       }
-    });
+    );
   };
 
   // Función para redirigir a la creación de sede
@@ -69,7 +59,8 @@ export default function Dashboard() {
     <div
       className={` ${
         sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
-      } flex flex-col justify-center items-center w-full p-4 gap-24 min-h-[85vh]`}>
+      } flex flex-col justify-center items-center w-full p-4 gap-24 min-h-[85vh]`}
+    >
       <div className="bg-[#F5F7F8] p-8 rounded-lg shadow-xl w-[60%] text-terciario mt-10 text-xl flex flex-row items-center justify-evenly">
         <div className="space-y-8 w-3/5">
           <h1 className="text-3xl font-Marko text-black">
@@ -85,7 +76,8 @@ export default function Dashboard() {
                     : sport == 3
                     ? "hover:text-orange-500"
                     : "hover:text-main"
-                } `}>
+                } `}
+              >
                 {userData?.userDb.name}
               </span>
             </p>
@@ -99,7 +91,8 @@ export default function Dashboard() {
                   : sport == 3
                   ? "hover:text-orange-500"
                   : "hover:text-main"
-              } `}>
+              } `}
+            >
               {userData?.userDb.email}
             </span>
           </p>
@@ -113,7 +106,8 @@ export default function Dashboard() {
                     : sport == 3
                     ? "hover:text-orange-500"
                     : "hover:text-main"
-                } `}>
+                } `}
+              >
                 {userData?.userDb.phone}
               </span>
             </p>
@@ -127,7 +121,8 @@ export default function Dashboard() {
                   ? "hover:bg-orange-500 border-orange-500 text-orange-500"
                   : "hover:bg-main border-main text-main"
               }  md:text-lg p-3 rounded-lg border border-x-2 border-y-2  font-semibold  hover:text-white duration-200 ease-in-out`}
-              onClick={handleLogOut}>
+              onClick={handleLogOut}
+            >
               Cerrar sesion
             </button>
           </div>
@@ -146,7 +141,8 @@ export default function Dashboard() {
             width="352"
             height="252"
             viewBox="0 0 24 24"
-            stroke-width="1.5">
+            stroke-width="1.5"
+          >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
