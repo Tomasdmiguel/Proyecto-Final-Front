@@ -1,14 +1,24 @@
 "use client";
-import { ICancha } from "@/interface/ISedes";
+import { ICancha, ITurno } from "@/interface/ISedes";
+import { FetchCanchaById } from "@/service/ApiGetCanchaById";
 import { useState } from "react";
 
 export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
+  const [canchaId, setCanchaId] = useState<ICancha>();
 
-  const toggleOpen = () => {
+  const getCanchaById = async (id: string) => {
+    const fetchCancha: ICancha = await FetchCanchaById(id);
+    setCanchaId(fetchCancha);
+  };
+
+  const toggleOpen = async (id: string) => {
     setOpen(!open);
-    console.log(open);
+
+    if (!open) {
+      await getCanchaById(id);
+    }
   };
 
   const mouseEnter = () => {
@@ -113,28 +123,68 @@ export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
           </div>
         </div>
         <div className="w-1/5 flex justify-center items-center">
-          <button onClick={toggleOpen}>
-            <svg
-              className={` duration-300 ease-in-out hover:cursor-pointer ${
-                hover && cancha.sport == 1
-                  ? "fill-main"
-                  : hover && cancha.sport == 2
-                  ? "fill-blue-400"
-                  : hover && cancha.sport == 3
-                  ? "fill-orange-500"
-                  : "fill-terciario-white"
-              }`}
-              xmlns="http://www.w3.org/2000/svg"
-              width="40"
-              height="23"
-              viewBox="0 0 40 23"
-            >
-              <path d="M20 23L0 2.99995L2.8 0.199951L20 17.4L37.2 0.199951L40 2.99995L20 23Z" />
-            </svg>
+          <button onClick={() => toggleOpen(cancha.id)}>
+            {!open ? (
+              <svg
+                className={`duration-300 ease-in-out hover:cursor-pointer ${
+                  hover && cancha.sport == 1
+                    ? "fill-main"
+                    : hover && cancha.sport == 2
+                    ? "fill-blue-400"
+                    : hover && cancha.sport == 3
+                    ? "fill-orange-500"
+                    : "fill-terciario-white"
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="23"
+                viewBox="0 0 40 23"
+              >
+                <path d="M20 23L0 2.99995L2.8 0.199951L20 17.4L37.2 0.199951L40 2.99995L20 23Z" />
+              </svg>
+            ) : (
+              <svg
+                className={`duration-300 ease-in-out hover:cursor-pointer ${
+                  hover && cancha.sport == 1
+                    ? "fill-main"
+                    : hover && cancha.sport == 2
+                    ? "fill-blue-400"
+                    : hover && cancha.sport == 3
+                    ? "fill-orange-500"
+                    : "fill-terciario-white"
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="23"
+                viewBox="0 0 40 23"
+                style={{ transform: "rotate(180deg)" }}
+              >
+                <path d="M20 23L0 2.99995L2.8 0.199951L20 17.4L37.2 0.199951L40 2.99995L20 23Z" />
+              </svg>
+            )}
           </button>
         </div>
       </div>
-      {open && <div className="h-[50vh]">{}</div>}
+      {open && (
+        <div className="h-fit p-4 flex flex-col space-y-4">
+          {canchaId?.turnos?.map((turno: ITurno) => {
+            return (
+              <div
+                key={turno.id}
+                className={`w-full min-h-[5vh] border-2 rounded-lg flex flex-row items-center justify-evenly ${
+                  hover && cancha.sport == 1
+                    ? "text-main border-main hover:bg-main hover:text-terciario-white"
+                    : "text-terciario-white border-terciario-white"
+                }`}
+              >
+                <p>{turno.date} </p>
+                <p>{turno.time} </p>
+                <p className="capitalize">{turno.status} </p>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

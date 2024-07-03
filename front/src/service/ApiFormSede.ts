@@ -1,7 +1,6 @@
 import { IFormSede } from "@/interface/IFormSede";
 import { IUser } from "@/interface/IUser";
 
-
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchFormSede = async (
