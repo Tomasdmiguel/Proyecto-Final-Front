@@ -1,35 +1,36 @@
-//*Este modulo FormSede es un componente del cliente que lo que hace es crear la sede, esta opcion solamente la va a tener un usuario admin (Los usuarios admin son cuentas creadas por nostros)
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { IUser } from "@/interface/IUser";
-
-//*Importacion para controlar el form
+import { IFormSede } from "@/interface/IFormSede";
 import { CSede } from "@/helpers/Controllers/CSede";
-
-//*Importacion para crear sede
 import { fetchFormSede } from "@/service/ApiFormSede";
 
 const FormSede = () => {
-  const [datoSede, setdatoSede] = useState({
+  const [datoSede, setdatoSede] = useState<IFormSede>({
     name: "",
     location: "",
     description: "",
   });
+
   const [userData, setUserData] = useState<IUser | undefined>();
+  const [dataFile, setFile] = useState<File | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
       const userData = localStorage.getItem("usuarioSesion");
-      setUserData(JSON.parse(userData!));
+
+      if (userData) {
+        setUserData(JSON.parse(userData));
+        console.log(userData);
+      }
     }
   }, []);
 
   const route = useRouter();
-  //*Funcion que guarda los cambios
+
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const { value, name } = event.target;
@@ -38,14 +39,21 @@ const FormSede = () => {
       [name]: value,
     });
   };
-  //*Funcion que envia el formulario
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setFile(event.target.files[0]);
+    }
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (CSede(datoSede)) {
       try {
-        if (userData) {
-          const response = await fetchFormSede(datoSede, userData);
+        if (userData && dataFile) {
+          const response = await fetchFormSede(dataFile, datoSede, userData);
+
           if (response.success) {
             Swal.fire({
               icon: "success",
@@ -65,11 +73,13 @@ const FormSede = () => {
             });
           }
         } else {
-          console.error("Error: No se encontraron datos de usuario válidos.");
+          console.error(
+            "Error: No se encontraron datos de usuario válidos o archivo."
+          );
           Swal.fire({
             icon: "error",
             title: "Error de usuario",
-            text: "No se encontraron datos de usuario válidos, intenta iniciar sesión nuevamente",
+            text: "No se encontraron datos de usuario válidos o archivo, intenta iniciar sesión nuevamente",
           });
         }
       } catch (error) {
@@ -81,7 +91,6 @@ const FormSede = () => {
         });
       }
     } else {
-      // Se maneja el error de la validación si salió todo mal
       Swal.fire({
         icon: "warning",
         title: "Datos inválidos",
@@ -145,19 +154,20 @@ const FormSede = () => {
           />
         </div>
 
-        {/* <div className="mb-6">
-        <label htmlFor="img" className="block text-terciario-white mb-2">
-          Imagen
-        </label>
-        <input
-          type="url"
-          name="img"
-          value={datoSede.img}
-          placeholder="Imagen"
-          onChange={hanldeChange}
-          className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-        />
-      </div> */}
+        <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text">
+          <div className="mb-6">
+            <label htmlFor="img" className="block text-terciario-white mb-2">
+              Imagen
+            </label>
+            <input
+              type="file"
+              name="file"
+              placeholder="Imagen"
+              onChange={handleFileChange}
+              className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
+            />
+          </div>
+        </div>
 
         <button
           type="submit"
