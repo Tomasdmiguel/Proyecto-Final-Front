@@ -5,7 +5,7 @@ import Carousel from "../carusel/Carusel";
 export const HomeContainer: React.FC = async () => {
   const sedes = await getSedes();
   return (
-    <div className="min-h-[90vh]">
+    <div className="min-h-[90vh] flex flex-col items-center space-y-16">
       <Carousel sedes={sedes} />
       <ContainerSedes sedes={sedes} />
     </div>
