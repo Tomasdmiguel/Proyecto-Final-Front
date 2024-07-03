@@ -1,4 +1,5 @@
 export interface IUser {
+  token: string;
   userDb: {
     email: string;
     id: string;

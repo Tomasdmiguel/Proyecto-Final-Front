@@ -1,28 +1,14 @@
 import { IFormCancha } from "@/interface/IFormCancha";
-import { IUser } from "@/interface/IUser";
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
-export const fetchFormCancha = async (
-  file: File,
-  data: IFormCancha,
-  userDB: IUser
-) => {
+export const fetchFormCancha = async (data: IFormCancha) => {
   try {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("sedeName", data.sedeName);
-    formData.append("sport", data.sport.toString());
-    formData.append("timeopen", data.timeopen);
-    formData.append("timeclose", data.timeclose);
-    formData.append("type", data.type);
-    formData.append("price", data.price.toString());
-    formData.append("player", data.player.toString());
-    formData.append("techado", data.techado.toString());
-    formData.append("user", userDB.userDb.id);
-
     const response = await fetch(`${apiKey}/cancha`, {
       method: "POST",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
     if (response.ok) {
       return { success: true, message: "Cancha agregada exitosamente" };
