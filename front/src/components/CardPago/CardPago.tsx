@@ -1,8 +1,8 @@
-'use client'
+/* eslint-disable @next/next/no-img-element */
+"use client";
 import React, { useState } from "react";
 import axios from "axios";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-
 
 const Product = () => {
   const [preferenceId, setPreferenceid] = useState("");
@@ -32,8 +32,7 @@ const Product = () => {
 
   const handleBuy = async () => {
     const url = await createPreference();
-    if (url) 
-      setPreferenceid(url)
+    if (url) setPreferenceid(url);
   };
 
   return (
@@ -46,24 +45,24 @@ const Product = () => {
       </div>
       <div className="space-y-2 mt-2">
         <h3 className="text-3xl font-bold">{createPreferenceDto.title}</h3>
-        <p className="text-xl font-semibold mb-2">${createPreferenceDto.price}</p>
+        <p className="text-xl font-semibold mb-2">
+          ${createPreferenceDto.price}
+        </p>
         {preferenceId !== "" ? (
-              <Wallet
-              initialization={{ preferenceId: preferenceId }}
-              customization={{
-                texts: { valueProp: "practicality" },
-              }}
-              />
-        ): 
-        
-        <button
-          className="py-2 w-full bg-emerald-600 rounded-xl"
-          onClick={handleBuy}
-        >
-          Comprar
-        </button>
-        }
-       
+          <Wallet
+            initialization={{ preferenceId: preferenceId }}
+            customization={{
+              texts: { valueProp: "practicality" },
+            }}
+          />
+        ) : (
+          <button
+            className="py-2 w-full bg-emerald-600 rounded-xl"
+            onClick={handleBuy}
+          >
+            Comprar
+          </button>
+        )}
       </div>
     </article>
   );
