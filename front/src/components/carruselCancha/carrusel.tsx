@@ -1,95 +1,90 @@
-"use client";
-import React, { useState, useRef } from "react";
+"use client"
+import React, { useState, useEffect } from "react";
 import { ICancha } from "@/interface/ISedes";
 import Link from "next/link";
 
 const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
-  const [page, setPage] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const itemsPerPage = 3;
-  const totalPages = Math.ceil(canchas.length / itemsPerPage);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    if (page < totalPages - 1) {
-      setPage(page + 1);
-      containerRef.current?.scrollBy({
-        left: containerRef.current?.clientWidth,
-        behavior: "smooth",
-      });
-    }
+    setCurrentIndex((prevIndex) =>
+      prevIndex === canchas.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   const handlePrev = () => {
-    if (page > 0) {
-      setPage(page - 1);
-      containerRef.current?.scrollBy({
-        left: -containerRef.current?.clientWidth,
-        behavior: "smooth",
-      });
-    }
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? canchas.length - 1 : prevIndex - 1
+    );
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNext();
+    }, 5000); 
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="p-4">
-      <h1 className="text-2xl text-terciario font-bold mb-4 text-center">
+    <div className="p-4 bg-gray-100">
+      <h1 className="text-4xl text-terciario font-bold mb-8 text-center">
         Canchas Disponibles
       </h1>
-      <div className="relative">
-        <button
-          onClick={handlePrev}
-          className={`absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full ${
-            page === 0 ? "hidden" : ""
-          }`}>
-          &#9664;
-        </button>
+      <div className="relative overflow-hidden">
         <div
-          ref={containerRef}
-          className="overflow-hidden flex space-x-4"
-          style={{ scrollSnapType: "x mandatory" }}>
-          {canchas
-            .slice(page * itemsPerPage, (page + 1) * itemsPerPage)
-            .map((cancha) => (
-              <div key={cancha.id} className="flex-none w-80 scroll-snap-start">
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <div className="p-4">
-                    <h1 className="text-xl font-bold text-gray-900">
-                      {cancha.name}
-                    </h1>
-                    <div className="mt-4">
-                      <img
-                        src={cancha.sede.imgUrl}
-                        alt="imgCancha"
-                        className="w-full h-48 object-cover"
-                      />
-                    </div>
-                    <div className="mt-4">
-                      <h3 className="text-lg text-gray-700">
-                        {cancha.sport === 1 && "Fútbol"}
-                        {cancha.sport === 2 && "Padel"}
-                        {cancha.sport === 3 && "Tenis"}
-                      </h3>
-                      <h3 className="text-lg text-gray-700">
-                        Precio:{cancha.price}
-                      </h3>
-                    </div>
-                    <Link href={`/CardPago/${cancha.id}`}>
-                      <button
-                        type="button"
-                        className="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300">
-                        Reservar
-                      </button>
-                    </Link>
-                  </div>
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentIndex * 33.33}%)` }}
+        >
+          {canchas.map((cancha) => (
+            <div key={cancha.id} className="flex-none w-full md:w-1/3 px-2">
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                <img
+                  src={cancha.sede.imgUrl}
+                  alt="imgCancha"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                    {cancha.name}
+                  </h2>
+                  <p className="text-lg text-gray-700 mb-2">
+                    {cancha.sport === 1
+                      ? "Fútbol"
+                      : cancha.sport === 2
+                      ? "Padel"
+                      : "Tenis"}
+                  </p>
+                  <p className="text-lg text-gray-700 mb-2">
+                    {cancha.sede.location}
+                  </p>
+                  <p className="text-xl font-semibold text-terciario mb-4">
+                    Precio: ${cancha.price}
+                  </p>
+                  <Link href={`/sede/${cancha.sede.id}`}>
+                    <button
+                      type="button"
+                      className="w-full bg-terciario text-white py-2 px-4 rounded-full hover:bg-opacity-80 transition duration-300"
+                    >
+                      Reservar
+                    </button>
+                  </Link>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
         <button
+          onClick={handlePrev}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl z-10 bg-black bg-opacity-50 w-10 h-10 flex items-center justify-center rounded-full"
+        >
+          &#8249;
+        </button>
+        <button
           onClick={handleNext}
-          className={`absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full ${
-            page === totalPages - 1 ? "hidden" : ""
-          }`}>
-          &#9654;
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl z-10 bg-black bg-opacity-50 w-10 h-10 flex items-center justify-center rounded-full"
+        >
+          &#8250;
         </button>
       </div>
     </div>

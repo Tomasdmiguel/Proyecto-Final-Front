@@ -1,5 +1,6 @@
 import { getSedes } from "@/service/ApiSedes";
 import { ContainerSedes } from "../containerSedes/ContainerSedes";
+import SobreNosotros from "../about/about";
 import Carousel from "../carusel/Carusel";
 import CarruselC from "../carruselCancha/carrusel";
 import { getCanchas } from "@/service/ApiGetCanchas";
@@ -12,6 +13,7 @@ export const HomeContainer: React.FC = async () => {
       <Carousel sedes={sedes} />
       <ContainerSedes sedes={sedes} />
       <CarruselC canchas={canchas}/> 
+      <SobreNosotros/>
     </div>
   );
 };
