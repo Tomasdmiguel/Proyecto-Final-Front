@@ -12,16 +12,17 @@ export const fetchFormSede = async (file: File, data: IFormSede, userDB: IUser) 
     formData.append("description", data.description);
     formData.append("user", userDB.userDb.id);
     
-    console.log(userDB.userDb.id) 
+   
 
     const response = await fetch(`${apiUrl}/sede`, {
       method: "POST",
       headers: {
         "authorization":`Bearer ${userDB.token}`,
       },
+      
       body: formData,
     });
-
+    console.log("Token enviado:", userDB.token);
     if (response.ok) {
       return { success: true };
     } else {
