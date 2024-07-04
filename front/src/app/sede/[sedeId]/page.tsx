@@ -11,7 +11,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
   const [sede, setSede] = useState<ISede>();
   const [hover, setHover] = useState(false);
   const today = new Date();
-  const [date, setDate] = useState<Date>(today);
+  const [date1, setDate] = useState<Date>(today);
 
   useEffect(() => {
     const fetchSedeById = async () => {
@@ -217,9 +217,21 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
         {/* <button onClick={() => filterCanchaByPlayers(2)}>a</button> */}
       </div>
 
-      <div className="flex flex-row space-x-6">
+      <div
+        className={`flex flex-row  ${
+          sport == 0 ? " text-main" : "text-terciario-white"
+        }`}
+      >
         {next7Days.map((date, index) => (
-          <button onClick={() => setDateClick(date)} key={index} className={``}>
+          <button
+            onClick={() => setDateClick(date1)}
+            key={index}
+            className={`p-6 rounded-full ${
+              date == date1 && sport == 1
+                ? "border-2 border-terciario-white"
+                : ""
+            } `}
+          >
             <p className="font-bold text-xl capitalize">{getDayName(date)}</p>
             <p className="text-2xl">{getDayNumber(date)}</p>
           </button>
@@ -233,7 +245,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
                 <CardCancha
                   key={cancha.id}
                   cancha={cancha}
-                  date={formatDate(date)}
+                  date={formatDate(date1)}
                 />
               );
             })
@@ -243,7 +255,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
                 <CardCancha
                   key={cancha.id}
                   cancha={cancha}
-                  date={formatDate(date)}
+                  date={formatDate(date1)}
                 />
               );
             })
@@ -253,7 +265,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
                 <CardCancha
                   key={cancha.id}
                   cancha={cancha}
-                  date={formatDate(date)}
+                  date={formatDate(date1)}
                 />
               );
             })
@@ -261,7 +273,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
               <CardCancha
                 key={cancha.id}
                 cancha={cancha}
-                date={formatDate(date)}
+                date={formatDate(date1)}
               />
             ))}
       </div>

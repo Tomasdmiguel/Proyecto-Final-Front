@@ -2,6 +2,7 @@
 
 import { ICancha, ITurno } from "@/interface/ISedes";
 import { FetchCanchaById } from "@/service/ApiGetCanchaById";
+import Link from "next/link";
 
 import { useState } from "react";
 
@@ -30,7 +31,9 @@ export const CardCancha = ({
   };
 
   const canchasToday = canchaId?.turnos.filter(
-    (turno: ITurno) => turno.date === date
+    (turno: ITurno) =>
+      turno.date === date &&
+      new Date(turno.date + "T" + turno.time) > new Date()
   );
 
   const mouseEnter = () => {
@@ -194,9 +197,17 @@ export const CardCancha = ({
                     : "text-terciario-white border-terciario-white"
                 }`}
               >
-                <p>{turno.date} </p>
-                <p>{turno.time} </p>
-                <p className="capitalize">{turno.status} </p>
+                <p>{turno.time}h. </p>
+                {turno.status == "libre" ? (
+                  <Link
+                    href={`/CardPago/${cancha.id}`}
+                    className="uppercase font-semibold"
+                  >
+                    reservar
+                  </Link>
+                ) : (
+                  <p className="uppercase">reservado</p>
+                )}
               </div>
             );
           })}
