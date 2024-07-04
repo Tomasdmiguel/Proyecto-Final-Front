@@ -16,6 +16,7 @@ const FormSede = () => {
   });
   const [userData, setUserData] = useState<IUser | undefined>();
   const [dataFile, setFile] = useState<File | null>(null);
+  const route = useRouter();
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -26,8 +27,6 @@ const FormSede = () => {
       }
     }
   }, []);
-
-  const route = useRouter();
 
   const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -139,7 +138,8 @@ const FormSede = () => {
         <div className="mb-4">
           <label
             htmlFor="description"
-            className="block text-terciario-white mb-2">
+            className="block text-terciario-white mb-2"
+          >
             Descripcion
           </label>
           <input
@@ -169,7 +169,8 @@ const FormSede = () => {
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
+        >
           Crear sede
         </button>
       </form>

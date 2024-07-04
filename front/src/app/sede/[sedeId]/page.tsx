@@ -10,6 +10,8 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
   const { sport, handleSport, closeSport } = useSport();
   const [sede, setSede] = useState<ISede>();
   const [hover, setHover] = useState(false);
+  const today = new Date();
+  const [date1, setDate] = useState<Date>(today);
 
   useEffect(() => {
     const fetchSedeById = async () => {
@@ -19,6 +21,31 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
     };
     fetchSedeById();
   });
+
+  const formatDate = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const getDayName = (date: Date): string => {
+    return date.toLocaleDateString("es-ES", { weekday: "long" });
+  };
+
+  const getDayNumber = (date: Date): number => {
+    return date.getDate();
+  };
+
+  const next7Days = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    return date;
+  });
+
+  const setDateClick = (date: Date) => {
+    setDate(date);
+  };
 
   // filtrar canchas por futbol
   const filteredCanchasFutbol = sede?.canchas?.filter(
@@ -190,21 +217,64 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
         {/* <button onClick={() => filterCanchaByPlayers(2)}>a</button> */}
       </div>
 
+      <div
+        className={`flex flex-row  ${
+          sport == 0 ? " text-main" : "text-terciario-white"
+        }`}
+      >
+        {next7Days.map((date, index) => (
+          <button
+            onClick={() => setDateClick(date1)}
+            key={index}
+            className={`p-6 rounded-full ${
+              date == date1 && sport == 1
+                ? "border-2 border-terciario-white"
+                : ""
+            } `}
+          >
+            <p className="font-bold text-xl capitalize">{getDayName(date)}</p>
+            <p className="text-2xl">{getDayNumber(date)}</p>
+          </button>
+        ))}
+      </div>
+
       <div className="flex flex-col w-full items-center space-y-6 p-4">
         {sport == 1
           ? filteredCanchasFutbol?.map((cancha) => {
-              return <CardCancha key={cancha.id} cancha={cancha} />;
+              return (
+                <CardCancha
+                  key={cancha.id}
+                  cancha={cancha}
+                  date={formatDate(date1)}
+                />
+              );
             })
           : sport == 2
           ? filteredCanchasPadel?.map((cancha) => {
-              return <CardCancha key={cancha.id} cancha={cancha} />;
+              return (
+                <CardCancha
+                  key={cancha.id}
+                  cancha={cancha}
+                  date={formatDate(date1)}
+                />
+              );
             })
           : sport == 3
           ? filteredCanchasTenis?.map((cancha) => {
-              return <CardCancha key={cancha.id} cancha={cancha} />;
+              return (
+                <CardCancha
+                  key={cancha.id}
+                  cancha={cancha}
+                  date={formatDate(date1)}
+                />
+              );
             })
           : sede?.canchas?.map((cancha) => (
-              <CardCancha key={cancha.id} cancha={cancha} />
+              <CardCancha
+                key={cancha.id}
+                cancha={cancha}
+                date={formatDate(date1)}
+              />
             ))}
       </div>
     </div>

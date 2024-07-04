@@ -1,7 +1,9 @@
 
 
+
 // import { IUser } from "./IUser";
 import {IUserSede} from "./IUserSede";
+
 
 export interface ISede {
   id: string;
