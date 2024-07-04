@@ -1,10 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
-import { ISede } from "@/interface/ISedes";
-// interfaz de producto
-// contexto global de menu hamburguesa
-// hook de estado
 import { useState } from "react";
+import { ISede } from "@/interface/ISedes";
+import Link from "next/link";
 
 export const Carousel = ({ sedes }: { sedes: ISede[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,34 +19,33 @@ export const Carousel = ({ sedes }: { sedes: ISede[] }) => {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-fit h-fit p-16 bg-white py-8">
+    <div className="relative w-full h-120 md:h-96 lg:h-104 aspect-w-16 aspect-h-9  rounded-lg">
+      <div className="absolute inset-0 overflow-hidden  rounded-lg">
+        <img
+          src={sedes[currentIndex].imgUrl}
+          alt={`Carousel ${currentIndex}`}
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
+      <div className="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center  rounded-lg">
+        <div className="text-center text-white">
+          <h2 className="text-4xl font-bold mb-4">Sedes Disponibles</h2>
+          <Link href={"/sedes"}>
+            <button className="bg-white text-black px-4 py-2 rounded-full flex items-center">
+              <span className="mr-2">Ver sedes</span>
+            </button>
+          </Link>
+        </div>
+      </div>
       <button
         onClick={handlePrev}
-        className="absolute left-0 z-10 text-6xl text-terciario p-2 rounded-full ml-4"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl"
       >
         &#8249;
       </button>
-      <div className="w-full flex justify-center">
-        {sedes.map(({ imgUrl }, index) => (
-          <div
-            key={index}
-            className={`transition-opacity duration-500 ease-in-out ${
-              index === currentIndex ? "opacity-100" : "opacity-0 absolute"
-            }`}
-          >
-            {index === currentIndex && (
-              <img
-                src={imgUrl}
-                alt={`Carousel ${index}`}
-                className="w-full max-h-56 md:h-96 md:max-h-screen "
-              />
-            )}
-          </div>
-        ))}
-      </div>
       <button
         onClick={handleNext}
-        className="absolute right-0 z-10 text-6xl text-terciario p-2 rounded-full mr-4"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl"
       >
         &#8250;
       </button>
