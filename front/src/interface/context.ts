@@ -22,13 +22,16 @@ export interface IUserSession {
 }
 
 export interface IUser {
-  address: string;
-  email: string;
-  id: number;
-  name: string;
-  phone: string;
-  role: string;
-  sedes: [];
+  token: string;
+  userDb: {
+    email: string;
+    id: string;
+    imgUrl: string;
+    name: string;
+    phone: string;
+    rol: string;
+    sedes: any[];
+  };
 }
 
 export interface IUserContext {

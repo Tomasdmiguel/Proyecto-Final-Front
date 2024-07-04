@@ -17,6 +17,8 @@ import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
+import { IUserSession } from "@/interface/context";
+import { ISede } from "@/interface/ISedes";
 //*Variables de entorno firebase
 
 dotenv.config();
@@ -50,11 +52,21 @@ const FormLogin = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
-      const userDb = result.user;
+      const token = credential?.accessToken || null; // Asegúrate de que el token sea string | null
+      const userDb = {
+        displayName: result.user.displayName || "",
+        address: "", // Proporciona valores predeterminados
+        email: result.user.email || "",
+        id: result.user.uid,
+        name: result.user.displayName || "",
+        phone: result.user.phoneNumber || "",
+        rol: "", // Proporciona valores predeterminados
+        sedes: [], // Proporciona valores predeterminados
+      };
       PostRegistroGoogle(userDb);
 
-      localStorage.setItem("userSession", JSON.stringify({ token, userDb }));
+      const userSession: IUserSession = { token, userDb }; // Usa IUserSession para tipar
+      logIn(userSession); // Usa el contexto para iniciar sesión
 
       showSuccessAlert(
         "Login exitoso",
@@ -66,6 +78,7 @@ const FormLogin = () => {
       showErrorAlert("Error de inicio de sesión");
     }
   };
+
   //*Función que guarda los cambios
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -85,7 +98,7 @@ const FormLogin = () => {
 
         if (response.success) {
           const user = response.data;
-          logIn(user);
+          logIn(user); // Usa el contexto para iniciar sesión
 
           showSuccessAlert("Login exitoso.", "Sesión iniciada correctamente.");
           router.push("/");
