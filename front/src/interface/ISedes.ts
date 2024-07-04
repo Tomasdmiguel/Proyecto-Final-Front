@@ -1,4 +1,9 @@
-import { IUserSede } from "./IUserSede";
+
+
+
+// import { IUser } from "./IUser";
+import {IUserSede} from "./IUserSede";
+
 
 export interface ISede {
   id: string;
@@ -21,7 +26,7 @@ export interface ICancha {
   timeclose?: Date;
   techado?: boolean;
   imgUrl?: string;
-  sedeName: string;
+  sede: ISede;
   turnos: [];
 }
 
