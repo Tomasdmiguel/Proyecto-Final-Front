@@ -5,7 +5,13 @@ import { FetchCanchaById } from "@/service/ApiGetCanchaById";
 
 import { useState } from "react";
 
-export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
+export const CardCancha = ({
+  cancha,
+  date,
+}: {
+  cancha: ICancha;
+  date: string;
+}) => {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const [canchaId, setCanchaId] = useState<ICancha>();
@@ -17,12 +23,15 @@ export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
 
   const toggleOpen = async (id: string) => {
     setOpen(!open);
-    
+
     if (!open) {
       await getCanchaById(id);
     }
-
   };
+
+  const canchasToday = canchaId?.turnos.filter(
+    (turno: ITurno) => turno.date === date
+  );
 
   const mouseEnter = () => {
     setHover(true);
@@ -126,7 +135,6 @@ export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
           </div>
         </div>
         <div className="w-1/5 flex justify-center items-center">
-
           <button onClick={() => toggleOpen(cancha.id)}>
             {!open ? (
               <svg
@@ -171,13 +179,18 @@ export const CardCancha = ({ cancha }: { cancha: ICancha }) => {
       </div>
       {open && (
         <div className="h-fit p-4 flex flex-col space-y-4">
-          {canchaId?.turnos?.map((turno: ITurno) => {
+          {canchasToday?.map((turno: ITurno) => {
             return (
               <div
                 key={turno.id}
                 className={`w-full min-h-[5vh] border-2 rounded-lg flex flex-row items-center justify-evenly ${
                   hover && cancha.sport == 1
                     ? "text-main border-main hover:bg-main hover:text-terciario-white"
+                    : cancha.sport == 2
+                    ? hover &&
+                      "text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-terciario-white"
+                    : hover && cancha.sport == 3
+                    ? "text-orange-500 border-orange-500 hover:bg-orange-500 hover:text-terciario-white"
                     : "text-terciario-white border-terciario-white"
                 }`}
               >
