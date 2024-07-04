@@ -1,0 +1,25 @@
+.swal2-popup {
+  &.custom-alert {
+    background-color: #f5f7f8;
+    color: #45474b;
+    border-radius: 15px;
+
+    .swal2-title {
+      color: #45474b;
+    }
+
+    .swal2-content {
+      color: #45474b;
+    }
+
+    .swal2-confirm {
+      background-color: limegreen;
+      color: #f5f7f8;
+    }
+
+    .swal2-cancel {
+      background-color: #d33162;
+      color: #f5f7f8;
+    }
+  }
+}

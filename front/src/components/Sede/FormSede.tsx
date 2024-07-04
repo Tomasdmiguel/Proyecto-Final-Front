@@ -14,7 +14,6 @@ const FormSede = () => {
     location: "",
     description: "",
   });
-
   const [userData, setUserData] = useState<IUser | undefined>();
   const [dataFile, setFile] = useState<File | null>(null);
 
@@ -24,7 +23,6 @@ const FormSede = () => {
 
       if (userData) {
         setUserData(JSON.parse(userData));
-        console.log(userData);
       }
     }
   }, []);

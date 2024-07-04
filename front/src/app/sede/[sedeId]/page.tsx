@@ -19,15 +19,28 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
     };
     fetchSedeById();
   });
-  const filteredSedesFutbol = sede?.canchas?.filter(
+
+  // filtrar canchas por futbol
+  const filteredCanchasFutbol = sede?.canchas?.filter(
     (cancha: ICancha) => cancha.sport === 1
   );
-  const filteredSedesPadel = sede?.canchas?.filter(
+  // filtrar canchas por padel
+  const filteredCanchasPadel = sede?.canchas?.filter(
     (cancha: ICancha) => cancha.sport === 2
   );
-  const filteredSedesTenis = sede?.canchas?.filter(
+  // filtrar canchas por tenis
+  const filteredCanchasTenis = sede?.canchas?.filter(
     (cancha: ICancha) => cancha.sport === 3
   );
+
+  // // filtrar canchas por cantidad de jugadores
+  // const filterCanchaByPlayers = (n: number) => {
+  //   const canchas = sede?.canchas?.filter(
+  //     (cancha: ICancha) => cancha.player === n
+  //   );
+  //   console.log(canchas);
+  // };
+
   const mouseEnter = () => {
     setHover(true);
   };
@@ -61,8 +74,8 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
       </div>
 
       <div
-        className={`min-w-[50vw] bg-terciario-white p-6 shadow-xl rounded-lg flex flex-row items-center justify-evenly ${
-          sport == 0 && "border-2 border-main"
+        className={`min-w-[50vw] bg-terciario-white space-x-4 p-6 shadow-xl rounded-lg flex flex-row items-center justify-evenly ${
+          sport == 0 && "border-gradient"
         }`}
       >
         <button
@@ -174,19 +187,20 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
             <path d="M28.6677 57.3355C36.3246 57.3355 43.5255 54.354 48.9411 48.9411C54.3567 43.5255 57.3355 36.3246 57.3355 28.6677C57.3355 21.0109 54.3488 13.81 48.9332 8.39704C43.5202 2.98405 36.322 0 28.6651 0C21.0082 0 13.8126 2.98145 8.39965 8.39704C2.98405 13.81 0 21.0109 0 28.6677C0 36.3246 2.98145 43.5281 8.39704 48.9411C13.8126 54.354 21.0109 57.3355 28.6677 57.3355ZM45.5583 11.7772C49.9053 16.1243 52.3473 21.8526 52.5245 27.9693C46.6763 27.7087 40.9011 25.3553 36.4445 20.8962C31.9828 16.4396 29.6294 10.6644 29.3714 4.81358C35.4829 4.99079 41.2138 7.43277 45.5583 11.7772ZM11.7772 11.7746C15.762 7.78981 20.9066 5.39475 26.4473 4.88655C26.7262 11.4645 29.3532 17.9616 34.3648 22.9707C39.3765 27.9823 45.8762 30.6093 52.4516 30.8882C51.946 36.4315 49.5483 41.5761 45.5609 45.5609C41.5787 49.5431 36.4315 51.9407 30.8882 52.4489C30.6119 45.8736 27.9797 39.3765 22.9707 34.3674C17.959 29.3558 11.4671 26.7262 4.88915 26.4499C5.39214 20.904 7.78981 15.7594 11.7772 11.7746ZM20.8936 36.4393C25.3527 40.8985 27.7061 46.6737 27.9667 52.5219C21.85 52.3447 16.1217 49.9053 11.7746 45.5609C7.43016 41.2164 4.98819 35.4855 4.81358 29.3688C10.6618 29.6294 16.437 31.9828 20.8936 36.4393Z" />
           </svg>
         </button>
+        {/* <button onClick={() => filterCanchaByPlayers(2)}>a</button> */}
       </div>
 
       <div className="flex flex-col w-full items-center space-y-6 p-4">
         {sport == 1
-          ? filteredSedesFutbol?.map((cancha) => {
+          ? filteredCanchasFutbol?.map((cancha) => {
               return <CardCancha key={cancha.id} cancha={cancha} />;
             })
           : sport == 2
-          ? filteredSedesPadel?.map((cancha) => {
+          ? filteredCanchasPadel?.map((cancha) => {
               return <CardCancha key={cancha.id} cancha={cancha} />;
             })
           : sport == 3
-          ? filteredSedesTenis?.map((cancha) => {
+          ? filteredCanchasTenis?.map((cancha) => {
               return <CardCancha key={cancha.id} cancha={cancha} />;
             })
           : sede?.canchas?.map((cancha) => (
