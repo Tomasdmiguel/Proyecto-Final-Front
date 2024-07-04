@@ -18,7 +18,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
       setSede(sede);
     };
     fetchSedeById();
-  });
+  },[]);
 
   // filtrar canchas por futbol
   const filteredCanchasFutbol = sede?.canchas?.filter(
