@@ -20,7 +20,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
       setSede(sede);
     };
     fetchSedeById();
-  });
+  },[]);
 
   const formatDate = (date: Date): string => {
     const year = date.getFullYear();
