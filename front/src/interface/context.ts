@@ -1,5 +1,5 @@
 // ReactNode
-import { MutableRefObject, ReactNode } from "react";
+import { ReactNode } from "react";
 
 export interface ISede {
   name: string;
@@ -36,7 +36,6 @@ export interface IUser {
 
 export interface IUserContext {
   userData: IUserSession | null;
-  storedUserData: MutableRefObject<string | null>;
   setUserData: React.Dispatch<React.SetStateAction<IUserSession | null>>;
   logOut: () => void;
   logIn: (userData: IUserSession) => void;

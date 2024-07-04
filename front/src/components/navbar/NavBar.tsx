@@ -6,7 +6,7 @@ import { useSport } from "@/context/SportContext";
 import { useUser } from "@/context/UserContext";
 
 export default function NavBar() {
-  const { storedUserData } = useUser();
+  const { userData } = useUser();
   const { sport } = useSport();
 
   //Cada vez que el nav se carge va intentar traer el userSession y setearlo dentro de este estado local del componente
@@ -60,7 +60,7 @@ export default function NavBar() {
           </ul>
         </div>
 
-        {storedUserData ? (
+        {userData?.token ? (
           <Link
             href={"/Dashboard"}
             className=" hover:font-black p-2 text-2xl duration-300 ease-in-out"
