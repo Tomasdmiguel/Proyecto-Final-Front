@@ -34,7 +34,7 @@ const FormCancha = ({ id }: { id: string }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
-      const userData = localStorage.getItem("usuarioSesion");
+      const userData = localStorage.getItem("userSession");
       if (userData) {
         setUserData(JSON.parse(userData));
       }

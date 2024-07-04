@@ -54,7 +54,7 @@ const FormLogin = () => {
       const userDb = result.user;
       PostRegistroGoogle(userDb);
 
-      localStorage.setItem("usuarioSession", JSON.stringify({ token, userDb }));
+      localStorage.setItem("userSession", JSON.stringify({ token, userDb }));
 
       showSuccessAlert(
         "Login exitoso",
