@@ -52,21 +52,22 @@ const FormLogin = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken || null; // Asegúrate de que el token sea string | null
+      const token = credential?.accessToken || null; 
       const userDb = {
         displayName: result.user.displayName || "",
-        address: "", // Proporciona valores predeterminados
+        address: "",
         email: result.user.email || "",
-        id: result.user.uid,
+        uid: result.user.uid,
         name: result.user.displayName || "",
         phone: result.user.phoneNumber || "",
-        rol: "", // Proporciona valores predeterminados
-        sedes: [], // Proporciona valores predeterminados
+        rol: "", 
+        sedes: [],
       };
+      console.log(userDb)
       PostRegistroGoogle(userDb);
 
-      const userSession: IUserSession = { token, userDb }; // Usa IUserSession para tipar
-      logIn(userSession); // Usa el contexto para iniciar sesión
+      const userSession: IUserSession = { token, userDb }; 
+      logIn(userSession); 
 
       showSuccessAlert(
         "Login exitoso",
