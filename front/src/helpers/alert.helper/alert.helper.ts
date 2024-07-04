@@ -44,8 +44,8 @@ export const showConfirmationAlert = (
     text,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonText: "Yes, I´m sure",
-    cancelButtonText: "No, cancel it",
+    confirmButtonText: "Si, estoy seguro",
+    cancelButtonText: "No, cancelar",
     reverseButtons: true,
     customClass: {
       popup: "custom-alert",

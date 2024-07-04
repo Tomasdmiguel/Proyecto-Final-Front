@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
@@ -17,13 +18,13 @@ import {
 import { useUser } from "@/context/UserContext";
 
 export default function Dashboard() {
-  const { userData, logOut } = useUser();
+  const { storedUserData, userData, logOut } = useUser();
   const { sport } = useSport();
   const router = useRouter();
   const [sedes, setSedes] = useState<ISede[]>([]);
 
   useEffect(() => {
-    if (!userData) {
+    if (!storedUserData) {
       router.push("/");
       showErrorAlert(
         "Error",

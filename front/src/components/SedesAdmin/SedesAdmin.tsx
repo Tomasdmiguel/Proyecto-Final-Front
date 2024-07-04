@@ -32,7 +32,7 @@ export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
         {filteredSedes.map((sede) => (
           <div
             key={sede.name}
-            className={`w-full max-h-60 rounded-sm shadow-xl  ${
+            className={`w-full  rounded-md shadow-xl  ${
               sport == 2
                 ? "hover:bg-blue-400"
                 : sport == 3

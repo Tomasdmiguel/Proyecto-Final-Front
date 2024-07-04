@@ -10,7 +10,7 @@ import { fetchLogin } from "@/service/ApiLogin";
 //!Importación para el login por Google
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-//*Importacion para registrar uusuario que se logea de google
+//*Importacion para registrar usuario que se logea de google
 import { PostRegistroGoogle } from "@/service/ApiRegistroGoogle";
 import { useUser } from "@/context/UserContext";
 import {
