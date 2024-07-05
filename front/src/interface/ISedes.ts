@@ -1,9 +1,5 @@
-
-
-
 // import { IUser } from "./IUser";
-import {IUserSede} from "./IUserSede";
-
+import { IUserSede } from "./IUserSede";
 
 export interface ISede {
   id: string;
@@ -35,6 +31,7 @@ export interface ITurno {
   date: string;
   time: string;
   status: string;
+  cancha: ICancha;
 }
 
 export interface IUserSession {
