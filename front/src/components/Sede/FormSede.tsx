@@ -114,7 +114,7 @@ const FormSede = () => {
           <input
             type="text"
             name="name"
-            value={datoSede.name}
+            value={datoSede?.name}
             placeholder="Escribi tu nombre"
             onChange={hanldeChange}
             className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
@@ -128,7 +128,7 @@ const FormSede = () => {
           <input
             type="text"
             name="location"
-            value={datoSede.location}
+            value={datoSede?.location}
             placeholder="Ponga su locacion"
             onChange={hanldeChange}
             className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
@@ -145,7 +145,7 @@ const FormSede = () => {
           <input
             type="text"
             name="description"
-            value={datoSede.description}
+            value={datoSede?.description}
             placeholder="Descripcion"
             onChange={hanldeChange}
             className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"

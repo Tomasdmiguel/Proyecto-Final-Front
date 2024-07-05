@@ -77,7 +77,7 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
                 />
                 <div className="p-4 h-full w-full flex flex-col justify-end  space-y-4">
                   <h2 className="text-2xl font-bold text-gray-900 mb-2 capitalize">
-                    {cancha.name}
+                    {cancha?.name}
                   </h2>
                   <p className="text-lg text-gray-700 mb-2">
                     {cancha.sport === 1
@@ -87,13 +87,13 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
                       : "Tenis"}
                   </p>
                   <p className="text-lg text-gray-700 mb-2">
-                    {cancha.sede.location}
+                    {cancha?.sede?.location}
                   </p>
                   <p className="text-xl font-semibold text-terciario mb-4">
-                    Precio: ${cancha.price}
+                    Precio: ${cancha?.price}
                   </p>
                   <Link
-                    href={`/sede/${cancha.sede.id}`}
+                    href={`/sede/${cancha?.sede?.id}`}
                     className={`w-3/4 self-center flex justify-center border-2 border-white ${
                       sport == 2
                         ? "bg-blue-400 hover:bg-terciario-white  hover:border-blue-400 hover:text-blue-400"

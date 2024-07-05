@@ -7,10 +7,10 @@ export const fetchFormSede = async (file: File, data: IFormSede, userDB: IUser) 
   try {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("name", data.name);
-    formData.append("location", data.location);
-    formData.append("description", data.description);
-    formData.append("user", userDB.userDb.id);
+    formData.append("name", data?.name);
+    formData.append("location", data?.location);
+    formData.append("description", data?.description);
+    formData.append("user", userDB?.userDb?.id);
     
    
 
@@ -22,7 +22,7 @@ export const fetchFormSede = async (file: File, data: IFormSede, userDB: IUser) 
       
       body: formData,
     });
-    console.log("Token enviado:", userDB.token);
+    console.log("Token enviado:", userDB?.token);
     if (response.ok) {
       return { success: true };
     } else {
