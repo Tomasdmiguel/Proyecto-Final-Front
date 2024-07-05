@@ -201,7 +201,7 @@ export const CardCancha = ({
                   <p>{turno.time}h. </p>
                   {turno.status == "libre" ? (
                     <Link
-                      href={`/CardPago/${cancha.id}`}
+                      href={`/CardPago/${turno.id}`}
                       className="uppercase font-semibold"
                     >
                       reservar

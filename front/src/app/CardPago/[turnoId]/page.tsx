@@ -3,20 +3,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import { ICancha } from "@/interface/ISedes";
-import { FetchCanchaById } from "@/service/ApiGetCanchaById";
+import { ICancha, ITurno } from "@/interface/ISedes";
+import { FetchTurnoById } from "@/service/ApiGetTurnoById";
 
-const Product = ({ params }: { params: { canchaId: string } }) => {
-  const [cancha, setCancha] = useState<ICancha>();
+const Product = ({ params }: { params: { turnoId: string } }) => {
+  const [turno, setTurno] = useState<ITurno | undefined>();
 
   useEffect(() => {
-    const fetchCanchaById = async () => {
-      const canchaId = params.canchaId;
-      const cancha: ICancha = await FetchCanchaById(canchaId);
-      setCancha(cancha);
+    const fetchTurnById = async (turnoId: string) => {
+      try {
+        const turno: ITurno = await FetchTurnoById(turnoId);
+        setTurno(turno);
+      } catch (error) {
+        console.error("Error fetching turno:", error);
+      }
     };
-    fetchCanchaById();
-  }, [params.canchaId]);
+
+    if (params.turnoId) {
+      fetchTurnById(params.turnoId);
+    }
+  }, [params.turnoId]);
+
+  const cancha = turno?.cancha;
+  console.log("cancha:", cancha);
 
   const [preferenceId, setPreferenceId] = useState("");
   initMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY as string, {
@@ -33,7 +42,7 @@ const Product = ({ params }: { params: { canchaId: string } }) => {
     };
 
     const turnoId = {
-      id: "3a9b4126-225e-4be6-a537-8606d461a2a2",
+      id: turno?.id,
     };
 
     try {
