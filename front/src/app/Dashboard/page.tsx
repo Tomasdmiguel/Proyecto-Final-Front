@@ -24,21 +24,20 @@ export default function Dashboard() {
   const [sedes, setSedes] = useState<ISede[]>([]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(async () => {
-      if (!userData?.token) {
-        router.push("/");
-        showErrorAlert(
-          "Error",
-          "No puede acceder al dashboard sin estar logeado"
-        );
-      } else {
-        const Sedes = await getSedes();
-        setSedes(Sedes);
-      }
-    }, 100);
+    if (!userData) {
+      router.push("/");
+      showErrorAlert(
+        "Error",
+        "No puede acceder al dashboard sin estar logeado"
+      );
+    }
 
-    return () => clearTimeout(timeoutId);
-  }, [userData]);
+    const fetchSedes = async () => {
+      const Sedes = await getSedes();
+      setSedes(Sedes);
+    };
+    fetchSedes();
+  }, []);
 
   // Función para cerrar sesión
   const handleLogOut = () => {
