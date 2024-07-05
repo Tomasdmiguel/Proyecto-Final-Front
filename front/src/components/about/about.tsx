@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const SobreNosotros = () => {
   return (
@@ -56,12 +57,12 @@ const SobreNosotros = () => {
                   Al unirse a Reserva Gol, no solo mejorará la gestión de sus canchas, sino que también formará parte de una comunidad deportiva en crecimiento.
                 </li>
                 <div className="mt-auto">
-                  <a
-                    href="#"
+                  <Link
+                    href="/AddAdmin"
                     className="inline-block bg-terciario text-white py-2 px-4 rounded-full hover:bg-opacity-80 transition duration-300"
                   >
                     Regístrate como canchero
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
