@@ -5,11 +5,15 @@ import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { ICancha, ITurno } from "@/interface/ISedes";
 import { FetchTurnoById } from "@/service/ApiGetTurnoById";
 
+
+
 const Product = ({ params }: { params: { turnoId: string } }) => {
   const [turno, setTurno] = useState<ITurno | undefined>();
 
   useEffect(() => {
-    const fetchTurnById = async (turnoId: string) => {
+    const fetchTurnBy = async (turnoId: string) => {
+      console.log('en el getid pasando el turno id');
+      console.log(turnoId);
       try {
         const turno: ITurno = await FetchTurnoById(turnoId);
         setTurno(turno);
@@ -19,12 +23,11 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
     };
 
     if (params.turnoId) {
-      fetchTurnById(params.turnoId);
+      fetchTurnBy(params.turnoId);
     }
   }, [params.turnoId]);
 
   const cancha = turno?.cancha;
-  console.log("cancha:", cancha);
 
   const [preferenceId, setPreferenceId] = useState("");
   initMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY as string, {
