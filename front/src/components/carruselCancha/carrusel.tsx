@@ -71,7 +71,7 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
                 } bg-white h-[50vh] rounded-lg shadow-lg overflow-hidden  transition duration-300 flex flex-col items-center `}
               >
                 <img
-                  src={cancha.sede.imgUrl}
+                  src={cancha?.sede?.imgUrl}
                   alt="imgCancha"
                   className="w-full h-48 object-cover"
                 />
