@@ -1,19 +1,28 @@
 import { IFormSede } from "@/interface/IFormSede";
-
 import { IUser } from "@/interface/IUser";
 
-const apiKey = process.env.NEXT_PUBLIC_API_URL;
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export const fetchFormSede = async (data: IFormSede, userDB:IUser ) => {
+export const fetchFormSede = async (file: File, data: IFormSede, userDB: IUser) => {
   try {
-    const response = await fetch(`${apiKey}/sede`, {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("name", data.name);
+    formData.append("location", data.location);
+    formData.append("description", data.description);
+    formData.append("user", userDB.userDb.id);
+    
+   
+
+    const response = await fetch(`${apiUrl}/sede`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "authorization":`Bearer ${userDB.token}`,
       },
-      body: JSON.stringify({ data: data, userDB}),
+      
+      body: formData,
     });
-    console.log({ data: data, userDB: userDB})
+    console.log("Token enviado:", userDB.token);
     if (response.ok) {
       return { success: true };
     } else {

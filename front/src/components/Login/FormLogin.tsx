@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import dotenv from "dotenv";
 //*Importación de Controlador para este formulario
 import { CLogin } from "@/helpers/Controllers/CLogin";
 //*Importación de función para hacer peticiones para este form
@@ -10,59 +10,74 @@ import { fetchLogin } from "@/service/ApiLogin";
 //!Importación para el login por Google
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+//*Importacion para registrar uusuario que se logea de google
+import { PostRegistroGoogle } from "@/service/ApiRegistroGoogle";
+import { useUser } from "@/context/UserContext";
+import {
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/helpers/alert.helper/alert.helper";
+import { IUserSession } from "@/interface/context";
+import { ISede } from "@/interface/ISedes";
+//*Variables de entorno firebase
 
-// Configuración de Firebase
+dotenv.config();
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAxvQJfqH7SpDhf-k5FecgwEOHL8c-zITQ",
-  authDomain: "reservagol-b6cce.firebaseapp.com",
-  projectId: "reservagol-b6cce",
-  storageBucket: "reservagol-b6cce.appspot.com",
-  messagingSenderId: "1091580255495",
-  appId: "1:1091580255495:web:aec6d970530cddc32e39a2",
-  measurementId: "G-EPD836Q6BK",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
-
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 const auth = getAuth(app);
 
 const FormLogin = () => {
+  const { logIn } = useUser();
+
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  
+
   const router = useRouter();
 
   //!Función para iniciar sesión con Google
-  const callLoginGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        const userDb = result.user;
-        
-        // Guardar usuario en localStorage o manejarlo según tu lógica
-        localStorage.setItem(
-          "usuarioSesion",
-          JSON.stringify({ token, userDb })
-        );
-        
-        Swal.fire({
-          icon: "success",
-          title: "Login exitoso",
-          text: "Sesión iniciada correctamente con Google",
-        });
-        router.push("/");
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Error de inicio de sesión",
-          text: error.message,
-        });
-      });
+  const callLoginGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken || null; 
+      const userDb = {
+        displayName: result.user.displayName || "",
+        address: "",
+        email: result.user.email || "",
+        uid: result.user.uid,
+        name: result.user.displayName || "",
+        phone: result.user.phoneNumber || "",
+        rol: "", 
+        sedes: [],
+      };
+      console.log(userDb)
+      PostRegistroGoogle(userDb);
+
+      const userSession: IUserSession = { token, userDb }; 
+      logIn(userSession); 
+
+      showSuccessAlert(
+        "Login exitoso",
+        "Sesión iniciada correctamente con Google"
+      );
+
+      router.push("/");
+    } catch (error: any) {
+      showErrorAlert("Error de inicio de sesión");
+    }
   };
 
   //*Función que guarda los cambios
@@ -83,38 +98,22 @@ const FormLogin = () => {
         const response = await fetchLogin(data);
 
         if (response.success) {
-          const { token, userDb } = response.data;
-          localStorage.setItem(
-            "usuarioSesion",
-            JSON.stringify({ token, userDb })
-          );
+          const user = response.data;
+          logIn(user); // Usa el contexto para iniciar sesión
 
-          Swal.fire({
-            icon: "success",
-            title: "Login exitoso",
-            text: "Sesión iniciada correctamente",
-          });
+          showSuccessAlert("Login exitoso.", "Sesión iniciada correctamente.");
           router.push("/");
         } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error de inicio de sesión",
-            text: response.message,
-          });
+          showErrorAlert("Email o contraseña incorrecto.");
         }
       } catch (error: any) {
-        Swal.fire({
-          icon: "error",
-          title: "Error del servidor",
-          text: "Intenta más tarde",
-        });
+        showErrorAlert("Error del servidor", "Intenta más tarde");
       }
     } else {
-      Swal.fire({
-        icon: "warning",
-        title: "Datos inválidos",
-        text: "Por favor, revisa los datos e intenta nuevamente",
-      });
+      showErrorAlert(
+        "Campos incompletos o datos inválidos",
+        "Por favor, revisa los datos e intenta nuevamente."
+      );
     }
   };
 
@@ -130,10 +129,7 @@ const FormLogin = () => {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-terciario-white mb-2"
-          >
+          <label htmlFor="email" className="block text-terciario-white mb-2">
             Email
           </label>
           <input

@@ -27,7 +27,6 @@ const FormCancha = ({ id }: { id: string }) => {
     price: 0,
     player: 0,
     techado: false,
-    imgUrl: "",
   });
   const [userData, setUserData] = useState<IUserSession | null>(null);
 
@@ -35,7 +34,7 @@ const FormCancha = ({ id }: { id: string }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
-      const userData = localStorage.getItem("usuarioSesion");
+      const userData = localStorage.getItem("userSession");
       if (userData) {
         setUserData(JSON.parse(userData));
       }
@@ -127,8 +126,7 @@ const FormCancha = ({ id }: { id: string }) => {
             name="sedeName"
             value={data.sedeName}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          >
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
             <option value="">Selecciona una sede</option>
             {filteredSedes?.map((sede) => (
               <option key={sede.name} value={sede.name}>
@@ -160,8 +158,7 @@ const FormCancha = ({ id }: { id: string }) => {
             name="sport"
             value={data.sport}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          >
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
             <option value="">Selecciona que deporte</option>
             <option value={1}>Fútbol</option>
             <option value={2}>Padel</option>
@@ -183,8 +180,7 @@ const FormCancha = ({ id }: { id: string }) => {
 
           <label
             htmlFor="timeclose"
-            className="block text-terciario-white mb-2"
-          >
+            className="block text-terciario-white mb-2">
             Horario de cierre
           </label>
           <input
@@ -204,8 +200,7 @@ const FormCancha = ({ id }: { id: string }) => {
             name="type"
             value={data.type}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          >
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
             <option value="">Tipo de cancha</option>
             <option>Sintético</option>
             <option>Pasto</option>
@@ -251,32 +246,16 @@ const FormCancha = ({ id }: { id: string }) => {
             name="techado"
             value={String(data.techado)}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          >
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
             <option value="">Selecciona una opción</option>
             <option value="true">Sí</option>
             <option value="false">No</option>
           </select>
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="imgUrl" className="block text-terciario-white mb-2">
-            Imagen
-          </label>
-          <input
-            type="url"
-            name="imgUrl"
-            value={data.imgUrl}
-            placeholder="URL de la imagen"
-            onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-          />
-        </div>
-
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
-        >
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
           Crear
         </button>
       </form>

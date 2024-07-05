@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
@@ -5,24 +6,32 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ISede } from "@/interface/ISedes";
 import { IUserSession } from "@/interface/context";
-import Swal from "sweetalert2";
 import { useSport } from "@/context/SportContext";
 import { getSedes } from "@/service/ApiSedes";
 import SedesAdmin from "@/components/SedesAdmin/SedesAdmin";
+import MiReservas from "@/components/MiReservas/MiReservas";
+import {
+  showConfirmationAlert,
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/helpers/alert.helper/alert.helper";
+import { useUser } from "@/context/UserContext";
 
 export default function Dashboard() {
+  const { userData, logOut } = useUser();
   const { sport } = useSport();
   const router = useRouter();
-  const [userData, setUserData] = useState<IUserSession | null>(null);
   const [sedes, setSedes] = useState<ISede[]>([]);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.localStorage) {
-      const userData = localStorage.getItem("usuarioSesion");
-      if (userData) {
-        setUserData(JSON.parse(userData));
-      }
+    if (!userData) {
+      router.push("/");
+      showErrorAlert(
+        "Error",
+        "No puede acceder al dashboard sin estar logeado"
+      );
     }
+
     const fetchSedes = async () => {
       const Sedes = await getSedes();
       setSedes(Sedes);
@@ -32,34 +41,18 @@ export default function Dashboard() {
 
   // Función para cerrar sesión
   const handleLogOut = () => {
-    Swal.fire({
-      title: "¿Está seguro?",
-      text: "¿Quiere cerrar sesión?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Sí, estoy seguro",
-      cancelButtonText: "No, cancelar",
-      reverseButtons: true,
-      customClass: {
-        popup: "custom-alert",
-        confirmButton: "custom-confirm-button",
-        cancelButton: "custom-cancel-button",
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        localStorage.removeItem("usuarioSesion");
-        Swal.fire({
-          icon: "success",
-          title: "Se cerró sesión exitosamente",
-        });
+    showConfirmationAlert(
+      "¿Está seguro?",
+      "¿Quiere cerrar sesión?",
+      () => {
+        logOut();
+        showSuccessAlert("Se cerró sesión exitosamente");
         router.push("/Login");
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire({
-          icon: "error",
-          title: "Cierre de sesión cancelada",
-        });
+      },
+      () => {
+        showErrorAlert("Cierre de sesión cancelada");
       }
-    });
+    );
   };
 
   // Función para redirigir a la creación de sede
@@ -158,8 +151,11 @@ export default function Dashboard() {
           </svg>
         </div>
       </div>
-
-      <SedesAdmin sedes={sedes} />
+      {userData?.userDb?.rol === "admin" ? (
+        <SedesAdmin sedes={sedes} />
+      ) : (
+        <MiReservas />
+      )}
     </div>
   );
 }

@@ -1,4 +1,9 @@
-import { IUser } from "./IUser";
+
+
+
+// import { IUser } from "./IUser";
+import {IUserSede} from "./IUserSede";
+
 
 export interface ISede {
   id: string;
@@ -7,7 +12,7 @@ export interface ISede {
   location?: string;
   imgUrl?: string;
   canchas?: ICancha[];
-  user: IUser;
+  user: IUserSede;
 }
 
 export interface ICancha {
@@ -21,4 +26,37 @@ export interface ICancha {
   timeclose?: Date;
   techado?: boolean;
   imgUrl?: string;
+  sede: ISede;
+  turnos: [];
+}
+
+export interface ITurno {
+  id: string;
+  date: string;
+  time: string;
+  status: string;
+}
+
+export interface IUserSession {
+  token: string;
+  userDb: {
+    displayName: string;
+    address: string;
+    email: string;
+    id: string;
+    name: string;
+    phone: string;
+    rol: string;
+    sedes: ISede[];
+  };
+}
+
+export interface IUser {
+  address: string;
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+  role: string;
+  sedes: [];
 }

@@ -1,5 +1,6 @@
 "use client";
 import { useSport } from "@/context/SportContext";
+import { useUser } from "@/context/UserContext";
 import { ISede } from "@/interface/ISedes";
 import { IUserSession } from "@/interface/context";
 import Link from "next/link";
@@ -7,16 +8,7 @@ import { useEffect, useState } from "react";
 
 export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
   const { sport } = useSport();
-  const [userData, setUserData] = useState<IUserSession | null>(null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.localStorage) {
-      const userData = localStorage.getItem("usuarioSesion");
-      if (userData) {
-        setUserData(JSON.parse(userData));
-      }
-    }
-  }, [setUserData]);
+  const { userData } = useUser();
 
   const filteredSedes = sedes?.filter(
     (sede: ISede) => sede?.user?.id === userData?.userDb.id

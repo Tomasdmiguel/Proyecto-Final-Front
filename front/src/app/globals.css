@@ -3,11 +3,16 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Marko+One&display=swap");
 
+
 .sports-img {
   @apply w-36 h-full rounded-full  ease-in-out duration-300 hover:grayscale;
 }
 .sports-button {
   @apply w-36 rounded-full border-solid border-secundario border-4 flex items-center justify-center uppercase text-2xl font-black;
+}
+.border-gradient {
+  border-width: 4px; /* Ajusta el grosor del borde según sea necesario */
+  border-image: linear-gradient(45deg, #369676, #60a5fa, #f97316) 1;
 }
 
 :root {

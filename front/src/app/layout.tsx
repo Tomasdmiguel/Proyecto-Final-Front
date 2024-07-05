@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "@/components/navbar/NavBar";
 import Footer from "@/components/Footer/Footer";
 import { SportProvider } from "@/context/SportContext";
+import { UserProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,11 +24,13 @@ export default function RootLayout({
         <link rel="icon" href="/icon2.jpg" />
       </head>
       <body className={inter.className}>
-        <SportProvider>
-          <NavBar />
-          {children}
-          <Footer />
-        </SportProvider>
+        <UserProvider>
+          <SportProvider>
+            <NavBar />
+            {children}
+            <Footer />
+          </SportProvider>
+        </UserProvider>
       </body>
     </html>
   );
