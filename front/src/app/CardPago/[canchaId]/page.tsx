@@ -1,4 +1,5 @@
-'use client'
+/* eslint-disable @next/next/no-img-element */
+"use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
@@ -40,7 +41,7 @@ const Product = ({ params }: { params: { canchaId: string } }) => {
         `${apiKey}/mercado-pago/create_preference`,
         {
           preference: createPreferenceDto,
-          turno: turnoId
+          turno: turnoId,
         }
       );
       const { preferenceId } = response.data;
@@ -52,17 +53,13 @@ const Product = ({ params }: { params: { canchaId: string } }) => {
 
   const handleBuy = async () => {
     const url = await createPreference();
-    if (url) 
-      setPreferenceId(url);
+    if (url) setPreferenceId(url);
   };
 
   return (
     <article className="p-8 bg-slate-800 rounded-xl text-white border border-slate-600">
       <div className="w-56 rounded-xl overflow-hidden">
-        <img
-          src={cancha?.imgUrl}
-          alt={cancha?.name}
-        />
+        <img src={cancha?.imgUrl} alt={cancha?.name} />
       </div>
       <div className="space-y-2 mt-2">
         <h3 className="text-3xl font-bold">{cancha?.name}</h3>

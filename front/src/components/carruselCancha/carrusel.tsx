@@ -1,4 +1,6 @@
-"use client"
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 import React, { useState, useEffect } from "react";
 import { ICancha } from "@/interface/ISedes";
 import Link from "next/link";
@@ -21,7 +23,7 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       handleNext();
-    }, 5000); 
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);

@@ -30,7 +30,7 @@ export const CardCancha = ({
     }
   };
 
-  const canchasToday = canchaId?.turnos.filter(
+  const turnosHoy = canchaId?.turnos.filter(
     (turno: ITurno) =>
       turno.date === date &&
       new Date(turno.date + "T" + turno.time) > new Date()
@@ -182,35 +182,39 @@ export const CardCancha = ({
       </div>
       {open && (
         <div className="h-fit p-4 flex flex-col space-y-4">
-          {canchasToday?.map((turno: ITurno) => {
-            return (
-              <div
-                key={turno.id}
-                className={`w-full min-h-[5vh] border-2 rounded-lg flex flex-row items-center justify-evenly ${
-                  hover && cancha.sport == 1
-                    ? "text-main border-main hover:bg-main hover:text-terciario-white"
-                    : cancha.sport == 2
-                    ? hover &&
-                      "text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-terciario-white"
-                    : hover && cancha.sport == 3
-                    ? "text-orange-500 border-orange-500 hover:bg-orange-500 hover:text-terciario-white"
-                    : "text-terciario-white border-terciario-white"
-                }`}
-              >
-                <p>{turno.time}h. </p>
-                {turno.status == "libre" ? (
-                  <Link
-                    href={`/CardPago/${cancha.id}`}
-                    className="uppercase font-semibold"
-                  >
-                    reservar
-                  </Link>
-                ) : (
-                  <p className="uppercase">reservado</p>
-                )}
-              </div>
-            );
-          })}
+          {turnosHoy?.length! > 0 ? (
+            turnosHoy?.map((turno: ITurno) => {
+              return (
+                <div
+                  key={turno.id}
+                  className={`w-full min-h-[5vh] border-2 rounded-lg flex flex-row items-center justify-evenly ${
+                    hover && cancha.sport == 1
+                      ? "text-main border-main hover:bg-main hover:text-terciario-white"
+                      : cancha.sport == 2
+                      ? hover &&
+                        "text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-terciario-white"
+                      : hover && cancha.sport == 3
+                      ? "text-orange-500 border-orange-500 hover:bg-orange-500 hover:text-terciario-white"
+                      : "text-terciario-white border-terciario-white"
+                  }`}
+                >
+                  <p>{turno.time}h. </p>
+                  {turno.status == "libre" ? (
+                    <Link
+                      href={`/CardPago/${cancha.id}`}
+                      className="uppercase font-semibold"
+                    >
+                      reservar
+                    </Link>
+                  ) : (
+                    <p className="uppercase">reservado</p>
+                  )}
+                </div>
+              );
+            })
+          ) : (
+            <p>No hay turnos disponibles en este día.</p>
+          )}
         </div>
       )}
     </div>
