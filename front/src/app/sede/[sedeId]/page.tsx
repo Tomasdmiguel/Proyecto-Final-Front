@@ -20,7 +20,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
       setSede(sede);
     };
     fetchSedeById();
-  },[]);
+  }, [params.sedeId]);
 
   const formatDate = (date: Date): string => {
     const year = date.getFullYear();
@@ -218,21 +218,31 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
       </div>
 
       <div
-        className={`flex flex-row  ${
+        className={`flex flex-row justify-evenly w-[80vw] lg:w-[60vw]  ${
           sport == 0 ? " text-main" : "text-terciario-white"
         }`}
       >
         {next7Days.map((date, index) => (
           <button
-            onClick={() => setDateClick(date1)}
+            onClick={() => setDateClick(date)}
             key={index}
-            className={`p-6 rounded-full ${
-              date == date1 && sport == 1
-                ? "border-2 border-terciario-white"
-                : ""
+            className={`h-28 w-28 rounded-full ${
+              date1.toISOString().split("T")[0] ===
+                date.toISOString().split("T")[0] && sport == 1
+                ? "bg-terciario-white  text-main"
+                : date1.toISOString().split("T")[0] ===
+                    date.toISOString().split("T")[0] && sport == 2
+                ? "bg-terciario-white  text-blue-400"
+                : date1.toISOString().split("T")[0] ===
+                    date.toISOString().split("T")[0] && sport == 3
+                ? "bg-terciario-white  text-orange-500"
+                : date1.toISOString().split("T")[0] ===
+                    date.toISOString().split("T")[0] &&
+                  sport == 0 &&
+                  "bg-main  text-terciario-white"
             } `}
           >
-            <p className="font-bold text-xl capitalize">{getDayName(date)}</p>
+            <p className="font-bold text-lg capitalize">{getDayName(date)}</p>
             <p className="text-2xl">{getDayNumber(date)}</p>
           </button>
         ))}

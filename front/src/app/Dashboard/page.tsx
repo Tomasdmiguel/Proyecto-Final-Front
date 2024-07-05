@@ -31,6 +31,7 @@ export default function Dashboard() {
         "No puede acceder al dashboard sin estar logeado"
       );
     }
+
     const fetchSedes = async () => {
       const Sedes = await getSedes();
       setSedes(Sedes);
