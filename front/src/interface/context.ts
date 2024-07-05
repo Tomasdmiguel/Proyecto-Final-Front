@@ -13,7 +13,8 @@ export interface IUserSession {
     displayName: string;
     address: string;
     email: string;
-    uid: string;
+    uid?: string;
+    id?: string;
     name: string;
     phone: string;
     rol: string;
