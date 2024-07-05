@@ -42,11 +42,11 @@ const MiReservas = () => {
               key={index}
               className={`w-full max-h-60 rounded-sm shadow-xl hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6`}>
               <h2 className="font-Marko font-bold text-3xl">
-                {turno.cancha.name}
+                {turno?.cancha?.name}
               </h2>
               <p>Hora: {turno.time}</p>
-              <p>Dirección: {turno.cancha.sede.location}</p>
-              <p>Duración: {turno.cancha.price}</p>
+              <p>Dirección: {turno?.cancha?.sede?.location}</p>
+              <p>Duración: {turno?.cancha?.price}</p>
             </div>
           ))}
         </div>
