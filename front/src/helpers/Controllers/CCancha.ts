@@ -1,7 +1,7 @@
 import { IFormCancha } from "@/interface/IFormCancha";
 import Swal from "sweetalert2";
 
-export const CCancha = (data: IFormCancha) => {
+export const CCancha = (data: IFormCancha ) => {
   const emptyField = Object.keys(data).find((key) => {
     const value = data[key as keyof IFormCancha];
 
