@@ -52,7 +52,7 @@ const FormLogin = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken || null; 
+      const token = credential?.accessToken || null;
       const userDb = {
         displayName: result.user.displayName || "",
         address: "",
@@ -60,14 +60,14 @@ const FormLogin = () => {
         uid: result.user.uid,
         name: result.user.displayName || "",
         phone: result.user.phoneNumber || "",
-        rol: "", 
+        rol: "",
         sedes: [],
       };
-      console.log(userDb)
+      console.log(userDb);
       PostRegistroGoogle(userDb);
 
-      const userSession: IUserSession = { token, userDb }; 
-      logIn(userSession); 
+      const userSession: IUserSession = { token, userDb };
+      logIn(userSession);
 
       showSuccessAlert(
         "Login exitoso",
@@ -158,16 +158,19 @@ const FormLogin = () => {
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
-        >
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
           Iniciar sesión
         </button>
       </form>
 
       <button
         onClick={callLoginGoogle}
-        className="w-full mt-4 border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
-      >
+        className="w-full mt-4 border border-gray-300 text-black bg-white p-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors duration-300">
+        <img
+          src="/logo.png"
+          alt="Google icon"
+          className="w-5 h-5 mr-2"
+        />
         Iniciar sesión con Google
       </button>
 
