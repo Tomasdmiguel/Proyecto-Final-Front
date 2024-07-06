@@ -158,7 +158,8 @@ const FormLogin = () => {
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
+          className="w-full bg-terciario text-terciario-white p-3 rounded-lg hover:bg-gray-100 hover:text-terciario flex items-center justify-center transition-colors duration-300">
+          <img src="/icon.png" alt="Google icon" className="w-5 h-5 mr-2" />
           Iniciar sesión
         </button>
       </form>
@@ -166,11 +167,7 @@ const FormLogin = () => {
       <button
         onClick={callLoginGoogle}
         className="w-full mt-4 border border-gray-300 text-black bg-white p-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors duration-300">
-        <img
-          src="/logo.png"
-          alt="Google icon"
-          className="w-5 h-5 mr-2"
-        />
+        <img src="/logo.png" alt="Google icon" className="w-5 h-5 mr-2" />
         Iniciar sesión con Google
       </button>
 
