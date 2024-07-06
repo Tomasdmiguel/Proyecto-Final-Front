@@ -357,7 +357,7 @@ export const CardCancha = ({
                   {turno.status == "libre" ? (
                     <Link
                       onClick={alertClick}
-                      href={`${userData ? `/CardPago/${cancha.id}` : "/Login"}`}
+                      href={`${userData ? `/CardPago/${turno.id}` : "/Login"}`}
                       className="uppercase font-semibold"
                     >
                       reservar

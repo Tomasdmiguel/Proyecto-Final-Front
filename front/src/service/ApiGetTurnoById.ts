@@ -8,7 +8,7 @@ export const FetchTurnoById = async (id: string) => {
     });
     if (!res.ok) {
       throw new Error(
-        `Error al obtener el turno con ID ${id}. Status: ${res.status}`
+        `Error al obtener la turno con ID ${id}. Status: ${res.status}`
       );
     }
 
