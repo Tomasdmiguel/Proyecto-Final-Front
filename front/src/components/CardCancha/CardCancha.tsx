@@ -213,7 +213,7 @@ export const CardCancha = ({
                   {turno.status == "libre" ? (
                     <p className="capitalize font-semibold">disponible</p>
                   ) : (
-                    <p className="capitalize">reservado</p>
+                    <p className="capitalize text-red-700">reservado</p>
                   )}
                   {cancha.sport === 1 ? (
                     <svg
@@ -357,7 +357,7 @@ export const CardCancha = ({
                   {turno.status == "libre" ? (
                     <Link
                       onClick={alertClick}
-                      href={`${userData ? `/CardPago/${cancha.id}` : "/Login"}`}
+                      href={`${userData ? `/CardPago/${turno.id}` : "/Login"}`}
                       className="uppercase font-semibold"
                     >
                       reservar

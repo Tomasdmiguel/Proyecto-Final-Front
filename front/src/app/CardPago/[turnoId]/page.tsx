@@ -7,24 +7,17 @@ import { FetchTurnoById } from "@/service/ApiGetTurnoById";
 
 const Product = ({ params }: { params: { turnoId: string } }) => {
   const [turno, setTurno] = useState<ITurno | undefined>();
+  const [cancha, setCancha] = useState<ICancha>();
 
   useEffect(() => {
     const fetchTurnById = async (turnoId: string) => {
-      try {
-        const turno: ITurno = await FetchTurnoById(turnoId);
-        setTurno(turno);
-      } catch (error) {
-        console.error("Error fetching turno:", error);
-      }
+      const turno: ITurno = await FetchTurnoById(turnoId);
+      setTurno(turno);
+      setCancha(turno.cancha);
     };
 
-    if (params.turnoId) {
-      fetchTurnById(params.turnoId);
-    }
+    params.turnoId && fetchTurnById(params.turnoId);
   }, [params.turnoId]);
-
-  const cancha = turno?.cancha;
-  console.log("cancha:", cancha);
 
   const [preferenceId, setPreferenceId] = useState("");
   initMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY as string, {
