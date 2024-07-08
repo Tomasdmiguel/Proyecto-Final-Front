@@ -23,7 +23,7 @@ export const Carousel = ({ sedes }: { sedes: ISede[] }) => {
     <div className="relative w-full h-120 md:h-96 lg:h-104 aspect-w-16 aspect-h-9  rounded-lg">
       <div className="absolute inset-0 overflow-hidden  rounded-lg">
         <img
-          src={sedes[currentIndex].imgUrl}
+          src={sedes[currentIndex]?.imgUrl}
           alt={`Carousel ${currentIndex}`}
           className="w-full h-full object-cover object-center"
         />

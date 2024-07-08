@@ -41,7 +41,7 @@ export const SedesPadel = ({ sedes }: { sedes: ISede[] }) => {
         onChange={handleChange}
       />
       {searchTerm
-        ? filteredSede.map(
+        ? filteredSede?.map(
             ({ id, name, location, description, imgUrl, canchas }) => {
               return (
                 <Link

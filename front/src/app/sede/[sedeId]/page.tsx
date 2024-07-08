@@ -253,7 +253,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
           ? filteredCanchasFutbol?.map((cancha) => {
               return (
                 <CardCancha
-                  key={cancha.id}
+                  key={cancha?.id}
                   cancha={cancha}
                   date={formatDate(date1)}
                 />
@@ -263,7 +263,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
           ? filteredCanchasPadel?.map((cancha) => {
               return (
                 <CardCancha
-                  key={cancha.id}
+                  key={cancha?.id}
                   cancha={cancha}
                   date={formatDate(date1)}
                 />
@@ -273,7 +273,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
           ? filteredCanchasTenis?.map((cancha) => {
               return (
                 <CardCancha
-                  key={cancha.id}
+                  key={cancha?.id}
                   cancha={cancha}
                   date={formatDate(date1)}
                 />
@@ -281,7 +281,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
             })
           : sede?.canchas?.map((cancha) => (
               <CardCancha
-                key={cancha.id}
+                key={cancha?.id}
                 cancha={cancha}
                 date={formatDate(date1)}
               />
