@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -7,17 +8,25 @@ import { FetchTurnoById } from "@/service/ApiGetTurnoById";
 
 const Product = ({ params }: { params: { turnoId: string } }) => {
   const [turno, setTurno] = useState<ITurno | undefined>();
-  const [cancha, setCancha] = useState<ICancha>();
 
   useEffect(() => {
-    const fetchTurnById = async (turnoId: string) => {
-      const turno: ITurno = await FetchTurnoById(turnoId);
-      setTurno(turno);
-      setCancha(turno.cancha);
+    const fetchTurnBy = async (turnoId: string) => {
+      console.log("en el getid pasando el turno id");
+      console.log(turnoId);
+      try {
+        const turno: ITurno = await FetchTurnoById(turnoId);
+        setTurno(turno);
+      } catch (error) {
+        console.error("Error fetching turno:", error);
+      }
     };
 
-    params.turnoId && fetchTurnById(params.turnoId);
+    if (params.turnoId) {
+      fetchTurnBy(params.turnoId);
+    }
   }, [params.turnoId]);
+
+  const cancha = turno?.cancha;
 
   const [preferenceId, setPreferenceId] = useState("");
   initMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY as string, {
@@ -58,13 +67,17 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
   };
 
   return (
-    <article className="p-8 bg-slate-800 rounded-xl text-white border border-slate-600">
-      <div className="w-56 rounded-xl overflow-hidden">
+    <article className="p-8 bg-main text-white flex flex-row gap-24 justify-center items-center h-[45vw]">
+      <div className="w-[25vw] rounded-xl overflow-hidden">
         <img src={cancha?.imgUrl} alt={cancha?.name} />
       </div>
       <div className="space-y-2 mt-2">
-        <h3 className="text-3xl font-bold">{cancha?.name}</h3>
-        <p className="text-xl font-semibold mb-2">${cancha?.price}</p>
+        <div className="space-y-6 space-x-2">
+          <h3 className="text-4xl font-bold text-white ">{cancha?.name}</h3>
+          <p className="text-2xl font-semibold mb-2 text-secundario">
+            {cancha?.price}
+          </p>
+        </div>
         {preferenceId !== "" ? (
           <Wallet
             initialization={{ preferenceId: preferenceId }}
@@ -74,10 +87,10 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
           />
         ) : (
           <button
-            className="py-2 w-full bg-emerald-600 rounded-xl"
+            className="py-2 w-full bg-white text-black hover:bg-cyan-500 ease-in-out duration-300 hover:text-white rounded-xl"
             onClick={handleBuy}
           >
-            Comprar
+            Reservar
           </button>
         )}
       </div>
