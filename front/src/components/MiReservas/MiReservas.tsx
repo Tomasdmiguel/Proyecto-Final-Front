@@ -36,29 +36,27 @@ const MiReservas = () => {
       </p>
 
       {usuario?.turnos && usuario.turnos.length > 0 ? (
-        <div className="flex flex-col gap-16 text-2xl">
-          {usuario.turnos.map((turno: any, index: number) => (
-            <div
-              key={index}
-              className={`w-full max-h-60 rounded-sm shadow-xl hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6`}>
-              <h2 className="font-Marko font-bold text-3xl">
-                {turno?.cancha?.name}
-              </h2>
-              <p>Hora: {turno.time}</p>
-              <p>Dirección: {turno?.cancha?.sede?.location}</p>
-              <p>Duración: {turno?.cancha?.price}</p>
-            </div>
-          ))}
-        </div>
+   <div className="flex flex-col gap-16 text-2xl">
+   {usuario.turnos.map((turno: any, index: number) => (
+     <div
+       key={index}
+       className="w-full max-h-60 rounded-sm shadow-xl hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-y-4">
+       <h2 className="font-Marko font-bold text-3xl">{turno?.cancha?.name}</h2>
+       <p>Hora: {turno.time}</p>
+       {/* <p>Dirección: {turno?.cancha?.sede?.location}</p> */}
+       <p>Duración: 1 Hora</p>
+       <p>Estado de pago: {turno.status} </p>
+       <div className="flex justify-end mt-4">
+         <button className="bg-terciario text-white p-3 rounded-lg font-semibold hover:bg-white hover:text-terciario duration-200 ease-in-out">
+           Cancelar Reserva
+         </button>
+       </div>
+     </div>
+   ))}
+ </div>
       ) : (
         <p>No tienes reservas aún.</p>
       )}
-
-      <div className="w-full flex flex-row items-end justify-end space-x-6 px-12">
-        <button className="bg-blue-400 text-white p-3 rounded-lg font-semibold hover:bg-blue-500 duration-200 ease-in-out">
-          Cancelar Reserva
-        </button>
-      </div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { useUser } from "@/context/UserContext";
 import { showErrorAlert } from "@/helpers/alert.helper/alert.helper";
 import { ICancha, ITurno } from "@/interface/ISedes";
 import { FetchCanchaById } from "@/service/ApiGetCanchaById";
+import { FetchUserTurn } from "@/service/ApiPostUserTurn";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -35,10 +36,26 @@ export const CardCancha = ({
     }
   };
 
-  const alertClick = () => {
+  const alertClick = async (turnoId: string) => {
     if (!userData) {
       showErrorAlert("Inicie sesión para reservar un turno");
       router.push("/Login");
+    } else {
+      if (!userData) {
+        showErrorAlert(
+          "Hubo un problema con su cuenta. Por favor intente nuevamente."
+        );
+        return;
+      }
+      try {
+        await FetchUserTurn(turnoId, userData);
+        router.push(`/CardPago/${turnoId}`);
+      } catch (error) {
+        console.error("Error in FetchUserTurn:", error);
+        alert(
+          "Hubo un problema al hacer la reserva. Por favor intenta de nuevo."
+        );
+      }
     }
   };
 
@@ -54,6 +71,7 @@ export const CardCancha = ({
   const mouseLeave = () => {
     setHover(false);
   };
+
   return (
     <div
       onMouseEnter={mouseEnter}
@@ -355,14 +373,19 @@ export const CardCancha = ({
                     </svg>
                   )}
                   {turno.status == "libre" ? (
-                    <Link
-                      onClick={alertClick}
-                      href={`${userData ? `/CardPago/${cancha.id}` : "/Login"}`}
+                    // <Link
+                    //   href={`${userData ? `/CardPago/${turno.id}` : "/Login"}`}
+                    //   className="uppercase font-semibold"
+                    // >
+                    <button
+                      type="button"
                       className="uppercase font-semibold"
+                      onClick={() => alertClick(turno.id)}
                     >
-                      reservar
-                    </Link>
+                      Reservar
+                    </button>
                   ) : (
+                    // </Link>
                     <p className="uppercase">reservado</p>
                   )}
                 </div>
