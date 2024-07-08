@@ -18,7 +18,7 @@ import {
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
 import { IUserSession } from "@/interface/context";
-import { ISede } from "@/interface/ISedes";
+
 //*Variables de entorno firebase
 
 dotenv.config();
@@ -32,7 +32,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
-// Inicializar Firebase
+
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 const auth = getAuth(app);
@@ -96,7 +96,6 @@ const FormLogin = () => {
     if (CLogin(data)) {
       try {
         const response = await fetchLogin(data);
-
         if (response.success) {
           const user = response.data;
           logIn(user);
