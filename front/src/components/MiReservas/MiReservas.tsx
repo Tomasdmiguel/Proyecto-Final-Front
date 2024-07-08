@@ -2,7 +2,10 @@
 import { fetchUserById } from "@/service/ApiUser";
 import { useEffect, useState } from "react";
 import { fetchCancelarTurno } from "@/service/ApiCancelarTurno";
-import { showConfirmationAlert, showErrorAlert, showSuccessAlert } from "@/helpers/alert.helper/alert.helper";
+import {
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/helpers/alert.helper/alert.helper";
 
 const MiReservas = () => {
   const [userSession, setUserSession] = useState<any>();
@@ -32,11 +35,11 @@ const MiReservas = () => {
 
   const cancelarTurno = async (id: number) => {
     try {
-      const result = await fetchCancelarTurno(userSession,id);
+      const result = await fetchCancelarTurno(userSession, id);
       if (result.success) {
-       showSuccessAlert("Turno cancelado")
+        showSuccessAlert("Turno cancelado");
       } else {
-       showErrorAlert("Error al cancelar el turno")
+        showErrorAlert("Error al cancelar el turno");
       }
     } catch (error) {
       showErrorAlert("Error desconocido, intenta más tarde");
@@ -53,6 +56,7 @@ const MiReservas = () => {
       {usuario?.turnos && usuario.turnos.length > 0 ? (
         <div className="flex flex-col gap-16 text-2xl">
           {usuario.turnos.map((turno: any, index: number) => (
+           
             <div
               key={index}
               className="w-full max-h-60 rounded-sm shadow-xl hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-y-4">
@@ -62,7 +66,7 @@ const MiReservas = () => {
               <p>Hora: {turno.time}</p>
               <p>Dirección: {turno?.cancha?.sede?.location}</p>
               <p>Duración: 1 Hora</p>
-              <p>Estado de pago: {turno.status}</p>
+              <p>Estado de pago: {turno.status === 'libre' ? 'Cancelado' : turno.status === 'ocupado' ? 'Reservado' : turno.status === 'pendiente' ? 'Pendiente' : 'Desconocido'}</p>
 
               <div className="flex justify-end mt-4">
                 <button
