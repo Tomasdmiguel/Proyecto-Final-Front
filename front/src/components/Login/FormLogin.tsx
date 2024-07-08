@@ -99,7 +99,7 @@ const FormLogin = () => {
 
         if (response.success) {
           const user = response.data;
-          logIn(user); // Usa el contexto para iniciar sesión
+          logIn(user);
 
           showSuccessAlert("Login exitoso.", "Sesión iniciada correctamente.");
           router.push("/");
