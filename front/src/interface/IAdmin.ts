@@ -21,6 +21,10 @@ export interface IUserDb {
   }
 
   export interface addAdmin {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
     birthdate: string;
     dni: string;
     phone: string;

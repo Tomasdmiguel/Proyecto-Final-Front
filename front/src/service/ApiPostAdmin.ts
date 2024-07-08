@@ -2,18 +2,8 @@ import { addAdmin, IUserDb, IUserSession } from "@/interface/IAdmin";
 
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
-const ApiPostAdmin = async (userDb:IUserDb, data:addAdmin) => {
-  const requestData = {
-    // name: userDb.name,
-    // email: userDb.email,
-    id: userDb.id,
-    birthdate: data.birthdate || userDb.birthdate,
-    dni: data.dni || userDb.dni,
-    phone: data.phone || userDb.phone,
-    city: data.city || userDb.city,
-    address: data.address || userDb.address,
-  };
-  console.log(requestData);
+const ApiPostAdmin = async ( data:addAdmin) => {
+  console.log(data);
 
   try {
     const response = await fetch(`${apiKey}/auth/signup/admin`, {
@@ -21,7 +11,7 @@ const ApiPostAdmin = async (userDb:IUserDb, data:addAdmin) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(requestData),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {

@@ -1,27 +1,25 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ApiPostAdmin from "@/service/ApiPostAdmin";
-import { IUserDb } from "@/interface/IAdmin";
-import { CCancha } from "@/helpers/Controllers/CCancha";
+
 import { CAdmin } from "@/helpers/Controllers/CAdmin";
-import { showErrorAlert, showSuccessAlert } from "@/helpers/alert.helper/alert.helper";
+import {
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/helpers/alert.helper/alert.helper";
 
 const FormAdmin = () => {
   const [data, setData] = useState({
+    email: "",
+    name: "",
+    password: "",
+    confirmPassword: "",
     birthdate: "",
     dni: "",
     phone: "",
     city: "",
     address: "",
   });
-  const [userDb, setUserDb] = useState<IUserDb>();
-
-  useEffect(() => {
-    const user = localStorage.getItem("userSession");
-    if (user) {
-      setUserDb(JSON.parse(user).userDb);
-    }
-  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -30,19 +28,30 @@ const FormAdmin = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (userDb) {
-      try {
-       if(CAdmin(data)) {
-
-           const result = await ApiPostAdmin(userDb, data);
-           console.log("Success:", result);
-           showSuccessAlert(`Nos contactaremos en breve, gracias por elegirnos ${userDb.name}`)
-       } else {
-        showErrorAlert("Algo salio mal, revisa los campos")
-       }
-      } catch (error) {
-        showErrorAlert("Algo salio mal vuelve a intentarlo mas tarde")
+    
+    if (!data) {
+      showErrorAlert("Datos no disponibles, revisa los campos");
+      return;
+    }
+  
+    try {
+      if (CAdmin(data)) {
+        const result = await ApiPostAdmin(data);
+  
+        console.log(data);
+        console.log(result.success);
+  
+        if (result.success) {
+          showSuccessAlert(`Nos contactaremos en breve, gracias por elegirnos ${data.name}`);
+        } else {
+          showErrorAlert(result.message || "La solicitud no fue exitosa. Por favor, intente nuevamente.");
+        }
+      } else {
+        showErrorAlert("Algo salió mal, revisa los campos");
       }
+    } catch (error:any) {
+      console.error("Error en ApiPostAdmin:", error);
+      showErrorAlert(error.message || "Algo salió mal, vuelve a intentarlo más tarde");
     }
   };
 
@@ -56,9 +65,39 @@ const FormAdmin = () => {
         Por favor, complete su información personal
       </p>
 
-      <form onSubmit={handleSubmit }>
+      <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="birthdate" className="block text-terciario-white mb-2">
+          <label htmlFor="email" className="block text-terciario-white mb-2">
+            Email
+          </label>
+          <input
+            type="text"
+            name="email"
+            value={data.email}
+            placeholder="Escribí tu email"
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="user" className="block text-terciario-white mb-2">
+            Nombre de usuario
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={data.name}
+            placeholder="Nombre"
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="birthdate"
+            className="block text-terciario-white mb-2">
             Fecha de Nacimiento
           </label>
           <input
@@ -126,14 +165,40 @@ const FormAdmin = () => {
             className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
           />
         </div>
-        
-          <button
-            type="submit"
-            className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600 transition duration-300"
-          >
-            Enviar
-          </button>
-        
+        <div className="mb-4">
+          <label htmlFor="password" className="block text-terciario-white mb-2">
+            Contraseña
+          </label>
+          <input
+            type="password"
+            name="password"
+            value={data.password}
+            placeholder="Escribe tu contraseña"
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="passwordMatch"
+            className="block text-terciario-white mb-2">
+            Repite la contraseña
+          </label>
+          <input
+            type="password"
+            name="confirmPassword"
+            value={data.confirmPassword}
+            placeholder="Escribe tu contraseña nuevamente"
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-white text-black placeholder-black focus:border-yellow-600"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600 transition duration-300">
+          Enviar
+        </button>
       </form>
     </div>
   );
