@@ -2,12 +2,12 @@ import { IUserSession } from "@/interface/context";
 
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
-export const fetchAprobarCanchero = async (userSession:IUserSession,id: number) => {
+export const fetchAprobarCanchero = async (userSession: IUserSession, id: number) => {
   try {
-    const response = await fetch(`${apiKey}/user/canchero/{id}`, {
-      method: "delete",
+    const response = await fetch(`${apiKey}/user/canchero/${id}`, { 
+      method: "POST",
       headers: {
-        "authorization":`Bearer ${userSession.token}`,
+        "Authorization": `Bearer ${userSession.token}`,  
       },
     });
     if (response.ok) {
