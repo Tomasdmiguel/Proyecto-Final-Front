@@ -65,14 +65,16 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
   };
 
   return (
-    <article className="p-8 bg-main text-white flex flex-row gap-24 justify-center items-center h-[45vw]">
+    <article className=" relative p-8 bg-main bg-no-repeat bg-cover justify-center flex flex-col gap-20 items-center">
+      <div className="flex flex-col gap-20 justify-center items-center h-[40vw] bg-white w-[38vw] rounded-lg shadow-xl">
       <div className="w-[25vw] rounded-xl overflow-hidden">
         <img src={cancha?.imgUrl} alt={cancha?.name} />
       </div>
-      <div className="space-y-2 mt-2">
+      <div className="space-y-2 mt-2 w-[25vw]">
         <div className="space-y-6 space-x-2">
-        <h3 className="text-4xl font-bold text-white ">{cancha?.name}</h3>
-        <p className="text-2xl font-semibold mb-2 text-secundario">{cancha?.price}</p>
+        <h3 className="text-4xl font-bold text-black ">{cancha?.name}</h3>
+        <p className="text-2xl font-semibold mb-2 text-secundario">${cancha?.price}</p>
+        <p className="text-2xl font-semibold mb-2 text-black"></p>
         </div>
         {preferenceId !== "" ? (
           <Wallet
@@ -83,12 +85,13 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
           />
         ) : (
           <button
-            className="py-2 w-full bg-white text-black hover:bg-cyan-500 ease-in-out duration-300 hover:text-white rounded-xl"
+            className="py-2 w-full bg-cyan-500 text-black ease-in-out duration-300 hover:text-white rounded-xl"
             onClick={handleBuy}
           >
             Reservar
           </button>
         )}
+      </div>
       </div>
     </article>
   );
