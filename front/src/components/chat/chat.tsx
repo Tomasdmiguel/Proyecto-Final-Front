@@ -5,8 +5,9 @@ import { useState, useEffect, FormEvent } from 'react';
 
 import './chat.css'
 import { Message } from '@/interface/Ichat';
+const apiKey = process.env.NEXT_PUBLIC_API_URL;
 //chat
-const socket = io('http://localhost:3000');
+const socket = io(`${apiKey}`);
 
 const Chat = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -86,26 +87,35 @@ const Chat = () => {
   };
 
   return (
-    <div >
-      <h1>{isConnected ? 'CONECTADO' : 'DESCONECTADO'}</h1>
-      <h2>Usuario logueado: {usuario?.userDb.name}</h2>
+    
+    <div className='bg-white h-[40vw] max-h-[120vw] flex flex-row gap-10 justify-center items-center space-y-4 '>
+      <div className='flex flex-col'>
 
-      {<div className="chat-screen">
-        <div className="chat-messages">
-          <ul>
+      <h1 className={`text-2xl font-bold ${isConnected ? 'text-green-500' : 'text-red-500'}`}>
+        {isConnected ? 'CONECTADO' : 'DESCONECTADO'}
+      </h1>
+      <h2 className="text-xl mb-4 text-black">Usuario logueado: <span className='font-semibold text-blue-500'>{usuario?.userDb.name}</span></h2>
+      </div>
+
+      {<div className="bg-white border-2 border-gray-400 rounded-lg w-[25vw]">
+        <div className="p-14 text-black h-[30vw] max-h-[60vw]">
+          <ul className='space-y-4'>
             {message.map((mensaje, index) => (
-              <li key={index}> {mensaje.usuario} : {mensaje.message} </li>
+              <li key={index}  className=' p-4 rounded-2xl bg-gray-300 rounded-bl-none mb-2'> <span className='text-blue-500 font-semibold'>{mensaje.usuario}</span> : {mensaje.message} </li>
             ))}
           </ul>
         </div>
-        <form onSubmit={enviarMensaje}>
+        <div className='border border-t-gray-400'>
+        <form onSubmit={enviarMensaje} className='flex'>
           <input
+          className="flex-grow border-2 border-gray-300 rounded-lg p-2 mr-2 text-black"
             type="text"
             value={nuevoMessage}
             onChange={(e) => setNuevoMessage(e.target.value)}
           />
-          <button type="submit">ENVIAR</button>
+          <button type="submit"  className="bg-blue-500 text-white rounded-lg p-2">ENVIAR</button>
         </form>
+        </div>
 
       </div>}
     </div>

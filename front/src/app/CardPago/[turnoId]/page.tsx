@@ -69,15 +69,15 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
 
   return (
     <article className=" relative p-8 bg-main bg-no-repeat bg-cover justify-center flex flex-col gap-20 items-center">
-      <div className="flex flex-col gap-20 justify-center items-center h-[40vw] bg-white w-[38vw] rounded-lg shadow-xl">
+      <div className="flex flex-col gap-20 justify-center items-center h-[40vw] bg-gray-200 w-[34vw] rounded-lg shadow-xl">
       <div className="w-[25vw] rounded-xl overflow-hidden">
         <img src={cancha?.imgUrl} alt={cancha?.name} />
       </div>
       <div className="space-y-2 mt-2 w-[25vw]">
         <div className="space-y-6 space-x-2">
-          <h3 className="text-4xl font-bold text-white ">{cancha?.name}</h3>
+          <h3 className="text-4xl font-bold text-terciario ">{cancha?.name}</h3>
           <p className="text-2xl font-semibold mb-2 text-secundario">
-            {cancha?.price}
+           Precio: ${cancha?.price}
           </p>
         </div>
         {preferenceId !== "" ? (
