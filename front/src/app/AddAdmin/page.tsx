@@ -9,9 +9,7 @@ const AddAdmin = () => {
                     <h2 className="mt-6 text-3xl font-extrabold text-white">
                         Agregar Nuevo Canchero
                     </h2>
-                    <p className="mt-2 text-sm text-red-900">
-                        Este sector esta en produccion, todavia no esta funcional para ser canchero
-                    </p>
+                
                 </div>
                 <FormAdmin />
             </div>

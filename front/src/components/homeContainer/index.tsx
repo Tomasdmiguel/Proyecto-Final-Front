@@ -12,7 +12,7 @@ export const HomeContainer = async () => {
   const canchas = await getCanchas();
   return (
     <div className="min-h-[90vh] flex flex-col items-center space-y-16">
-      <Chat/>
+      {/* <Chat/> */}
       <Carousel sedes={sedes} />
       <TitleHome />
       <ContainerSedes sedes={sedes} />
