@@ -99,6 +99,7 @@ const Chat = () => {
         </div>
         <form onSubmit={enviarMensaje} className="flex">
           <input
+          className="flex-grow border-2 border-gray-300 rounded-lg p-2 mr-2 text-black"
             type="text"
             value={nuevoMessage}
             onChange={(e) => setNuevoMessage(e.target.value)}

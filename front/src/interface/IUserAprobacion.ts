@@ -3,4 +3,5 @@ export interface IUserAprobacion {
     name: string;
     email: string;
     phone: string;
+    rol:string;
   }
