@@ -1,11 +1,11 @@
-import CardAprobacion from "@/components/SuperAdmin/Aprobacion/CardAprobacion";
+import SuperAdminPanel from "@/components/SuperAdmin/PanelControl/SuperAdminPanel";
 
 const SuperAdmin: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="container mx-auto">
-        <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">Panel de control</h1>
-        <CardAprobacion />
+      <SuperAdminPanel/>
+   
       </div>
     </div>
   );
