@@ -1,0 +1,15 @@
+.chat-screen {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #033a0c;
+  }
+  
+  .chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    border-bottom: 1px solid #070101;
+  }

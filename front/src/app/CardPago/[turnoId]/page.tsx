@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -5,14 +6,12 @@ import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { ICancha, ITurno } from "@/interface/ISedes";
 import { FetchTurnoById } from "@/service/ApiGetTurnoById";
 
-
-
 const Product = ({ params }: { params: { turnoId: string } }) => {
   const [turno, setTurno] = useState<ITurno | undefined>();
 
   useEffect(() => {
     const fetchTurnBy = async (turnoId: string) => {
-      console.log('en el getid pasando el turno id');
+      console.log("en el getid pasando el turno id");
       console.log(turnoId);
       try {
         const turno: ITurno = await FetchTurnoById(turnoId);
@@ -74,8 +73,10 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
       </div>
       <div className="space-y-2 mt-2">
         <div className="space-y-6 space-x-2">
-        <h3 className="text-4xl font-bold text-white ">{cancha?.name}</h3>
-        <p className="text-2xl font-semibold mb-2 text-secundario">{cancha?.price}</p>
+          <h3 className="text-4xl font-bold text-white ">{cancha?.name}</h3>
+          <p className="text-2xl font-semibold mb-2 text-secundario">
+            {cancha?.price}
+          </p>
         </div>
         {preferenceId !== "" ? (
           <Wallet

@@ -37,20 +37,21 @@ const FormAdmin = () => {
     try {
       if (CAdmin(data)) {
         const result = await ApiPostAdmin(data);
-       
-        
-        if (result.success) { 
+  
+        console.log(data);
+        console.log(result.success);
+  
+        if (result.success) {
           showSuccessAlert(`Nos contactaremos en breve, gracias por elegirnos ${data.name}`);
         } else {
-          showErrorAlert("La solicitud no fue exitosa. Por favor, intente nuevamente.");
-          console.log(result.message)
+          showErrorAlert(result.message || "La solicitud no fue exitosa. Por favor, intente nuevamente.");
         }
       } else {
         showErrorAlert("Algo salió mal, revisa los campos");
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error("Error en ApiPostAdmin:", error);
-      showErrorAlert("Algo salió mal, vuelve a intentarlo más tarde");
+      showErrorAlert(error.message || "Algo salió mal, vuelve a intentarlo más tarde");
     }
   };
 
