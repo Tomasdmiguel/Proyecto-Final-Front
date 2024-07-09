@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -9,7 +10,9 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
   const [turno, setTurno] = useState<ITurno | undefined>();
 
   useEffect(() => {
-    const fetchTurnById = async (turnoId: string) => {
+    const fetchTurnBy = async (turnoId: string) => {
+      console.log("en el getid pasando el turno id");
+      console.log(turnoId);
       try {
         const turno: ITurno = await FetchTurnoById(turnoId);
         setTurno(turno);
@@ -19,7 +22,7 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
     };
 
     if (params.turnoId) {
-      fetchTurnById(params.turnoId);
+      fetchTurnBy(params.turnoId);
     }
   }, [params.turnoId]);
 
@@ -72,9 +75,10 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
       </div>
       <div className="space-y-2 mt-2 w-[25vw]">
         <div className="space-y-6 space-x-2">
-        <h3 className="text-4xl font-bold text-black ">{cancha?.name}</h3>
-        <p className="text-2xl font-semibold mb-2 text-secundario">${cancha?.price}</p>
-        <p className="text-2xl font-semibold mb-2 text-black"></p>
+          <h3 className="text-4xl font-bold text-white ">{cancha?.name}</h3>
+          <p className="text-2xl font-semibold mb-2 text-secundario">
+            {cancha?.price}
+          </p>
         </div>
         {preferenceId !== "" ? (
           <Wallet

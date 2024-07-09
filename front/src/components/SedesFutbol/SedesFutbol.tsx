@@ -50,7 +50,7 @@ export const SedesFutbol = ({ sedes }: { sedes: ISede[] }) => {
       />
       {searchTerm
         ? filteredSede?.map(
-            ({ id, name, location, description, canchas ,imgUrl}) => {
+            ({ id, name, location, description, canchas, imgUrl }) => {
               return (
                 <Link
                   href={`/sede/${id}`}
