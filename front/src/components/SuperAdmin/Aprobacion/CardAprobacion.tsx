@@ -35,6 +35,7 @@ const CardAprobacion: React.FC = () => {
       const result = await fetchAprobarCanchero(userSession, id);
       if (result.success) {
         showSuccessAlert("Aprobado");
+        setUserAprobacion((prev) => prev.filter((user) => user.id !== id));
       } else {
         showErrorAlert("Error al aprobarlo");
       }
@@ -48,6 +49,7 @@ const CardAprobacion: React.FC = () => {
       const result = await fetchCancelarCanchero(userSession, id);
       if (result.success) {
         showSuccessAlert("Denegado correctamente");
+        setUserAprobacion((prev) => prev.filter((user) => user.id !== id));
       } else {
         showErrorAlert("Error al cancelar");
       }
