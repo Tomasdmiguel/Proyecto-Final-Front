@@ -1,12 +1,14 @@
 "use client";
+const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
 import { io } from 'socket.io-client';
-import { useState, useEffect, FormEvent } from 'react';
-
-import './chat.css'
+import { useState, useEffect } from 'react';
 import { Message } from '@/interface/Ichat';
+
+
 //chat
-const socket = io('http://localhost:3000');
+const socket = io(`${apiKey}`);
+
 
 const Chat = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -14,7 +16,6 @@ const Chat = () => {
   const [message, setMessages] = useState<Message[]>([]);
   const [usuario, setUsuario] = useState<{ userDb: { name: string } } | null>(null);
 
-  
   useEffect(() => {
     const userFromLocalStorage = window.localStorage.getItem('userSession');
     if (userFromLocalStorage) {
@@ -26,17 +27,13 @@ const Chat = () => {
   useEffect(() => {
     if (usuario) { setIsConnected(true) }
     console.log('Usuario actual 2:', isConnected);
-    // isConnected no se actualiza inmediatamente dentro del mismo ciclo de renderizado de useEffect
-    // Esto significa que cuando imprimes isConnected en console.log, podría no mostrar el valor actualizado de isConnected
   }, [usuario]);
   
   useEffect(() => {
-    // Mostrar información de depuración
     console.log('ESTADO ACTUAL:', isConnected);
   }, [isConnected]);
   
   useEffect(() => {
-
     const handleConnect = () => {
       if (usuario) {
         setIsConnected(true);
@@ -50,7 +47,6 @@ const Chat = () => {
     };
 
     const handleMessage = (data: any) => {
-      // formato { usuario: 'Marcos Gómez', messages: 'sssss' }
       const newMessage: Message = {
         usuario: data.usuario,
         message: data.messages,
@@ -70,7 +66,6 @@ const Chat = () => {
     };
   }, [usuario]);
 
-
   const enviarMensaje = (e: any) => {
     e.preventDefault();
 
@@ -86,30 +81,37 @@ const Chat = () => {
   };
 
   return (
-    <div >
-      <h1>{isConnected ? 'CONECTADO' : 'DESCONECTADO'}</h1>
-      <h2>Usuario logueado: {usuario?.userDb.name}</h2>
+    <div className="p-4 text-black">
+      <h1 className={`text-2xl font-bold ${isConnected ? 'text-green-500' : 'text-red-500'}`}>
+        {isConnected ? 'CONECTADO' : 'DESCONECTADO'}
+      </h1>
+      <h2 className="text-xl mb-4">Usuario logueado: {usuario?.userDb.name}</h2>
 
-      {<div className="chat-screen">
-        <div className="chat-messages">
+      <div className="flex flex-col h-96 border-2 border-gray-300 rounded-lg p-4">
+        <div className="flex-grow overflow-y-auto mb-4">
           <ul>
             {message.map((mensaje, index) => (
-              <li key={index}> {mensaje.usuario} : {mensaje.message} </li>
+              <li key={index} className="mb-2">
+                <span className="font-bold">{mensaje.usuario}:</span> {mensaje.message}
+              </li>
             ))}
           </ul>
         </div>
-        <form onSubmit={enviarMensaje}>
+        <form onSubmit={enviarMensaje} className="flex">
           <input
             type="text"
             value={nuevoMessage}
             onChange={(e) => setNuevoMessage(e.target.value)}
+            className="flex-grow border-2 border-gray-300 rounded-lg p-2 mr-2"
           />
-          <button type="submit">ENVIAR</button>
+          <button type="submit" className="bg-blue-500 text-white rounded-lg p-2">
+            ENVIAR
+          </button>
         </form>
-
-      </div>}
+      </div>
     </div>
   );
 };
+
 
 export default Chat;
