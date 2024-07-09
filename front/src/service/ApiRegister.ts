@@ -18,8 +18,8 @@ export const FetchRegister = async (data: IRegister) => {
       throw new Error(errorMessage);
     }
 
-    return { success: true, message: "Registrado exitosamente" }; // Registro exitoso, devuelve un mensaje personalizado
+    return { success: true, message: "Registrado exitosamente" };
   } catch (error: any) {
-    return { success: false, message: error.message }; // Manejo de errores consistente
+    return { success: false, message: error.message }; 
   }
 };

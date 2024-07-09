@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ISede } from "@/interface/ISedes";
-import { IUserSession } from "@/interface/context";
 import { useSport } from "@/context/SportContext";
 import { getSedes } from "@/service/ApiSedes";
 import SedesAdmin from "@/components/SedesAdmin/SedesAdmin";
