@@ -19,7 +19,11 @@ const ApiPostAdmin = async ( data:addAdmin) => {
     }
 
     const result = await response.json();
-    return result;
+    return {
+      success: true,
+      message: "Admin registrado correctamente",
+      data: result,
+    };
   } catch (error) {
     console.error("Error during the API request:", error);
     throw error;
