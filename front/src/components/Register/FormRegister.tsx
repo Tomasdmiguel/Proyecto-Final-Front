@@ -12,9 +12,15 @@ import { CRegister } from "@/helpers/Controllers/CRegister";
 import { FetchRegister } from "@/service/ApiRegister";
 import { IRegister } from "@/interface/IRegister";
 import { useSport } from "@/context/SportContext";
+import {
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/helpers/alert.helper/alert.helper";
+import { useUser } from "@/context/UserContext";
 
 const FormRegister = () => {
   const { sport } = useSport();
+  const { logIn } = useUser();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [data, setData] = useState<IRegister>({
@@ -48,16 +54,11 @@ const FormRegister = () => {
       try {
         const response = await FetchRegister(data);
         if (response.success) {
-          Swal.fire({
-            icon: "success",
-            title: response.message,
-          });
+          showSuccessAlert("Registro exitoso");
+
           history.push("/Login");
         } else {
-          Swal.fire({
-            icon: "error",
-            title: response.message,
-          });
+          showErrorAlert("Error al registrarse");
         }
       } catch (error) {
         Swal.fire({
