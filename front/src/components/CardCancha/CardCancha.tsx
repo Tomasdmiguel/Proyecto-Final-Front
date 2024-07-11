@@ -20,6 +20,7 @@ export const CardCancha = ({
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const [canchaId, setCanchaId] = useState<ICancha>();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const getCanchaById = async (id: string) => {
@@ -41,6 +42,7 @@ export const CardCancha = ({
       router.push("/Login");
     } else {
       try {
+        setLoading(true);
         await FetchUserTurn(turnoId, userData);
         router.push(`/CardPago/${turnoId}`);
       } catch (error) {
@@ -48,6 +50,8 @@ export const CardCancha = ({
         alert(
           "Hubo un problema al hacer la reserva. Por favor intenta de nuevo."
         );
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -235,6 +239,7 @@ export const CardCancha = ({
                       : "text-terciario-white border-terciario-white"
                   }`}
                 >
+
                   <div>
                     {turno.status == "libre" ? (
                       <p className="capitalize font-semibold col-span-1">

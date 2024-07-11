@@ -12,6 +12,7 @@ import { useSport } from "@/context/SportContext";
 const FormAdmin = () => {
   const { sport } = useSport();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState({
     email: "",
@@ -43,6 +44,7 @@ const FormAdmin = () => {
     }
 
     try {
+      setLoading(true);
       if (CAdmin(data)) {
         const result = await ApiPostAdmin(data);
 
@@ -67,6 +69,8 @@ const FormAdmin = () => {
       showErrorAlert(
         error.message || "Algo salió mal, vuelve a intentarlo más tarde"
       );
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -336,7 +340,14 @@ const FormAdmin = () => {
               ? "border-orange-500 hover:bg-orange-500"
               : "border-main hover:bg-main"
           } text-terciario-white p-3 rounded-lg duration-300 ease-in-out`}
+          disabled={loading}
         >
+          {loading && (
+                 <div className="flex justify-center items-center">
+                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                 <span className="ml-3">Cargando...</span>
+                 </div>
+              )}
           Enviar
         </button>
       </form>
