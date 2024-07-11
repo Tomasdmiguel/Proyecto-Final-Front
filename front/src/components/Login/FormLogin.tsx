@@ -18,7 +18,7 @@ import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
-import { IUserSession } from "@/interface/context";
+import { IUser, IUserDb, IUserSession } from "@/interface/context";
 import { useSport } from "@/context/SportContext";
 
 //*Variables de entorno firebase
@@ -59,15 +59,12 @@ const FormLogin = () => {
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken || null;
-      const userDb = {
+      const userDb: IUserDb = {
         displayName: result.user.displayName || "",
-        address: "",
         email: result.user.email || "",
         uid: result.user.uid,
         name: result.user.displayName || "",
         phone: result.user.phoneNumber || "",
-        rol: "",
-        sedes: [],
       };
 
       PostRegistroGoogle(userDb);
