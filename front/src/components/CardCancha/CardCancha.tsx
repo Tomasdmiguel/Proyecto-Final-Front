@@ -56,11 +56,25 @@ export const CardCancha = ({
     }
   };
 
-  const turnosHoy = canchaId?.turnos.filter(
-    (turno: ITurno) =>
-      turno.date === date &&
-      new Date(turno.date + "T" + turno.time) > new Date()
-  );
+  const turnosHoy: ITurno[] =
+    canchaId?.turnos.filter(
+      (turno: ITurno) =>
+        turno.date === date &&
+        new Date(turno.date + "T" + turno.time) > new Date()
+    ) ?? [];
+
+  turnosHoy.sort((a, b) => {
+    if (!a.time || !b.time) return 0;
+
+    const [aHours, aMinutes] = a.time.split(":").map(Number);
+    const [bHours, bMinutes] = b.time.split(":").map(Number);
+
+    if (aHours !== bHours) {
+      return aHours - bHours;
+    } else {
+      return aMinutes - bMinutes;
+    }
+  });
 
   const mouseEnter = () => {
     setHover(true);
@@ -214,7 +228,7 @@ export const CardCancha = ({
               return (
                 <div
                   key={turno.id}
-                  className={`w-full min-h-[5vh] border-2 rounded-lg flex flex-row items-center justify-between p-3 text-xl ${
+                  className={`w-full min-h-[5vh] border-2 rounded-lg grid grid-cols-5 p-3 text-xl ${
                     hover && cancha.sport == 1
                       ? "text-main border-main hover:bg-main hover:text-terciario-white"
                       : cancha.sport == 2
