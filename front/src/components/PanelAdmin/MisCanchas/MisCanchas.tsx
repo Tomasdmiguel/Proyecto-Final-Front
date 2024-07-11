@@ -45,7 +45,7 @@ const MisCanchas = () => {
 
   return (
     <div className="container mx-auto p-6 max-h-screen overflow-y-auto pb-20">
-      <h1 className="text-4xl font-extrabold mb-8 text-gray-800">Mis Sedes</h1>
+      <h1 className="text-4xl font-extrabold mb-8 text-gray-800">Mis Canchas</h1>
       {sedes.length > 0 ? (
         <div className="bg-white shadow-lg rounded-lg p-8">
           <ul className="space-y-8">

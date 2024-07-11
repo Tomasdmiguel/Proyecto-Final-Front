@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import MisCanchas from "./MisCanchas/MisCanchas";
 import MisSedes from "./MisSedes/MisSedes";
-import MisEstadisticas from "./Estadisticas/MisEstadisticas";
+import Estadisticas from "../Estadisticas/Estadisticas";
 import { useRouter } from "next/navigation";
 
 const PanelAdmin = () => {
@@ -12,13 +12,13 @@ const PanelAdmin = () => {
   const renderView = () => {
     switch (activeView) {
       case "estadistica":
-        return <MisEstadisticas />;
+        return <Estadisticas/>;
       case "mis_sedes":
         return <MisSedes />;
       case "mis_canchas":
         return <MisCanchas />;
       default:
-        return <MisEstadisticas />;
+        return <Estadisticas/> ;
     }
   };
 
