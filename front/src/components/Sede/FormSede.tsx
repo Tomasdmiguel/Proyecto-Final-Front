@@ -7,6 +7,7 @@ import { IUser } from "@/interface/IUser";
 import { IFormSede } from "@/interface/IFormSede";
 import { CSede } from "@/helpers/Controllers/CSede";
 import { fetchFormSede } from "@/service/ApiFormSede";
+import { useSport } from "@/context/SportContext";
 
 const FormSede = () => {
   const [datoSede, setdatoSede] = useState<IFormSede>({
@@ -16,6 +17,7 @@ const FormSede = () => {
   });
   const [userData, setUserData] = useState<IUser | undefined>();
   const [dataFile, setFile] = useState<File | null>(null);
+  const { sport } = useSport();
   const route = useRouter();
 
   useEffect(() => {
@@ -97,7 +99,7 @@ const FormSede = () => {
   };
 
   return (
-    <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text">
+    <div className="bg-gray-700 max-w-md w-full p-8 rounded-lg shadow-lg text">
       <h1 className="text-terciario-white text-center text-3xl font-bold mb-6">
         RESERVA GOL
       </h1>
@@ -152,9 +154,9 @@ const FormSede = () => {
           />
         </div>
 
-        <div className="bg-main max-w-md w-full p-8 rounded-lg shadow-lg text">
+        <div className="bg-terciario-white max-w-md w-full p-8 rounded-lg shadow-lg text">
           <div className="mb-6">
-            <label htmlFor="img" className="block text-terciario-white mb-2">
+            <label htmlFor="img" className="block text-gray-700 mb-2">
               Imagen
             </label>
             <input
@@ -162,7 +164,7 @@ const FormSede = () => {
               name="file"
               placeholder="Imagen"
               onChange={handleFileChange}
-              className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
+              className="w-full p-3 rounded-lg bg-gray-700 text-terciario-white focus:border-yellow-600"
             />
           </div>
         </div>

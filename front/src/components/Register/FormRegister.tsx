@@ -37,7 +37,7 @@ const FormRegister = () => {
   };
 
   //*Funcion que guarda los cambios
-  const hanldeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const { value, name } = event.target;
     setData({
@@ -97,7 +97,7 @@ const FormRegister = () => {
             name="email"
             value={data.email}
             placeholder="Escribí tu email"
-            onChange={hanldeChange}
+            onChange={handleChange}
             className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${
               sport == 2
                 ? "ring-blue-400"
@@ -117,7 +117,7 @@ const FormRegister = () => {
             name="name"
             value={data.name}
             placeholder="Nombre de usuario"
-            onChange={hanldeChange}
+            onChange={handleChange}
             className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${
               sport == 2
                 ? "ring-blue-400"
@@ -137,7 +137,7 @@ const FormRegister = () => {
             name="phone"
             value={data.phone}
             placeholder="Número telefónico"
-            onChange={hanldeChange}
+            onChange={handleChange}
             className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${
               sport == 2
                 ? "ring-blue-400"
@@ -158,7 +158,7 @@ const FormRegister = () => {
               name="password"
               value={data.password}
               placeholder="Escribe tu contraseña"
-              onChange={hanldeChange}
+              onChange={handleChange}
               className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${
                 sport == 2
                   ? "ring-blue-400"
@@ -234,7 +234,7 @@ const FormRegister = () => {
             name="confirmPassword"
             value={data.confirmPassword}
             placeholder="Escribe tu contraseña nuevamente"
-            onChange={hanldeChange}
+            onChange={handleChange}
             className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${
               sport == 2
                 ? "ring-blue-400"
