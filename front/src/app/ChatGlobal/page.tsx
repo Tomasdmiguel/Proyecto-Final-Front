@@ -16,7 +16,7 @@ export default function ChatGlobal() {
 
   return (
     <div>
-      <Chat deporte={deporte} />
+      <Chat />
     </div>
   );
 }
