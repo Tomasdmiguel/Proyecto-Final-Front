@@ -20,6 +20,7 @@ export const CardCancha = ({
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const [canchaId, setCanchaId] = useState<ICancha>();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const getCanchaById = async (id: string) => {
@@ -41,6 +42,7 @@ export const CardCancha = ({
       router.push("/Login");
     } else {
       try {
+        setLoading(true);
         await FetchUserTurn(turnoId, userData);
         router.push(`/CardPago/${turnoId}`);
       } catch (error) {
@@ -48,6 +50,8 @@ export const CardCancha = ({
         alert(
           "Hubo un problema al hacer la reserva. Por favor intenta de nuevo."
         );
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -366,19 +370,22 @@ export const CardCancha = ({
                     </svg>
                   )}
                   {turno.status == "libre" ? (
-                    // <Link
-                    //   href={`${userData ? `/CardPago/${turno.id}` : "/Login"}`}
-                    //   className="uppercase font-semibold"
-                    // >
-                    <button
-                      type="button"
-                      className="uppercase font-semibold"
-                      onClick={() => alertClick(turno.id)}
-                    >
-                      Reservar
-                    </button>
+                   
+                   <button
+              type="button"
+              className="uppercase font-semibold relative"
+              onClick={() => alertClick(turno.id)}
+              disabled={loading}
+            >
+              {loading && (
+                <div className="inset-0 flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+                </div>
+              )}
+              {loading ? "Cargando..." : "Reservar"}
+            </button>
                   ) : (
-                    // </Link>
+                  
                     <p className="uppercase">reservado</p>
                   )}
                 </div>
