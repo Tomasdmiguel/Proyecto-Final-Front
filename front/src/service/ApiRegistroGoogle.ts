@@ -10,8 +10,8 @@ export const PostRegistroGoogle = async (data: any) => {
       },
       body: JSON.stringify(dataGoogle),
     });
+
     if (response.ok) {
-      console.log("Usuario registrado correctamente");
       return response.json();
     } else {
       const errorMessage = await response.text();

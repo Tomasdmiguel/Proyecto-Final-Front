@@ -17,6 +17,7 @@ const FormSede = () => {
   });
   const [userData, setUserData] = useState<IUser | undefined>();
   const [dataFile, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false); 
   const { sport } = useSport();
   const route = useRouter();
 
@@ -47,6 +48,7 @@ const FormSede = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
 
     if (CSede(datoSede)) {
       try {
@@ -88,6 +90,8 @@ const FormSede = () => {
           title: "Error inesperado",
           text: "Error desconocido, intenta más tarde",
         });
+      } finally {
+        setLoading(false);
       }
     } else {
       Swal.fire({
@@ -95,6 +99,7 @@ const FormSede = () => {
         title: "Datos inválidos",
         text: "Por favor, revisa los datos e intenta nuevamente",
       });
+      setLoading(false);
     }
   };
 
@@ -171,9 +176,19 @@ const FormSede = () => {
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600"
+          className={`w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600 ${
+            loading ? "cursor-not-allowed opacity-50" : ""
+          }`}
+          disabled={loading}
         >
-          Crear sede
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <div className="spinner border-2 border-gray-200 border-t-2 border-t-teal-500 rounded-full w-4 h-4 animate-spin mr-2"></div>
+              Cargando...
+            </div>
+          ) : (
+            "Crear sede"
+          )}
         </button>
       </form>
 
@@ -186,4 +201,5 @@ const FormSede = () => {
     </div>
   );
 };
+
 export default FormSede;

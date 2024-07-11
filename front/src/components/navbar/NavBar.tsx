@@ -11,7 +11,7 @@ export default function NavBar() {
 
   return (
     <nav
-      className={`flex flex-row justify-center items-center h-[15vh] w-full p-2 bg-terciario-white border-b-2 ${
+      className={`flex flex-row justify-center items-center h-[15vh] w-screen p-2 bg-terciario-white border-b-2 ${
         sport == 2
           ? "border-blue-400 text-blue-400"
           : sport == 3
@@ -76,7 +76,7 @@ export default function NavBar() {
           userData?.userDb.rol === "admin" ||
           userData?.token ? (
           <div className=" flex flex-row items-center space-x-10 px-5">
-            <Link href="/ChatGlobal">
+            <Link href="/Chat">
               <svg
                 className={`fill-none ${
                   sport === 2
