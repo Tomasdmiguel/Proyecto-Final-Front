@@ -5,7 +5,6 @@ import Carousel from "../carusel/Carusel";
 import CarruselC from "../carruselCancha/carrusel";
 import { getCanchas } from "@/service/ApiGetCanchas";
 import TitleHome from "../TitleHome/TitleHome";
-import Chat from "../chat/chat";
 
 export const HomeContainer = async () => {
   const sedes = await getSedes();
