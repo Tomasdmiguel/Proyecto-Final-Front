@@ -17,8 +17,8 @@ export interface IUserSession {
     id?: string;
     name: string;
     phone: string;
-    rol: string;
-    sedes: ISede[];
+    rol?: string;
+    sedes?: ISede[];
   };
 }
 

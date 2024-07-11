@@ -20,6 +20,7 @@ import {
 } from "@/helpers/alert.helper/alert.helper";
 import { IUserSession } from "@/interface/context";
 import { useSport } from "@/context/SportContext";
+import { fetchUserById } from "@/service/ApiUser";
 
 //*Variables de entorno firebase
 
@@ -65,11 +66,10 @@ const FormLogin = () => {
         email: result.user.email || "",
         uid: result.user.uid,
         name: result.user.displayName || "",
-        phone: result.user.phoneNumber || "",
-        rol: "",
-        sedes: [],
+        phone: result.user.phoneNumber || ""
+        
       };
-
+      console.log(userDb.uid)
       PostRegistroGoogle(userDb);
 
       const userSession: IUserSession = { token, userDb };

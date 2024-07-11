@@ -11,7 +11,7 @@ export const PostRegistroGoogle = async(data:any) => {
         },
         body: JSON.stringify(dataGoogle),
       });
-    console.log(dataGoogle);
+    console.log(dataGoogle, 'estoy en data google');
       if (response.ok) {
         console.log("Usuario registrado correctamente");
     
