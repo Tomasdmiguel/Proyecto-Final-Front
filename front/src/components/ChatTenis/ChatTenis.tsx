@@ -1,4 +1,5 @@
 "use client";
+
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
 import { io } from "socket.io-client";
@@ -8,11 +9,10 @@ import { database } from "../../../firebase.config";
 import { onValue, ref, set } from "firebase/database";
 import { useSport } from "@/context/SportContext";
 
-//chat
 const socket = io(`${apiKey}`);
 
-const Chat = () => {
-  const { sport, handleSport } = useSport();
+export const ChatTenis = () => {
+  const { sport } = useSport();
   const [isConnected, setIsConnected] = useState(false);
   const [nuevoMessage, setNuevoMessage] = useState("");
   const [message, setMessages] = useState<Message[]>([]);
@@ -98,10 +98,9 @@ const Chat = () => {
     });
     setNuevoMessage("");
   };
-
   return (
     <div
-      className={`flex min-h-screen bg-terciario-white ${
+      className={`flex min-h-[80vh] w-full bg-terciario-white ${
         sport == 2
           ? "text-blue-400"
           : sport == 3
@@ -109,73 +108,8 @@ const Chat = () => {
           : "text-main"
       }`}
     >
-      {/* Sidebar izquierdo */}
-      <div
-        className={`w-1/4 border-r-2 text-terciario-white ${
-          sport === 2
-            ? "bg-blue-400 border-blue-400"
-            : sport === 3
-            ? "bg-orange-500 border-orange-500"
-            : "bg-main border-main"
-        } overflow-y-auto`}
-      >
-        <div className="pt-4 text-center">
-          <h2 className="text-xl font-semibold mb-4">Chats</h2>
-          <div className="flex flex-col bg-terciario-white min-h-[94vh]">
-            <button
-              onClick={() => handleSport(0)}
-              className={` font-medium p-3 ${
-                sport === 2
-                  ? "text-blue-400"
-                  : sport === 3
-                  ? "text-orange-500"
-                  : "text-main"
-              } hover:bg-slate-200  ease-in-out duration-150`}
-            >
-              Global
-            </button>
-            <button
-              onClick={() => handleSport(1)}
-              className={`bg-terciario-white font-medium p-3 ${
-                sport === 2
-                  ? "text-blue-400"
-                  : sport === 3
-                  ? "text-orange-500"
-                  : "text-main"
-              }  hover:bg-slate-200  ease-in-out duration-150`}
-            >
-              Fútbol
-            </button>
-            <button
-              onClick={() => handleSport(2)}
-              className={`bg-terciario-white font-medium p-3 ${
-                sport === 2
-                  ? "text-blue-400"
-                  : sport === 3
-                  ? "text-orange-500"
-                  : "text-main"
-              }  hover:bg-slate-200  ease-in-out duration-150`}
-            >
-              Padel
-            </button>
-            <button
-              onClick={() => handleSport(3)}
-              className={`bg-terciario-white font-medium p-3 ${
-                sport === 2
-                  ? "text-blue-400"
-                  : sport === 3
-                  ? "text-orange-500"
-                  : "text-main"
-              }  hover:bg-slate-200  ease-in-out duration-150`}
-            >
-              Tenis
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Área principal del chat */}
-      <div className="flex-1 flex flex-col">
+      <div className=" w-full flex flex-col">
         {/* Encabezado del chat */}
         <div
           className={`p-4 border-b ${
@@ -284,4 +218,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatTenis;
