@@ -11,8 +11,8 @@ import { useSport } from "@/context/SportContext";
 //chat
 const socket = io(`${apiKey}`);
 
-const Chat = ({ deporte }: { deporte: string }) => {
-  const { sport } = useSport();
+const Chat = () => {
+  const { sport, handleSport } = useSport();
   const [isConnected, setIsConnected] = useState(false);
   const [nuevoMessage, setNuevoMessage] = useState("");
   const [message, setMessages] = useState<Message[]>([]);
@@ -27,14 +27,14 @@ const Chat = ({ deporte }: { deporte: string }) => {
       setUsuario(user);
     }
 
-    const messagesRef = ref(database, `messages/${deporte}`);
+    const messagesRef = ref(database, `messages/${sport}`);
     onValue(messagesRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
         setMessages(data);
       }
     });
-  }, [deporte]);
+  }, [sport]);
 
   useEffect(() => {
     if (usuario) {
@@ -51,7 +51,7 @@ const Chat = ({ deporte }: { deporte: string }) => {
     const handleConnect = () => {
       if (usuario) {
         setIsConnected(true);
-        socket.emit("joinRoom", deporte);
+        socket.emit("joinRoom", sport);
       }
       console.log("usuario conectado desde connect");
     };
@@ -59,7 +59,7 @@ const Chat = ({ deporte }: { deporte: string }) => {
     const handleDisconnect = () => {
       console.log("Usuario desconectado del socket");
       setIsConnected(false);
-      socket.emit("leaveRoom", deporte);
+      socket.emit("leaveRoom", sport);
     };
 
     const handleMessage = (data: any) => {
@@ -68,7 +68,7 @@ const Chat = ({ deporte }: { deporte: string }) => {
         message: data.messages,
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
-      set(ref(database, `messages/${deporte}`), [...message, newMessage]);
+      set(ref(database, `messages/${sport}`), [...message, newMessage]);
     };
 
     socket.on("connect", handleConnect);
@@ -81,7 +81,7 @@ const Chat = ({ deporte }: { deporte: string }) => {
       socket.off("disconnect", handleDisconnect);
       socket.off("chat-mensaje", handleMessage);
     };
-  }, [usuario, message, deporte]);
+  }, [usuario, message, sport]);
 
   const enviarMensaje = (e: any) => {
     e.preventDefault();
@@ -90,9 +90,9 @@ const Chat = ({ deporte }: { deporte: string }) => {
       alert("Usuario no encontrado");
       return;
     }
-    socket.emit("joinRoom", deporte);
+    socket.emit("joinRoom", sport);
     socket.emit("chat-mensaje", {
-      room: deporte,
+      room: sport,
       usuario: usuario.userDb.name,
       messages: nuevoMessage,
     });
@@ -122,8 +122,8 @@ const Chat = ({ deporte }: { deporte: string }) => {
         <div className="pt-4 text-center">
           <h2 className="text-xl font-semibold mb-4">Chats</h2>
           <div className="flex flex-col bg-terciario-white min-h-[94vh]">
-            <a
-              href="#"
+            <button
+              onClick={() => handleSport(0)}
               className={` font-medium p-3 ${
                 sport === 2
                   ? "text-blue-400"
@@ -133,9 +133,9 @@ const Chat = ({ deporte }: { deporte: string }) => {
               } hover:bg-slate-200  ease-in-out duration-150`}
             >
               Global
-            </a>
-            <a
-              href="#"
+            </button>
+            <button
+              onClick={() => handleSport(1)}
               className={`bg-terciario-white font-medium p-3 ${
                 sport === 2
                   ? "text-blue-400"
@@ -145,9 +145,9 @@ const Chat = ({ deporte }: { deporte: string }) => {
               }  hover:bg-slate-200  ease-in-out duration-150`}
             >
               Fútbol
-            </a>
-            <a
-              href="#"
+            </button>
+            <button
+              onClick={() => handleSport(2)}
               className={`bg-terciario-white font-medium p-3 ${
                 sport === 2
                   ? "text-blue-400"
@@ -157,9 +157,9 @@ const Chat = ({ deporte }: { deporte: string }) => {
               }  hover:bg-slate-200  ease-in-out duration-150`}
             >
               Padel
-            </a>
-            <a
-              href="#"
+            </button>
+            <button
+              onClick={() => handleSport(3)}
               className={`bg-terciario-white font-medium p-3 ${
                 sport === 2
                   ? "text-blue-400"
@@ -169,7 +169,7 @@ const Chat = ({ deporte }: { deporte: string }) => {
               }  hover:bg-slate-200  ease-in-out duration-150`}
             >
               Tenis
-            </a>
+            </button>
           </div>
         </div>
       </div>

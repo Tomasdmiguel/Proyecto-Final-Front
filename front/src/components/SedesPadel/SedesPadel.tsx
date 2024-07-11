@@ -77,7 +77,6 @@ export const SedesPadel = ({ sedes }: { sedes: ISede[] }) => {
               </Link>
             );
           })}
-          <Chat deporte="padel" />
     </div>
   );
 };
