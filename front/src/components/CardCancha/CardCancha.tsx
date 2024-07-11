@@ -379,7 +379,7 @@ export const CardCancha = ({
             >
               {loading && (
                 <div className="inset-0 flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-800"></div>
                 </div>
               )}
               {loading ? "Cargando..." : "Reservar"}
