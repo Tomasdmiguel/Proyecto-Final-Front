@@ -1,15 +1,10 @@
-//*Este modulo es pára crear una cancha cuando ya tengas una sede creada
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-
-//*Importacion para controlar el formulario
 import { CCancha } from "@/helpers/Controllers/CCancha";
 import { IFormCancha } from "@/interface/IFormCancha";
-
-//*Importacion para crear una cancha peticion al back
 import { fetchFormCancha } from "@/service/ApiFormCancha";
 import { ISede } from "@/interface/ISedes";
 import { IUserSession } from "@/interface/context";
@@ -29,8 +24,8 @@ const FormCancha = ({ id }: { id: string }) => {
     techado: false,
   });
   const [userData, setUserData] = useState<IUserSession | null>(null);
-
   const [userSedes, setUserSedes] = useState<ISede[]>([]);
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -62,9 +57,10 @@ const FormCancha = ({ id }: { id: string }) => {
     });
   };
 
-  //*Funcion que envia el formulario
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
 
     if (CCancha(data)) {
       try {
@@ -96,14 +92,17 @@ const FormCancha = ({ id }: { id: string }) => {
           title: "Error inesperado",
           text: "Error desconocido, intenta más tarde",
         });
+      } finally {
+        setLoading(false);
       }
     } else {
-      // Se maneja el error de la validación si salió todo mal
+
       Swal.fire({
         icon: "warning",
         title: "Datos inválidos",
         text: "Por favor, revisa los datos e intenta nuevamente",
       });
+      setLoading(false); 
     }
   };
 
@@ -126,7 +125,8 @@ const FormCancha = ({ id }: { id: string }) => {
             name="sedeName"
             value={data.sedeName}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
+          >
             <option value="">Selecciona una sede</option>
             {filteredSedes?.map((sede) => (
               <option key={sede.name} value={sede.name}>
@@ -141,7 +141,7 @@ const FormCancha = ({ id }: { id: string }) => {
             Nombre de la cancha
           </label>
           <input
-            type="name"
+            type="text"
             name="name"
             value={data.name}
             placeholder="Cancha 1"
@@ -158,7 +158,8 @@ const FormCancha = ({ id }: { id: string }) => {
             name="sport"
             value={data.sport}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
+          >
             <option value="">Selecciona que deporte</option>
             <option value={1}>Fútbol</option>
             <option value={2}>Padel</option>
@@ -167,7 +168,7 @@ const FormCancha = ({ id }: { id: string }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="time" className="block text-terciario-white mb-2">
+          <label htmlFor="timeopen" className="block text-terciario-white mb-2">
             Horario de apertura
           </label>
           <input
@@ -180,7 +181,8 @@ const FormCancha = ({ id }: { id: string }) => {
 
           <label
             htmlFor="timeclose"
-            className="block text-terciario-white mb-2">
+            className="block text-terciario-white mb-2"
+          >
             Horario de cierre
           </label>
           <input
@@ -200,7 +202,8 @@ const FormCancha = ({ id }: { id: string }) => {
             name="type"
             value={data.type}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
+          >
             <option value="">Tipo de cancha</option>
             <option>Sintético</option>
             <option>Pasto</option>
@@ -246,7 +249,8 @@ const FormCancha = ({ id }: { id: string }) => {
             name="techado"
             value={String(data.techado)}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600">
+            className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
+          >
             <option value="">Selecciona una opción</option>
             <option value="true">Sí</option>
             <option value="false">No</option>
@@ -255,8 +259,19 @@ const FormCancha = ({ id }: { id: string }) => {
 
         <button
           type="submit"
-          className="w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600">
-          Crear
+          className={`w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600 ${
+            loading ? "cursor-not-allowed opacity-50" : ""
+          }`}
+          disabled={loading}
+        >
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <div className="spinner border-2 border-gray-200 border-t-2 border-t-teal-500 rounded-full w-4 h-4 animate-spin mr-2"></div>
+              Cargando...
+            </div>
+          ) : (
+            "Crear"
+          )}
         </button>
       </form>
 
