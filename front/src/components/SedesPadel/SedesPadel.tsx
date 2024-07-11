@@ -3,7 +3,6 @@ import { useSport } from "@/context/SportContext";
 import { ISede } from "@/interface/ISedes";
 import Link from "next/link";
 import { useState } from "react";
-import Chat from "../chat/chat";
 
 export const SedesPadel = ({ sedes }: { sedes: ISede[] }) => {
   const { sport, closeSport } = useSport();
