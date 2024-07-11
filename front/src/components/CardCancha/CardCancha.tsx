@@ -5,7 +5,6 @@ import { showErrorAlert } from "@/helpers/alert.helper/alert.helper";
 import { ICancha, ITurno } from "@/interface/ISedes";
 import { FetchCanchaById } from "@/service/ApiGetCanchaById";
 import { FetchUserTurn } from "@/service/ApiPostUserTurn";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
@@ -41,12 +40,6 @@ export const CardCancha = ({
       showErrorAlert("Inicie sesión para reservar un turno");
       router.push("/Login");
     } else {
-      if (!userData) {
-        showErrorAlert(
-          "Hubo un problema con su cuenta. Por favor intente nuevamente."
-        );
-        return;
-      }
       try {
         await FetchUserTurn(turnoId, userData);
         router.push(`/CardPago/${turnoId}`);

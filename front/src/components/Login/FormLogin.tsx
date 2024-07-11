@@ -3,14 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import dotenv from "dotenv";
 //*Importación de Controlador para este formulario
 import { CLogin } from "@/helpers/Controllers/CLogin";
 //*Importación de función para hacer peticiones para este form
 import { fetchLogin } from "@/service/ApiLogin";
 //!Importación para el login por Google
-import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 //*Importacion para registrar uusuario que se logea de google
 import { PostRegistroGoogle } from "@/service/ApiRegistroGoogle";
 import { useUser } from "@/context/UserContext";
@@ -18,26 +16,10 @@ import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
-import { IUserSession } from "@/interface/context";
+import { IUserDb, IUserSession } from "@/interface/context";
 import { useSport } from "@/context/SportContext";
-
-//*Variables de entorno firebase
-
-dotenv.config();
-
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
-};
-
-const app = initializeApp(firebaseConfig);
-const provider = new GoogleAuthProvider();
-const auth = getAuth(app);
+import { FetchUserByEmail } from "@/service/Superadmin/ApiGetUserByEmail";
+import { provider, auth } from "../../../firebase.config";
 
 const FormLogin = () => {
   const { sport } = useSport();
@@ -59,20 +41,25 @@ const FormLogin = () => {
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken || null;
-      const userDb = {
+      const userDb: IUserDb = {
         displayName: result.user.displayName || "",
-        address: "",
         email: result.user.email || "",
         uid: result.user.uid,
         name: result.user.displayName || "",
+
         phone: result.user.phoneNumber || "",
         rol: "",
-        sedes: [],
       };
 
-      PostRegistroGoogle(userDb);
+      await PostRegistroGoogle(userDb);
+      const user = await FetchUserByEmail(userDb.email);
+      console.log(user, "user por email");
+      const userSession: IUserSession = {
+        token,
+        userDb: user,
+      };
+      console.log(userSession, "user sesion");
 
-      const userSession: IUserSession = { token, userDb };
       logIn(userSession);
 
       showSuccessAlert(

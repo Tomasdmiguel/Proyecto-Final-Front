@@ -2,9 +2,8 @@
 import { useSport } from "@/context/SportContext";
 import { useUser } from "@/context/UserContext";
 import { ISede } from "@/interface/ISedes";
-import { IUserSession } from "@/interface/context";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+
 
 export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
   const { sport } = useSport();
@@ -15,7 +14,7 @@ export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
   );
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg space-y-4 space-x-10 w-[60%] text-black">
+    <div className="bg-white p-8 rounded-lg shadow-lg space-y-4 space-x-10 min-w-[60vw] max-w-[80vw] text-black">
       <h1 className="text-3xl font-bold text-black">Mis sedes</h1>
       <p className="text-lg text-gray-400">
         Esta es la sección de tus sedes creadas.
@@ -24,12 +23,12 @@ export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
         {filteredSedes.map((sede) => (
           <div
             key={sede.name}
-            className={`w-full max-h-60 rounded-sm shadow-xl  ${
+            className={`w-fullrounded-sm shadow-xl ${
               sport == 2
-                ? "hover:bg-blue-400"
+                ? "hover:bg-blue-400 hover:shadow-blue-400 hover:shadow-md"
                 : sport == 3
-                ? "hover:bg-orange-500"
-                : "hover:bg-main"
+                ? "hover:bg-orange-500 hover:shadow-orange-500 hover:shadow-md"
+                : "hover:bg-main hover:shadow-main hover:shadow-md"
             } hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6`}
           >
             <h2 className="font-Marko font-bold text-3xl">{sede?.name}</h2>
@@ -62,6 +61,18 @@ export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
           href={`/FormCancha/${userData?.userDb?.id}`}
         >
           Crear Cancha
+        </Link>
+        <Link
+          className={` ${
+            sport == 2
+              ? "hover:bg-blue-400 border-blue-400 text-blue-400"
+              : sport == 3
+              ? "hover:bg-orange-500 border-orange-500 text-orange-500"
+              : "hover:bg-main border-main text-main"
+          }  md:text-lg p-3 rounded-lg  border-x-2 border-y-2  text-white font-semibold bg-black  duration-200 ease-in-out`}
+          href={"/PanelAdmin"}
+        >
+          Panel de control
         </Link>
       </div>
     </div>

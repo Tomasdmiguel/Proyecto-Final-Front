@@ -1,5 +1,6 @@
 // ReactNode
 import { ReactNode } from "react";
+import { ITurno } from "./ISedes";
 
 export interface ISede {
   name: string;
@@ -11,15 +12,29 @@ export interface IUserSession {
   token: string | null;
   userDb: {
     displayName: string;
-    address: string;
+    address?: string;
     email: string;
     uid?: string;
     id?: string;
     name: string;
     phone: string;
-    rol: string;
-    sedes: ISede[];
+    rol?: string;
+    sedes?: ISede[];
+    turnos?: ITurno[];
+
   };
+}
+export interface IUserDb {
+  displayName: string;
+  address?: string;
+  email: string;
+  uid?: string;
+  id?: string;
+  name: string;
+  phone: string;
+  rol?: string;
+  sedes?: ISede[];
+  turnos?: ITurno[];
 }
 
 export interface IUser {
@@ -31,7 +46,8 @@ export interface IUser {
     name: string;
     phone: string;
     rol: string;
-    sedes: any[];
+    sedes?: ISede[];
+    turnos?: ITurno[];
   };
 }
 
