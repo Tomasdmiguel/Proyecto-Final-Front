@@ -4,7 +4,7 @@ const apiKey = process.env.NEXT_PUBLIC_API_URL;
 import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { Message } from "@/interface/Ichat";
-import { database } from "@/app/Firebase/firebase.config";
+import { database } from "../../../firebase.config";
 import { onValue, ref, set } from "firebase/database";
 import { useSport } from "@/context/SportContext";
 
