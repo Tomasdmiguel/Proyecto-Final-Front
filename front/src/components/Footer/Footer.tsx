@@ -1,9 +1,20 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
+import { useSport } from "@/context/SportContext";
 import React from "react";
 
 export default function Footer() {
+  const { sport } = useSport();
   return (
-    <footer className="bg-white">
+    <footer
+      className={`bg-terciario-white border-t-2 ${
+        sport === 2
+          ? "border-blue-400"
+          : sport === 3
+          ? "border-orange-500"
+          : "border-main"
+      }`}
+    >
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
@@ -82,7 +93,15 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <hr
+          className={`my-6  sm:mx-auto ${
+            sport === 2
+              ? "border-blue-400"
+              : sport === 3
+              ? "border-orange-500"
+              : "border-main"
+          } lg:my-8`}
+        />
       </div>
     </footer>
   );
