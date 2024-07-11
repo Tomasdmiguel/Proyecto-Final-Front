@@ -2,7 +2,6 @@ const apiKey = process.env.NEXT_PUBLIC_API_URL;
 export const PostRegistroGoogle = async (data: any) => {
   const { uid, email, displayName } = data;
   const dataGoogle = { uid, email, displayName };
-  console.log(dataGoogle);
   try {
     const response = await fetch(`${apiKey}/auth/authRegister`, {
       method: "POST",
@@ -11,7 +10,6 @@ export const PostRegistroGoogle = async (data: any) => {
       },
       body: JSON.stringify(dataGoogle),
     });
-    console.log(dataGoogle);
     if (response.ok) {
       console.log("Usuario registrado correctamente");
       return response.json();

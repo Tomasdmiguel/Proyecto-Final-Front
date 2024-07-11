@@ -20,6 +20,7 @@ import {
 } from "@/helpers/alert.helper/alert.helper";
 import { IUser, IUserDb, IUserSession } from "@/interface/context";
 import { useSport } from "@/context/SportContext";
+import { FetchUserByEmail } from "@/service/Superadmin/ApiGetUserByEmail";
 
 //*Variables de entorno firebase
 
@@ -65,11 +66,17 @@ const FormLogin = () => {
         uid: result.user.uid,
         name: result.user.displayName || "",
         phone: result.user.phoneNumber || "",
+        rol: "",
       };
 
-      PostRegistroGoogle(userDb);
-
-      const userSession: IUserSession = { token, userDb };
+      await PostRegistroGoogle(userDb);
+      const user = await FetchUserByEmail(userDb.email);
+      console.log(user, "user por email");
+      const userSession: IUserSession = {
+        token,
+        userDb: user,
+      };
+      console.log(userSession, "user sesion");
       logIn(userSession);
 
       showSuccessAlert(

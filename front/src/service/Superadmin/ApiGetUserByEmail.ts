@@ -2,7 +2,7 @@ export const FetchUserByEmail = async (email: string) => {
   const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
   try {
-    const res = await fetch(`${apiKey}/email/obtiene/usuario/${email}`, {
+    const res = await fetch(`${apiKey}/user/email/obtiene/usuario/${email}`, {
       method: "GET",
     });
     if (!res.ok) {
