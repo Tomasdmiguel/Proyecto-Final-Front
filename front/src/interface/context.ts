@@ -20,6 +20,7 @@ export interface IUserSession {
     phone: string;
     rol?: string;
     sedes?: ISede[];
+    turnos?: ITurno[];
   };
 }
 export interface IUserDb {

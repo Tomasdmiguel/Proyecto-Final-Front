@@ -1,33 +1,25 @@
 "use client";
-import { fetchUserById } from "@/service/ApiUser";
-import { useEffect, useState } from "react";
 import { fetchCancelarTurno } from "@/service/ApiCancelarTurno";
 import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
 import { ITurno } from "@/interface/ISedes";
-import { IUser } from "@/interface/context";
 import { useUser } from "@/context/UserContext";
+import { useEffect, useState } from "react";
+import { fetchUserById } from "@/service/ApiUser";
 
 const MiReservas = () => {
-  const [usuario, setUsuario] = useState<IUser>();
+  const [turnos, setTurnos] = useState<ITurno[]>();
   const { userData } = useUser();
 
   useEffect(() => {
-    const fetchReservas = async () => {
-      if (userData?.token) {
-        try {
-          const response = await fetchUserById(userData.userDb.id);
-          setUsuario(response);
-        } catch (error) {
-          console.error("Error fetching reservations:", error);
-        }
-      }
+    const fetchTurnos = async () => {
+      const user = await fetchUserById(userData?.userDb.id);
+      setTurnos(user.turnos);
     };
-
-    fetchReservas();
-  }, [userData?.token, userData?.userDb.id]);
+    fetchTurnos();
+  }, [userData?.userDb.id]);
 
   const cancelarTurno = async (id: string) => {
     try {
@@ -43,18 +35,18 @@ const MiReservas = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg space-y-4 space-x-10 w-[60%] text-black">
+    <div className="bg-white p-8 rounded-lg shadow-lg space-y-4 space-x-10 min-w-[60vw] text-black">
       <h1 className="text-3xl font-bold text-black">Mis Reservas</h1>
       <p className="text-lg text-gray-400">
         Esta es la sección de tus reservas.
       </p>
 
-      {usuario?.userDb?.turnos && usuario.userDb.turnos.length > 0 ? (
+      {turnos && turnos.length > 0 ? (
         <div className="flex flex-col gap-16 text-2xl">
-          {usuario.userDb.turnos.map((turno: ITurno, index: number) => (
+          {turnos.map((turno: ITurno, index: number) => (
             <div
               key={index}
-              className="w-full max-h-60 rounded-sm shadow-xl hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-y-4"
+              className="w-full rounded-sm shadow-xl hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-y-4"
             >
               <h2 className="font-Marko font-bold text-3xl">
                 {turno?.cancha?.name}
