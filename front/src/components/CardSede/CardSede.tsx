@@ -16,7 +16,7 @@ const CardSede = ({ name, location, description, id, imgUrl }: ISede) => {
             src={imgUrl}
             alt={name}
           />
-          <div className="transition-opacity duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"></div>
+          <div className="transition-opacity duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-15 hover:opacity-0"></div>
         </div>
         <div className="px-6 py-4 mb-auto">
           <div className="font-medium text-lg inline-block mb-2">

@@ -44,7 +44,6 @@ const Sedes = () => {
 export default Sedes;
 
 
-
 // //* Tarjeta que se muestra en la sección MISedes!!
 // import React, { useEffect, useState } from "react";
 // import { ISede } from "@/interface/ISedes";
