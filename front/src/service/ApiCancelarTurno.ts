@@ -2,12 +2,15 @@ import { IUserSession } from "@/interface/context";
 
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
-export const fetchCancelarTurno = async (userSession:IUserSession,id: number) => {
+export const fetchCancelarTurno = async (
+  userData: IUserSession | null,
+  id: string
+) => {
   try {
     const response = await fetch(`${apiKey}/turno/${id}`, {
       method: "delete",
       headers: {
-        "authorization":`Bearer ${userSession.token}`,
+        authorization: `Bearer ${userData?.token}`,
       },
     });
     if (response.ok) {
