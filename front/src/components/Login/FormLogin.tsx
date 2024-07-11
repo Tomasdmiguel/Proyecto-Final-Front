@@ -22,6 +22,7 @@ import { IUser, IUserDb, IUserSession } from "@/interface/context";
 import { useSport } from "@/context/SportContext";
 import { FetchUserByEmail } from "@/service/Superadmin/ApiGetUserByEmail";
 
+
 //*Variables de entorno firebase
 
 dotenv.config();
@@ -65,9 +66,13 @@ const FormLogin = () => {
         email: result.user.email || "",
         uid: result.user.uid,
         name: result.user.displayName || "",
+
         phone: result.user.phoneNumber || "",
         rol: "",
       };
+      
+
+
 
       await PostRegistroGoogle(userDb);
       const user = await FetchUserByEmail(userDb.email);
@@ -77,6 +82,7 @@ const FormLogin = () => {
         userDb: user,
       };
       console.log(userSession, "user sesion");
+
       logIn(userSession);
 
       showSuccessAlert(
