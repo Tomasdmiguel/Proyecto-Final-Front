@@ -4,17 +4,14 @@ const apiKey = process.env.NEXT_PUBLIC_API_URL;
 import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { Message } from "@/interface/Ichat";
-import { database } from "@/app/Firebase/firebase.config";
+import { database } from "../../../firebase.config";
 import { onValue, ref, set } from "firebase/database";
 import { useSport } from "@/context/SportContext";
-
 
 //chat
 const socket = io(`${apiKey}`);
 
-
-const Chat = ({ deporte } :{ deporte: string }) => {
-
+const Chat = ({ deporte }: { deporte: string }) => {
   const { sport } = useSport();
   const [isConnected, setIsConnected] = useState(false);
   const [nuevoMessage, setNuevoMessage] = useState("");
@@ -37,10 +34,7 @@ const Chat = ({ deporte } :{ deporte: string }) => {
         setMessages(data);
       }
     });
-
   }, [deporte]);
-
-
 
   useEffect(() => {
     if (usuario) {
@@ -57,7 +51,7 @@ const Chat = ({ deporte } :{ deporte: string }) => {
     const handleConnect = () => {
       if (usuario) {
         setIsConnected(true);
-        socket.emit('joinRoom', deporte);
+        socket.emit("joinRoom", deporte);
       }
       console.log("usuario conectado desde connect");
     };
@@ -65,7 +59,7 @@ const Chat = ({ deporte } :{ deporte: string }) => {
     const handleDisconnect = () => {
       console.log("Usuario desconectado del socket");
       setIsConnected(false);
-      socket.emit('leaveRoom', deporte);
+      socket.emit("leaveRoom", deporte);
     };
 
     const handleMessage = (data: any) => {
@@ -87,7 +81,7 @@ const Chat = ({ deporte } :{ deporte: string }) => {
       socket.off("disconnect", handleDisconnect);
       socket.off("chat-mensaje", handleMessage);
     };
-  }, [usuario,message,deporte]);
+  }, [usuario, message, deporte]);
 
   const enviarMensaje = (e: any) => {
     e.preventDefault();
@@ -96,7 +90,7 @@ const Chat = ({ deporte } :{ deporte: string }) => {
       alert("Usuario no encontrado");
       return;
     }
-    socket.emit('joinRoom', deporte)
+    socket.emit("joinRoom", deporte);
     socket.emit("chat-mensaje", {
       room: deporte,
       usuario: usuario.userDb.name,
