@@ -77,7 +77,6 @@ export const SedesTenis = ({ sedes }: { sedes: ISede[] }) => {
               </Link>
             );
           })}
-          <Chat deporte="tenis" />
     </div>
   );
 };

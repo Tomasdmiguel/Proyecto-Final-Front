@@ -85,8 +85,6 @@ export const SedesFutbol = ({ sedes }: { sedes: ISede[] }) => {
               </Link>
             );
           })}
-          <Chat deporte="futbol" /> {/* Añade el componente Chat con el deporte correspondiente */}
-
     </div>
   );
 };
