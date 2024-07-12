@@ -1,11 +1,12 @@
 import { IUserSession } from "@/interface/IAdmin";
 import { ICancha} from "@/interface/ISedes";
+import { ISede } from "@/interface/ISedes";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const updateSede = async (
-  id: number,
-  userData: any,
-  sede: any
+  id: string,
+  userData: IUserSession,
+  sede: ISede
 ) => {
   try {
     const response = await fetch(`${API_URL}/sede/${id}`, {
