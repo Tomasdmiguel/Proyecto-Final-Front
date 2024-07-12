@@ -30,7 +30,7 @@ export const Carousel = ({ sedes }: { sedes: ISede[] }) => {
       </div>
       <div className="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center  rounded-lg">
         <div className="text-center text-white">
-          <h2 className="text-4xl font-bold mb-4">Sedes Disponibles</h2>
+          <h2 className="text-4xl font-bebas-neue mb-4">Sedes Disponibles</h2>
           <Link href={"/sedes"}>
             <button className="bg-white text-black px-4 py-2 rounded-full flex items-center">
               <span className="mr-2">Ver sedes</span>
