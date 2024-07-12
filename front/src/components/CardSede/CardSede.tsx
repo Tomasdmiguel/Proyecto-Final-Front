@@ -8,49 +8,49 @@ import { useSport } from "@/context/SportContext";
 const CardSede = ({ name, location, description, id, imgUrl }: ISede) => {
   const { sport } = useSport();
   return (
-    <Link href={`/sede/${id}`}>
-      <div className="rounded overflow-hidden shadow-lg flex flex-col transition-transform duration-300 hover:scale-105 transition duration-300 ease-in-out">
-        <div className="relative">
-          <img
-            className="w-full h-48 object-cover"
-            src={imgUrl}
-            alt={name}
-          />
-          <div className="transition-opacity duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-15 hover:opacity-0"></div>
-        </div>
-        <div className="px-6 py-4 mb-auto">
-          <div className="font-medium text-lg inline-block mb-2">
-            {name}
-          </div>
-          <p className="text-gray-500 text-sm">
-            {description}
-          </p>
-        </div>
-        <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
-          <span className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
-            <svg
-              className="h-5 w-5 text-gray-600 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM12 12a3 3 0 100-6 3 3 0 000 6z"
-              />
-            </svg>
-            <span className="ml-1 text text-gray-600 font-medium">{location}</span>
+    <Link
+      className={`rounded overflow-hidden shadow-lg flex flex-col  hover:scale-105 transition duration-300 ease-in-out ${
+        sport == 2
+          ? "hover:shadow-md hover:shadow-blue-400"
+          : sport == 3
+          ? "hover:shadow-md hover:shadow-orange-500"
+          : "hover:shadow-md hover:shadow-main"
+      }`}
+      href={`/sede/${id}`}
+    >
+      <div className="relative">
+        <img className="w-full h-48 object-cover" src={imgUrl} alt={name} />
+        <div className="transition-opacity duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-15 hover:opacity-0"></div>
+      </div>
+      <div className="px-6 py-4 mb-auto">
+        <div className="font-medium text-lg inline-block mb-2">{name}</div>
+        <p className="text-gray-500 text-sm">{description}</p>
+      </div>
+      <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
+        <span className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
+          <svg
+            className="h-5 w-5 text-gray-600 mr-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM12 12a3 3 0 100-6 3 3 0 000 6z"
+            />
+          </svg>
+          <span className="ml-1 text text-gray-600 font-medium">
+            {location}
           </span>
-        </div>
+        </span>
       </div>
     </Link>
   );
 };
 
 export default CardSede;
-
 
 // /* eslint-disable @next/next/no-img-element */
 // import { ISede } from "@/interface/ISedes";
