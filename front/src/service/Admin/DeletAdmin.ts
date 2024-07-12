@@ -21,13 +21,13 @@ export const deleteCancha = async (id: string): Promise<void> => {
   }
 };
 
-export const deleteSede = async (token: string, id: string): Promise<void> => {
+export const deleteSede = async (token: string, id: string) => {
     try {
       const response = await fetch(`${API_URL}/sede/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Incluir el token de autenticación
+          'Authorization': `Bearer ${token}`, 
         },
       });
   

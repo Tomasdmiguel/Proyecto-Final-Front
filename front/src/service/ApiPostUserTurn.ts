@@ -2,13 +2,16 @@ import { IUserSession } from "@/interface/context";
 
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 export const FetchUserTurn = async (turnoId: string, user: IUserSession) => {
+  console.log(user.userDb.id, "<---id del usuario");
+  console.log(turnoId, "<---id del turno");
   try {
     const response = await fetch(`${apiKey}/turno`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${user?.token}`,
+        Authorization: `Bearer ${user?.token}`,
       },
+
       body: JSON.stringify({ turnoId, userId: user.userDb.id }),
     });
 
