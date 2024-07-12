@@ -52,15 +52,6 @@ const PanelAdmin = () => {
         >
           Mis Canchas
         </button>
-        <div className="flex items-center p-6 justify-end">
-          <Link
-            href={"/Dashboard"}
-            onClick={() => handleSport(0)}
-            className="p-3 rounded-lg border-2 border-terciario-white duration-300 ease-in-out hover:shadow-lg hover:shadow-blue-600 mt-8"
-          >
-            Volver
-          </Link>
-        </div>
       </nav>
 
       <main className="flex-1 p-10">{renderView()}</main>
