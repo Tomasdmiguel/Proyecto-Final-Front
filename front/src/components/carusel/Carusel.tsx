@@ -32,7 +32,7 @@ export const Carousel = ({ sedes }: { sedes: ISede[] }) => {
         <div className="text-center text-white">
           <h2 className="text-4xl font-bebas-neue mb-4">Sedes Disponibles</h2>
           <Link href={"/sedes"}>
-            <button className="bg-white font-bebas-neue text-black px-4 py-2 rounded-full flex items-center">
+            <button className="bg-white text-black px-4 py-2 rounded-full flex items-center">
               <span className="mr-2">Ver sedes</span>
             </button>
           </Link>
