@@ -4,7 +4,6 @@ import { useUser } from "@/context/UserContext";
 import { ISede } from "@/interface/ISedes";
 import Link from "next/link";
 
-
 export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
   const { sport } = useSport();
   const { userData } = useUser();
@@ -61,18 +60,6 @@ export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
           href={`/FormCancha/${userData?.userDb?.id}`}
         >
           Crear Cancha
-        </Link>
-        <Link
-          className={` ${
-            sport == 2
-              ? "hover:bg-blue-400 border-blue-400 text-blue-400"
-              : sport == 3
-              ? "hover:bg-orange-500 border-orange-500 text-orange-500"
-              : "hover:bg-main border-main text-main"
-          }  md:text-lg p-3 rounded-lg  border-x-2 border-y-2  text-white font-semibold bg-black  duration-200 ease-in-out`}
-          href={"/PanelAdmin"}
-        >
-          Panel de control
         </Link>
       </div>
     </div>

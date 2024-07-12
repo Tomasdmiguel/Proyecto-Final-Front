@@ -74,7 +74,7 @@ const EstadisticasTurnos = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-md">
+    <div className="p-6 col-span-2 min-h-fit bg-gray-100 rounded-lg shadow-md">
       <h2 className="text-xl font-bold text-gray-800 mb-6">
         Estadísticas de Turnos
       </h2>
@@ -83,7 +83,7 @@ const EstadisticasTurnos = () => {
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className=" min-h-fit gap-6">
           <div className="bg-white p-4 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-700 mb-4">
               Gráfico de Barras Apilado por Estado de Reserva

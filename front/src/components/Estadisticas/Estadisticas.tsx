@@ -92,8 +92,10 @@ const Estadisticas = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-md">
-      <h2 className="text-xl font-bold text-gray-800 mb-6">Estadísticas</h2>
+    <div className="p-6 rounded-lg shadow-md">
+      <h2 className="text-3xl font-bold text-terciario-white mb-6">
+        Estadísticas
+      </h2>
       {isLoading ? (
         <p className="text-gray-500">Cargando...</p>
       ) : error ? (

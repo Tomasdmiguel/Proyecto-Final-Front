@@ -11,18 +11,24 @@ export default function NavBar() {
 
   return (
     <nav
-      className={`flex flex-row justify-center items-center h-[15vh] w-screen p-2 bg-terciario-white border-b-2 ${
+      className={`flex flex-row justify-center items-center h-[15vh] w-screen p-2  border-b-2 ${
         sport == 2
-          ? "border-blue-400 text-blue-400"
+          ? "border-blue-400 text-blue-400 bg-terciario-white"
           : sport == 3
-          ? "border-orange-500 text-orange-500"
-          : "border-main text-main"
+          ? "border-orange-500 text-orange-500 bg-terciario-white"
+          : sport == 4
+          ? "border-blue-600 text-blue-600 bg-gray-900"
+          : "border-main text-main bg-terciario-white"
       }`}
     >
       <div className="flex flex-row justify-around items-center lg:max-w-[60vw]">
         <Link href={"/"}>
           <div>
-            <img src="/icon.png" alt="Company Logo" className="w-[12vh]" />
+            <img
+              src={sport == 4 ? "/icon2.jpg" : "/icon.png"}
+              alt="Company Logo"
+              className={`w-[12vh]  ${sport == 4 && "rounded-full"}`}
+            />
           </div>
         </Link>
 
@@ -60,6 +66,8 @@ export default function NavBar() {
                   ? "stroke-blue-400"
                   : sport === 3
                   ? "stroke-orange-500"
+                  : sport === 4
+                  ? "stroke-blue-600"
                   : "stroke-main"
               }`}
               width="40"
@@ -83,6 +91,8 @@ export default function NavBar() {
                     ? "stroke-blue-400"
                     : sport === 3
                     ? "stroke-orange-500"
+                    : sport === 4
+                    ? "stroke-blue-600"
                     : "stroke-main"
                 }`}
                 width="40"
@@ -103,6 +113,8 @@ export default function NavBar() {
                     ? "stroke-blue-400"
                     : sport === 3
                     ? "stroke-orange-500"
+                    : sport === 4
+                    ? "stroke-blue-600"
                     : "stroke-main"
                 }`}
                 width="40"

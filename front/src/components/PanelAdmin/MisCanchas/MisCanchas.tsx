@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
 import { ISede } from "@/interface/ISedes";
 import Link from "next/link";
+
 import { deleteCancha } from "@/service/Admin/DeletAdmin"
 import { showErrorAlert, showSuccessAlert } from "@/helpers/alert.helper/alert.helper";
+
 
 const MisCanchas = () => {
   const [sedes, setSedes] = useState<ISede[]>([]);
@@ -30,6 +32,7 @@ const MisCanchas = () => {
 
   const handleDeleteCancha = async (canchaId: string) => {
     try {
+
       if(userData?.token){
 
         await deleteCancha(canchaId);
@@ -43,16 +46,19 @@ const MisCanchas = () => {
       }else {
         showErrorAlert("Para eliminar la cancha no tienes que tener turnos disponible")
       }
+
     } catch (error) {
       console.error("Error al eliminar la cancha:", error);
     }
   };
 
   return (
-    <div className="container mx-auto p-6 max-h-screen overflow-y-auto pb-20">
-      <h1 className="text-4xl font-extrabold mb-8 text-gray-800">Mis Canchas</h1>
+    <div className="container mx-auto p-6 pb-20">
+      <h1 className="text-3xl font-extrabold mb-8 text-terciario-white">
+        Mis Canchas
+      </h1>
       {sedes.length > 0 ? (
-        <div className="bg-white shadow-lg rounded-lg p-8">
+        <div className="bg-white  h-[80vh] shadow-lg rounded-lg p-8 overflow-y-auto">
           <ul className="space-y-8">
             {sedes.map((sede) => (
               <div key={sede.id}>
