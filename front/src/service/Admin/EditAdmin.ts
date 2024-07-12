@@ -1,6 +1,5 @@
 import { IUserSession } from "@/interface/IAdmin";
 import { ICancha } from "@/interface/ISedes";
-import { ISede } from "@/interface/ISedes";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -38,9 +37,9 @@ export const updateSede = async (
 };
 
 export const updateCancha = async (
-  id: number,
-  userSession: IUserSession,
-  cancha: ICancha
+  id: string,
+  userSession: any,
+  cancha: any
 ) => {
   try {
     const response = await fetch(`${API_URL}/cancha/${id}`, {

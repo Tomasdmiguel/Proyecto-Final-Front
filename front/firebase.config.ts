@@ -14,7 +14,7 @@ export const firebaseConfig = {
 };
 dotenv.config();
 
-// Initialize Firebase
+
 let app;
 if (!getApps().length) {
   app = initializeApp(firebaseConfig);
