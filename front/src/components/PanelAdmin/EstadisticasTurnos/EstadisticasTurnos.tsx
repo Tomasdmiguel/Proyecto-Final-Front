@@ -12,7 +12,7 @@ const EstadisticasTurnos = () => {
   );
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  console.log(estadisticas);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

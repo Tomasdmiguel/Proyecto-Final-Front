@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ISede } from "@/interface/ISedes";
 import React from "react";
-
 import Link from "next/link";
 import { useSport } from "@/context/SportContext";
 
@@ -9,12 +8,12 @@ const CardSede = ({ name, location, description, id, imgUrl }: ISede) => {
   const { sport } = useSport();
   return (
     <Link
-      className={`rounded overflow-hidden shadow-lg flex flex-col  hover:scale-105 transition duration-300 ease-in-out ${
+      className={`rounded overflow-hidden flex flex-col hover:scale-105 transition duration-300 ease-in-out ${
         sport == 2
-          ? "hover:shadow-md hover:shadow-blue-400"
+          ? "hover:shadow-md hover:shadow-blue-400 shadow-2xl border border-blue-300"
           : sport == 3
-          ? "hover:shadow-md hover:shadow-orange-500"
-          : "hover:shadow-md hover:shadow-main"
+          ? "hover:shadow-md hover:shadow-orange-500 shadow-2xl border hover:border-orange-300"
+          : "hover:shadow-md hover:shadow-main shadow-2xl border hover:border-green-400"
       }`}
       href={`/sede/${id}`}
     >
@@ -26,7 +25,7 @@ const CardSede = ({ name, location, description, id, imgUrl }: ISede) => {
         <div className="font-medium text-lg inline-block mb-2">{name}</div>
         <p className="text-gray-500 text-sm">{description}</p>
       </div>
-      <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
+      <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-800">
         <span className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
           <svg
             className="h-5 w-5 text-gray-600 mr-1"
@@ -41,7 +40,7 @@ const CardSede = ({ name, location, description, id, imgUrl }: ISede) => {
               d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM12 12a3 3 0 100-6 3 3 0 000 6z"
             />
           </svg>
-          <span className="ml-1 text text-gray-600 font-medium">
+          <span className="ml-1 text-gray-100 font-semibold font-bebas-neue">
             {location}
           </span>
         </span>
@@ -51,6 +50,7 @@ const CardSede = ({ name, location, description, id, imgUrl }: ISede) => {
 };
 
 export default CardSede;
+
 
 // /* eslint-disable @next/next/no-img-element */
 // import { ISede } from "@/interface/ISedes";

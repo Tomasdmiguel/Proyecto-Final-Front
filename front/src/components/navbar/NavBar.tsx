@@ -41,13 +41,13 @@ export default function NavBar() {
           </Link>
 
           <div className="px-5">
-            <ul className="max-w-[768px] flex flex-row items-center space-x-10 text-xl ">
+            <ul className="max-w-[768px] flex flex-row items-center space-x-9 text-xl font-bebas-neue uppercase ">
               <li>
                 <Link
                   href={"/"}
-                  className="hover:font-black p-2 text-2xl duration-300 ease-in-out"
+                  className="hover:font-bold p-2 text-2xl duration-300 ease-in-out"
                 >
-                  Home
+                  Principal
                 </Link>
               </li>
 
@@ -142,7 +142,7 @@ export default function NavBar() {
           ) : (
             <Link
               href="/Login"
-              className={`font-bold text-base md:text-lg p-2 rounded-lg border-2 hover:text-terciario-white duration-300 ease-in-out ${
+              className={`font-bebas-neue font-bold text-base md:text-lg p-2 rounded-lg border-2 hover:text-terciario-white duration-300 ease-in-out ${
                 sport === 2
                   ? "border-blue-400 text-blue-400 hover:bg-blue-400"
                   : sport === 3
