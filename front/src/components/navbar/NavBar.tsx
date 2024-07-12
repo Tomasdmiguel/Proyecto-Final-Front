@@ -155,7 +155,7 @@ export default function NavBar() {
           )}
         </div>
       ) : (
-        <div className="grid w-full grid-cols-3 p-6">
+        <div className="grid w-full grid-cols-3 py-6 px-10">
           <div></div>
           <div className="flex items-center justify-center">
             <img
