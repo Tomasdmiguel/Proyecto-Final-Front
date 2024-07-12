@@ -5,9 +5,11 @@ import axios from "axios";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { ICancha, ITurno } from "@/interface/ISedes";
 import { FetchTurnoById } from "@/service/ApiGetTurnoById";
+import { useSport } from "@/context/SportContext";
 
 const Product = ({ params }: { params: { turnoId: string } }) => {
   const [turno, setTurno] = useState<ITurno | undefined>();
+  const { sport } = useSport();
 
   useEffect(() => {
     const fetchTurnBy = async (turnoId: string) => {
@@ -68,18 +70,66 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
   };
 
   return (
-    <article className=" relative p-8 bg-main bg-no-repeat bg-cover justify-center flex flex-col gap-20 items-center">
-      <div className="flex flex-col gap-20 justify-center items-center h-[40vw] bg-gray-200 w-[34vw] rounded-lg shadow-xl">
-      <div className="w-[25vw] rounded-xl overflow-hidden">
+    <article
+      className={` ${
+        sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
+      }
+    relative p-8  min-h-[70vh] justify-center flex flex-col gap-20 items-center`}
+    >
+      <div className="flex flex-col  text-terciario min-h-[40vh] p-4 space-y-4 bg-terciario-white min-w-[50vw] max-w-[70vw] lg:min-w-[40vw]  rounded-lg">
         <img src={cancha?.imgUrl} alt={cancha?.name} />
-      </div>
-      <div className="space-y-2 mt-2 w-[25vw]">
-        <div className="space-y-6 space-x-2">
-          <h3 className="text-4xl font-bold text-terciario ">{cancha?.name}</h3>
-          <p className="text-2xl font-semibold mb-2 text-secundario">
-           Precio: ${cancha?.price}
-          </p>
-        </div>
+
+        <h3 className="text-4xl capitalize font-bold">{cancha?.name}</h3>
+        {cancha?.sport == 1 ? (
+          <p className="text-2xl font-semibold text-main">Fútbol</p>
+        ) : cancha?.sport == 2 ? (
+          <p className="text-2xl font-semibold text-blue-400">Padel</p>
+        ) : (
+          <p className="text-2xl font-semibold text-orange-500">Tenis</p>
+        )}
+        <p className="text-2xl font-semibold">
+          Precio:{" "}
+          <span
+            className={
+              sport == 2
+                ? "text-blue-400"
+                : sport == 3
+                ? "text-orange-500"
+                : "text-main"
+            }
+          >
+            ${cancha?.price}
+          </span>
+        </p>
+        <p className="capitalize text-2xl font-semibold">
+          Tipo:{" "}
+          <span
+            className={`font-medium text-xl ${
+              sport == 2
+                ? "text-blue-400"
+                : sport == 3
+                ? "text-orange-500"
+                : "text-main"
+            }`}
+          >
+            {cancha?.type}
+          </span>
+        </p>
+        <p className="capitalize text-2xl font-semibold">
+          Techada:{" "}
+          <span
+            className={`font-medium text-xl ${
+              sport == 2
+                ? "text-blue-400"
+                : sport == 3
+                ? "text-orange-500"
+                : "text-main"
+            }`}
+          >
+            {cancha?.techado ? "Sí" : "No"}
+          </span>
+        </p>
+
         {preferenceId !== "" ? (
           <Wallet
             initialization={{ preferenceId: preferenceId }}
@@ -95,7 +145,6 @@ const Product = ({ params }: { params: { turnoId: string } }) => {
             Reservar
           </button>
         )}
-      </div>
       </div>
     </article>
   );

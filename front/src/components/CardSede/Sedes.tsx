@@ -28,7 +28,7 @@ const Sedes = () => {
     <div className="bg-white py-6">
       <div className="bg-white p-8 rounded-lg w-full md:w-4/5 lg:w-3/4 xl:w-2/3 mx-auto text-black space-y-8">
         {sedes.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 items-stretch sm:grid-cols-2 md:grid-cols-3 gap-10">
             {sedes.map((sede) => (
               <CardSede key={sede.id} {...sede} />
             ))}
@@ -42,7 +42,6 @@ const Sedes = () => {
 };
 
 export default Sedes;
-
 
 // //* Tarjeta que se muestra en la sección MISedes!!
 // import React, { useEffect, useState } from "react";
