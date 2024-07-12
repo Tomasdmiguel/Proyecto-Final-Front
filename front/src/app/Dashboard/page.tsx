@@ -14,10 +14,11 @@ import {
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
 import { useUser } from "@/context/UserContext";
+import Link from "next/link";
 
 export default function Dashboard() {
   const { userData, logOut } = useUser();
-  const { sport } = useSport();
+  const { sport, handleSport } = useSport();
   const router = useRouter();
   const [sedes, setSedes] = useState<ISede[]>([]);
 
@@ -54,7 +55,19 @@ export default function Dashboard() {
     );
   };
 
-  // Función para redirigir a la creación de sede
+  function formatISODate(isoDate: string): string {
+    const date = new Date(isoDate);
+
+    const day: number = date.getDate();
+    const month: number = date.getMonth() + 1; // Los meses comienzan desde 0
+    const year: number = date.getFullYear();
+
+    // Asegúrate de que el día y el mes tengan dos dígitos
+    const dayString: string = day < 10 ? `0${day}` : `${day}`;
+    const monthString: string = month < 10 ? `0${month}` : `${month}`;
+
+    return `${dayString}-${monthString}-${year}`;
+  }
 
   return (
     <div
@@ -62,7 +75,7 @@ export default function Dashboard() {
         sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
       } flex flex-col justify-center items-center w-full p-4 gap-24 min-h-[85vh]`}
     >
-      <div className="bg-[#F5F7F8] p-8 rounded-lg shadow-xl min-w-[60vw] max-w-[80vw] text-terciario mt-10 text-xl flex flex-row items-center justify-evenly">
+      <div className="bg-terciario-white p-8 rounded-lg shadow-xl min-w-[60vw] max-w-[80vw] text-terciario mt-10 text-xl flex flex-row items-center justify-evenly">
         <div className="space-y-8 w-3/5">
           <h1 className="text-3xl font-Marko text-black">
             Bienvenido, {userData?.userDb.name || userData?.userDb.displayName}!
@@ -113,7 +126,38 @@ export default function Dashboard() {
               </span>
             </p>
           )}
-          <div className="w-full flex justify-end items-end">
+          {userData?.userDb.createdAt && (
+            <p className="hover:font-black duration-300 ease-in-out">
+              Cuenta creada el:{" "}
+              <span
+                className={`${
+                  sport == 2
+                    ? "hover:text-blue-400"
+                    : sport == 3
+                    ? "hover:text-orange-500"
+                    : "hover:text-main"
+                } `}
+              >
+                {formatISODate(userData?.userDb.createdAt)}
+              </span>
+            </p>
+          )}
+          <div className="w-full flex flex-row space-x-3 justify-end items-end">
+            {userData?.userDb?.rol === "admin" && (
+              <Link
+                className={` ${
+                  sport == 2
+                    ? "hover:bg-blue-400 border-blue-400 text-blue-400"
+                    : sport == 3
+                    ? "hover:bg-orange-500 border-orange-500 text-orange-500"
+                    : "hover:bg-main border-main text-main"
+                }  md:text-lg p-3 rounded-lg  border-x-2 border-y-2  hover:text-terciario-white font-semibold  duration-200 ease-in-out`}
+                href={"/PanelAdmin"}
+                onClick={() => handleSport(4)}
+              >
+                Panel de control
+              </Link>
+            )}
             <button
               className={` ${
                 sport == 2

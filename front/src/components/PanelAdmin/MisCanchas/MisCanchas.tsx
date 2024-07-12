@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
 import { ISede } from "@/interface/ISedes";
 import Link from "next/link";
-import { deleteCancha } from "@/service/Admin/DeletAdmin"
+import { deleteCancha } from "@/service/Admin/DeletAdmin";
 import { showSuccessAlert } from "@/helpers/alert.helper/alert.helper";
 
 const MisCanchas = () => {
@@ -31,23 +31,25 @@ const MisCanchas = () => {
   const handleDeleteCancha = async (canchaId: string) => {
     try {
       await deleteCancha(canchaId);
-      
+
       const updatedSedes = sedes.map((sede) => ({
         ...sede,
         canchas: sede?.canchas?.filter((cancha) => cancha.id !== canchaId),
       }));
       setSedes(updatedSedes);
-      showSuccessAlert("Se elimino correctamente")
+      showSuccessAlert("Se elimino correctamente");
     } catch (error) {
       console.error("Error al eliminar la cancha:", error);
     }
   };
 
   return (
-    <div className="container mx-auto p-6 max-h-screen overflow-y-auto pb-20">
-      <h1 className="text-4xl font-extrabold mb-8 text-gray-800">Mis Canchas</h1>
+    <div className="container mx-auto p-6 pb-20">
+      <h1 className="text-4xl font-extrabold mb-8 text-terciario-white">
+        Mis Canchas
+      </h1>
       {sedes.length > 0 ? (
-        <div className="bg-white shadow-lg rounded-lg p-8">
+        <div className="bg-white  h-[80vh] shadow-lg rounded-lg p-8 overflow-y-auto">
           <ul className="space-y-8">
             {sedes.map((sede) => (
               <div key={sede.id}>

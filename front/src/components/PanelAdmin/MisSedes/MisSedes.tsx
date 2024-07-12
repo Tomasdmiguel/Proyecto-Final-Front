@@ -22,7 +22,6 @@ const MisSedes = () => {
           const fetchedUser = await fetchUserById(userData.userDb.id);
           if (fetchedUser.sedes) {
             setSedes(fetchedUser.sedes);
-            
           }
         }
       } catch (error) {
@@ -37,10 +36,10 @@ const MisSedes = () => {
     try {
       if (userData?.token) {
         await deleteSede(userData.token, sedeId.toString());
-     
+
         const updatedSedes = sedes.filter((sede) => sede.id !== sedeId);
         setSedes(updatedSedes);
-        showSuccessAlert("Eliminado correctamente")
+        showSuccessAlert("Eliminado correctamente");
       } else {
         console.error("Token de usuario no disponible.");
       }
@@ -51,7 +50,9 @@ const MisSedes = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Mis Sedes</h1>
+      <h1 className="text-3xl text-terciario-white font-bold mb-6">
+        Mis Sedes
+      </h1>
       {sedes.length > 0 ? (
         <div className="bg-white shadow-md rounded-lg p-6">
           <ul className="space-y-4">

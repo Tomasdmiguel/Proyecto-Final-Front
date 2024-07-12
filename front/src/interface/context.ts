@@ -21,7 +21,7 @@ export interface IUserSession {
     rol?: string;
     sedes?: ISede[];
     turnos?: ITurno[];
-
+    createdAt?: string;
   };
 }
 export interface IUserDb {
