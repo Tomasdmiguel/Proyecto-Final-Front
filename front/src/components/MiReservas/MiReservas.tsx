@@ -24,8 +24,8 @@ const MiReservas = () => {
   }, [userData?.userDb.id]);
 
   const cancelarTurno = async (id: string) => {
-    setLoading(true); // Iniciar estado de carga
-    setLoadingId(id); // Establecer el ID del turno en carga
+    setLoading(true);
+    setLoadingId(id); 
     try {
       console.log(userData?.token);
       
@@ -45,7 +45,7 @@ const MiReservas = () => {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg space-y-4 space-x-10 min-w-[60vw] text-black">
-      <h1 className="text-3xl font-bold text-black">Mis Reservas</h1>
+      <h1 className="text-3xl font-bebas-neue font-semibold text-black">Mis Reservas</h1>
       <p className="text-lg text-gray-400">
         Esta es la sección de tus reservas.
       </p>
