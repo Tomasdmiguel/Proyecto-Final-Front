@@ -5,7 +5,7 @@ import { fetchUserById } from "@/service/ApiUser";
 import { ISede } from "@/interface/ISedes";
 import Link from "next/link";
 import { deleteCancha } from "@/service/Admin/DeletAdmin"
-import { showSuccessAlert } from "@/helpers/alert.helper/alert.helper";
+import { showErrorAlert, showSuccessAlert } from "@/helpers/alert.helper/alert.helper";
 
 const MisCanchas = () => {
   const [sedes, setSedes] = useState<ISede[]>([]);
@@ -30,14 +30,19 @@ const MisCanchas = () => {
 
   const handleDeleteCancha = async (canchaId: string) => {
     try {
-      await deleteCancha(canchaId);
-      
-      const updatedSedes = sedes.map((sede) => ({
-        ...sede,
-        canchas: sede?.canchas?.filter((cancha) => cancha.id !== canchaId),
-      }));
-      setSedes(updatedSedes);
-      showSuccessAlert("Se elimino correctamente")
+      if(userData?.token){
+
+        await deleteCancha(canchaId);
+        
+        const updatedSedes = sedes.map((sede) => ({
+          ...sede,
+          canchas: sede?.canchas?.filter((cancha) => cancha.id !== canchaId),
+        }));
+        setSedes(updatedSedes);
+        showSuccessAlert("Se elimino correctamente")
+      }else {
+        showErrorAlert("Para eliminar la cancha no tienes que tener turnos disponible")
+      }
     } catch (error) {
       console.error("Error al eliminar la cancha:", error);
     }
