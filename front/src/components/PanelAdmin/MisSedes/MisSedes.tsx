@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
 import Link from "next/link";
 import { deleteSede } from "@/service/Admin/DeletAdmin";
-import { showErrorAlert, showSuccessAlert } from "@/helpers/alert.helper/alert.helper";
+import {
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/helpers/alert.helper/alert.helper";
 
 interface Sede {
-  id: string; 
+  id: string;
   name: string;
 }
 
@@ -35,15 +38,15 @@ const MisSedes = () => {
   const handleDeleteSede = async (sedeId: string) => {
     try {
       if (userData?.token) {
-
-
         await deleteSede(userData.token, sedeId);
 
         const updatedSedes = sedes.filter((sede) => sede.id !== sedeId);
         setSedes(updatedSedes);
         showSuccessAlert("Eliminado correctamente");
       } else {
-        showErrorAlert("Si quieres borrar la sede, primero tiene que borrar las canchas que tiene creada")
+        showErrorAlert(
+          "Si quieres borrar la sede, primero tiene que borrar las canchas que tiene creada"
+        );
         console.error("Token de usuario no disponible.");
       }
     } catch (error) {
