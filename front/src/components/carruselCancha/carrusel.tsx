@@ -48,7 +48,7 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
 
   return (
     <div className="p-4 max-w-[100vw] bg-gray-100">
-      <h1 className="text-4xl text-terciario font-bold mb-8 text-center">
+      <h1 className="text-4xl font-bebas-neue text-black font-semibold uppercase mb-8 text-center">
         Canchas Disponibles
       </h1>
       <div className="relative overflow-x-hidden">
@@ -76,20 +76,20 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-4 h-full w-full flex flex-col justify-end  space-y-4">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2 capitalize">
+                  <h2 className="text-2xl font-bold  text-gray-900 mb-2 capitalize">
                     {cancha?.name}
                   </h2>
-                  <p className="text-lg text-gray-700 mb-2">
+                  <p className="text-xl font-bebas-neue text-gray-700 mb-2">
                     {cancha.sport === 1
                       ? "Fútbol"
                       : cancha.sport === 2
                       ? "Padel"
                       : "Tenis"}
                   </p>
-                  <p className="text-lg text-gray-700 mb-2">
+                  <p className="text-xl text-gray-700 mb-2">
                     {cancha?.sede?.location}
                   </p>
-                  <p className="text-xl font-semibold text-terciario mb-4">
+                  <p className="text-2xl font-bold font-bebas-neue text-terciario mb-4">
                     Precio: ${cancha?.price}
                   </p>
                   <Link

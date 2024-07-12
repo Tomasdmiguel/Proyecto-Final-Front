@@ -77,11 +77,11 @@ export default function Dashboard() {
     >
       <div className="bg-terciario-white p-8 rounded-lg shadow-xl min-w-[60vw] max-w-[80vw] text-terciario mt-10 text-xl flex flex-row items-center justify-evenly">
         <div className="space-y-8 w-3/5">
-          <h1 className="text-3xl font-Marko text-black">
+          <h1 className="text-3xl font-bebas-neue font-semibold uppercase text-black">
             Bienvenido, {userData?.userDb.name || userData?.userDb.displayName}!
           </h1>
           {userData?.userDb?.name && (
-            <p className="hover:font-black duration-300 ease-in-out">
+            <p className="hover:font-bebas-neue hover:font-bold duration-300 ease-in-out">
               Nombre:{" "}
               <span
                 className={`${
@@ -96,7 +96,7 @@ export default function Dashboard() {
               </span>
             </p>
           )}
-          <p className="hover:font-black duration-300 ease-in-out">
+          <p className="hover:font-bebas-neue hover:font-bold duration-300 ease-in-out">
             Correo electrónico:{" "}
             <span
               className={`${
@@ -111,7 +111,7 @@ export default function Dashboard() {
             </span>
           </p>
           {userData?.userDb.phone && (
-            <p className="hover:font-black duration-300 ease-in-out">
+            <p className="hover:font-bebas-neue hover:font-bold duration-300 ease-in-out">
               Número:{" "}
               <span
                 className={`${
@@ -127,7 +127,7 @@ export default function Dashboard() {
             </p>
           )}
           {userData?.userDb.createdAt && (
-            <p className="hover:font-black duration-300 ease-in-out">
+            <p className="hover:font-bebas-neue hover:font-bold duration-300 ease-in-out">
               Cuenta creada el:{" "}
               <span
                 className={`${

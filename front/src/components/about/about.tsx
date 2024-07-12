@@ -22,17 +22,17 @@ const SobreNosotros = () => {
                   />
                 </div>
                 <div className="p-8 flex-grow">
-                  <h2 className="text-2xl font-bold text-terciario mb-4">
+                  <h2 className="font-bebas-neue uppercase text-3xl sm:text-2xl font-semibold text-black mb-4">
                     ¿Quienes somos?
                   </h2>
-                  <p className="text-gray-700 text-lg leading-relaxed mb-4">
+                  <p className="text-gray-700 font-bebas-neue text-xl leading-relaxed mb-4">
                     Somos un equipo de siete desarrolladores Fullstack
                     apasionados por crear soluciones innovadoras para el mundo
                     del deporte. En &quot;Reserva Gol&quot;, hemos desarrollado
                     una plataforma web que revoluciona la forma de reservar
                     canchas para diversas actividades deportivas.
                   </p>
-                  <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                  <p className="text-gray-700 font-bebas-neue text-xl leading-relaxed mb-6">
                     Nuestra misión es ofrecer una base completa de lugares
                     deportivos, brindando a los usuarios una manera sencilla y
                     eficiente de encontrar y reservar el espacio perfecto para
@@ -46,10 +46,10 @@ const SobreNosotros = () => {
           <div className="w-full md:w-1/2">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
               <div className="p-8 flex flex-col h-full">
-                <h2 className="text-2xl font-bold text-terciario mb-4">
+                <h2 className="font-bebas-neue uppercase text-3xl sm:text-3xl font-semibold text-black mb-4">
                   ¿Te gustaría que tu cancha esté en esta página?
                 </h2>
-                <li className="text-gray-700 text-lg leading-relaxed mb-6 flex-grow">
+                <li className="text-gray-700 font-bebas-neue text-xl leading-relaxed mb-6 flex-grow">
                   Unirse a nuestra plataforma ofrece numerosos beneficios para
                   los propietarios de canchas:
                   <ul className="list-disc list-inside">
@@ -90,7 +90,7 @@ const SobreNosotros = () => {
                 <div className="mt-auto">
                   <Link
                     href="/AddAdmin"
-                    className={`inline-block border-2 border-white ${
+                    className={`inline-block border-2 font-bebas-neue border-white ${
                       sport == 2
                         ? "bg-blue-400 hover:bg-terciario-white  hover:border-blue-400 hover:text-blue-400"
                         : sport == 3
