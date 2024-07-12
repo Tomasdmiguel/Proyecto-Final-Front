@@ -2,16 +2,10 @@ import { useEffect, useState } from "react";
 import { fetchEstadisticasTurnos } from "@/service/Admin/EstadisticasTurno";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { EstadisticasTurnosData } from "@/interface/IEstadisticasTurnos";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface EstadisticasTurnosData {
-  year: number;
-  month: number;
-  libres: number;
-  ocupados: number;
-  pendientes: number;
-}
 const EstadisticasTurnos = () => {
   const [estadisticas, setEstadisticas] = useState<EstadisticasTurnosData[]>(
     []
