@@ -59,7 +59,7 @@ const TitleHome: React.FC = () => {
     >
       <h1
         className={`relative z-10 text-7xl font-bold tracking-wider text-center 
-                    flex items-center justify-center h-full font-Marko transition-colors duration-300 ease-in-out
+                    flex items-center justify-center h-full font-bebas-neue transition-colors duration-300 ease-in-out
                     ${
                       isHovered && isHovered && sport == 2
                         ? "text-blue-400"
