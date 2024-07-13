@@ -23,14 +23,15 @@ export const deleteCancha = async (id: string): Promise<void> => {
 
 export const deleteSede = async (token: string, id: string) => {
     try {
-      const response = await fetch(`${API_URL}/sede/delete/sede${id}`, {
+      const response = await fetch(`${API_URL}/sede/delete/sede/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, 
+          authorization: `Bearer ${token}`, 
         },
       });
-  
+      console.log(response);
+      
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(`Error eliminando la sede: ${errorData.message}`);

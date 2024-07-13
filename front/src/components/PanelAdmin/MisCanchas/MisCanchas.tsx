@@ -43,13 +43,16 @@ const MisCanchas = () => {
           canchas: sede?.canchas?.filter((cancha) => cancha.id !== canchaId),
         }));
         setSedes(updatedSedes);
-        showSuccessAlert("Se elimino correctamente");
+        showSuccessAlert("Se elimino la cancha correctamente");
       } else {
         showErrorAlert(
-          "Para eliminar la cancha no tienes que tener turnos disponible"
+          "No se pudo realizar la accion"
         );
       }
     } catch (error) {
+      showErrorAlert(
+        "Para hacer esto debes primero Pausar los turnos de esta cancha"
+      )
       console.error("Error al eliminar la cancha:", error);
     }
   };
@@ -59,8 +62,14 @@ const MisCanchas = () => {
       if (userData?.token){
         await pausarTurnos(canchaId);
         showSuccessAlert("Se ha pausado los turnos correctamente");
+      }else {
+        showErrorAlert(
+          "No se pudo realizar la accion"
+        )
       }
     } catch (error: any) {
+      showErrorAlert("No se pudieron pausar los turnos")
+      console.error("Error al pausar los turnos:", error);
       
     }
   }
