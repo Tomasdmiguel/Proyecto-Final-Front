@@ -10,6 +10,7 @@ import {
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
 import { IFormCancha } from "@/interface/IFormCancha";
+import { pausarTurnos } from "@/service/Admin/PausarTurnos";
 
 const MisCanchas = () => {
   const [sedes, setSedes] = useState<ISede[]>([]);
@@ -52,6 +53,18 @@ const MisCanchas = () => {
       console.error("Error al eliminar la cancha:", error);
     }
   };
+
+  const handlePausar = async (canchaId: string) => {
+    try {
+      if (userData?.token){
+        await pausarTurnos(canchaId);
+        showSuccessAlert("Se ha pausado los turnos correctamente");
+      }
+    } catch (error: any) {
+      
+    }
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataFile, setFile] = useState<File | null>(null);
   const [UpdateId, setUpdateId] = useState<string>("");
@@ -137,6 +150,11 @@ const MisCanchas = () => {
                         onClick={() => handleEstadoCancha(cancha)}
                         className="text-blue-600 hover:text-blue-800 font-medium">
                         Editar
+                      </button>
+                      <button
+                        onClick={() => handlePausar(cancha.id)}
+                        className="text-green-600 hover:text-green-700 font-medium">
+                        Pausar
                       </button>
                       <button
                         onClick={() => handleDeleteCancha(cancha.id)}
