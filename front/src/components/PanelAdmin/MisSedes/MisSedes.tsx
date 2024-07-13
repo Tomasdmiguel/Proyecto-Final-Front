@@ -60,6 +60,9 @@ const MisSedes = () => {
         console.error("Token de usuario no disponible.");
       }
     } catch (error) {
+      showErrorAlert(
+        "Para borrar la sedes debes borrar las canchas que primero, dirigete a la seccion de Mis Canchas y elimina todas las canchas"
+      );
       console.error("Error al eliminar la sede:", error);
     }
   };
@@ -129,7 +132,7 @@ const MisSedes = () => {
                 <span className="text-lg font-medium text-gray-800">
                   {sede.name}
                 </span>
-                <div className="flex space-x-2">
+                <div className="flex space-x-3">
                   <button
                     onClick={() => handleEstadoSede(sede.id)}
                     className="text-blue-600 hover:text-blue-800 font-medium"

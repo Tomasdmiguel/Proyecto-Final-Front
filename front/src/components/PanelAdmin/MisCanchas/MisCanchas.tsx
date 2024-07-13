@@ -10,6 +10,7 @@ import {
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
 import { IFormCancha } from "@/interface/IFormCancha";
+import { pausarTurnos } from "@/service/Admin/PausarTurnos";
 
 const MisCanchas = () => {
   const [sedes, setSedes] = useState<ISede[]>([]);
@@ -42,16 +43,37 @@ const MisCanchas = () => {
           canchas: sede?.canchas?.filter((cancha) => cancha.id !== canchaId),
         }));
         setSedes(updatedSedes);
-        showSuccessAlert("Se elimino correctamente");
+        showSuccessAlert("Se elimino la cancha correctamente");
       } else {
         showErrorAlert(
-          "Para eliminar la cancha no tienes que tener turnos disponible"
+          "No se pudo realizar la accion"
         );
       }
     } catch (error) {
+      showErrorAlert(
+        "Para hacer esto debes primero Pausar los turnos de esta cancha"
+      )
       console.error("Error al eliminar la cancha:", error);
     }
   };
+
+  const handlePausar = async (canchaId: string) => {
+    try {
+      if (userData?.token){
+        await pausarTurnos(canchaId);
+        showSuccessAlert("Se ha pausado los turnos correctamente");
+      }else {
+        showErrorAlert(
+          "No se pudo realizar la accion"
+        )
+      }
+    } catch (error: any) {
+      showErrorAlert("No se pudieron pausar los turnos")
+      console.error("Error al pausar los turnos:", error);
+      
+    }
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataFile, setFile] = useState<File | null>(null);
   const [UpdateId, setUpdateId] = useState<string>("");
@@ -137,6 +159,11 @@ const MisCanchas = () => {
                         onClick={() => handleEstadoCancha(cancha)}
                         className="text-blue-600 hover:text-blue-800 font-medium">
                         Editar
+                      </button>
+                      <button
+                        onClick={() => handlePausar(cancha.id)}
+                        className="text-green-600 hover:text-green-700 font-medium">
+                        Pausar
                       </button>
                       <button
                         onClick={() => handleDeleteCancha(cancha.id)}
