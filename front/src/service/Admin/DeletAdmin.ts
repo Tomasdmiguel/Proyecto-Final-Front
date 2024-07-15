@@ -1,6 +1,6 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const deleteCancha = async (id: string): Promise<void> => {
+export const deleteCancha = async (id: string): Promise<boolean> => {
   try {
     const response = await fetch(`${API_URL}/cancha/${id}`, {
       method: "DELETE",
@@ -15,6 +15,7 @@ export const deleteCancha = async (id: string): Promise<void> => {
     }
 
     console.log("Cancha eliminada correctamente");
+    return true; 
   } catch (error) {
     console.error("Error eliminando la cancha:", error);
     throw error;
@@ -23,14 +24,15 @@ export const deleteCancha = async (id: string): Promise<void> => {
 
 export const deleteSede = async (token: string, id: string) => {
     try {
-      const response = await fetch(`${API_URL}/sede/${id}`, {
+      const response = await fetch(`${API_URL}/sede/delete/sede/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, 
+          authorization: `Bearer ${token}`, 
         },
       });
-  
+      console.log(response);
+      
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(`Error eliminando la sede: ${errorData.message}`);
