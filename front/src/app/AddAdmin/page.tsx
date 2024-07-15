@@ -18,4 +18,4 @@ const AddAdmin = () => {
 };
 
 export default AddAdmin;
-// Complete el formulario para registrarte como un nuevo canchero
+
