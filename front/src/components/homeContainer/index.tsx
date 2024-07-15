@@ -13,7 +13,7 @@ export const HomeContainer = async () => {
   return (
     <div className="flex flex-col items-center w-[100vw] ">
       <Carousel />
-      {/* <TitleHome /> */}
+      <TitleHome />
       <ContainerSedes sedes={sedes} />
       <CarruselC canchas={canchas} />
       <CancheroHome />

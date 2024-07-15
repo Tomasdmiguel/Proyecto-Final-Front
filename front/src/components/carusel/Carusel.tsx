@@ -14,7 +14,7 @@ const sedes: ISede[] = [
   { imgUrl: "https://larrytennis.com/cdn/shop/collections/articulos-tenis-bogota-larry-tennis_0af3cbf2-6f8b-43d6-a973-f281dc9b4074_1200x1200.jpg?v=1542409890" },
 ];
 
-export const Carousel = ({ sedes }: { sedes: ISede[] }) => {
+export const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrev = () => {
@@ -65,5 +65,5 @@ export const Carousel = ({ sedes }: { sedes: ISede[] }) => {
 };
 
 export default function Page() {
-  return <Carousel sedes={sedes} />;
+  return <Carousel />;
 }
