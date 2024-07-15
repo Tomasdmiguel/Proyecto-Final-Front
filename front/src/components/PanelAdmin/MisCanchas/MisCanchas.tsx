@@ -2,17 +2,14 @@
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
-import { ICancha, ISede } from "@/interface/ISedes";
+import { ISede } from "@/interface/ISedes";
 import { deleteCancha } from "@/service/Admin/DeletAdmin";
 import { updateCancha } from "@/service/Admin/EditAdmin";
 import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
-import { IFormCancha } from "@/interface/IFormCancha";
 import { pausarTurnos } from "@/service/Admin/PausarTurnos";
-import { ICanchaUpdate } from "@/interface/ICanchaUpdate";
-
 const MisCanchas = () => {
   const [sedes, setSedes] = useState<ISede[]>([]);
   const { userData } = useUser();
@@ -73,9 +70,7 @@ const MisCanchas = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataFile, setFile] = useState<File | null>(null);
   const [UpdateId, setUpdateId] = useState<string>("");
-  const [updateCanchaData, setupdateCancha] = useState<any>({
-   
-  });
+  const [updateCanchaData, setupdateCancha] = useState<any>({});
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -95,17 +90,17 @@ const MisCanchas = () => {
     if (cancha) {
       setUpdateId(cancha.id);
       setupdateCancha({
-        name: cancha.name ,
-        timeopen: cancha.timeopen ,
-        timeclose: cancha.timeclose, 
-        price: cancha.price
+        name: cancha.name,
+        timeopen: cancha.timeopen,
+        timeclose: cancha.timeclose,
+        price: cancha.price,
       });
       setIsModalOpen(true);
     }
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     try {
       if (userData?.token || UpdateId || dataFile || userData) {
         const response = await updateCancha(
@@ -114,22 +109,20 @@ const MisCanchas = () => {
           updateCanchaData,
           dataFile
         );
-
-        if (response) {
+  
+        if (response ) {
           showSuccessAlert("La cancha se actualizó correctamente");
           setIsModalOpen(false);
         } else {
           showErrorAlert("Hubo un problema al actualizar la cancha");
         }
-      } else {
-        showErrorAlert("Faltan datos necesarios para actualizar la cancha");
-      }
+      } 
     } catch (error) {
       console.error("Error al actualizar la cancha:", error);
       showErrorAlert("Hubo un error al actualizar la cancha");
     }
   };
-console.log(updateCanchaData)
+ 
   return (
     <div className="container mx-auto p-6 pb-20">
       <h1 className="text-3xl font-extrabold mb-8 text-terciario-white">
