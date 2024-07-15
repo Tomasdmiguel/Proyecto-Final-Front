@@ -73,7 +73,7 @@ export default function Dashboard() {
     <div
       className={` ${
         sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
-      } flex flex-col justify-center items-center w-full p-4 gap-24 min-h-[85vh]`}
+      } flex flex-col justify-center items-center w-screen p-4 gap-24 min-h-[85vh]`}
     >
       <div className="bg-terciario-white p-8 rounded-lg shadow-xl min-w-[60vw] max-w-[80vw] text-terciario mt-10 text-xl flex flex-row items-center justify-evenly">
         <div className="space-y-8 w-3/5">

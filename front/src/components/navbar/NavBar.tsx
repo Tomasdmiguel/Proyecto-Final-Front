@@ -18,6 +18,9 @@ export default function NavBar() {
   const redirect = () => {
     router.push("/Dashboard");
     handleSport(0);
+    setTimeout(() => {
+      window.location.reload();
+    }, 125);
   };
 
   return (
@@ -47,7 +50,7 @@ export default function NavBar() {
                   href={"/"}
                   className="hover:font-bold p-2 text-2xl duration-300 ease-in-out"
                 >
-                  Principal
+                  Inicio
                 </Link>
               </li>
 
@@ -166,7 +169,7 @@ export default function NavBar() {
           </div>
           <div className="flex items-center justify-end">
             <button
-              type="button"
+              type="submit"
               onClick={redirect}
               className="bg-white space-x-2 text-center w-32 rounded-2xl h-12 relative font-sans text-black text-xl font-semibold group"
             >

@@ -2,7 +2,7 @@
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
-import { ISede } from "@/interface/ISedes";
+import { ICancha, ISede } from "@/interface/ISedes";
 import { deleteCancha } from "@/service/Admin/DeletAdmin";
 import { updateCancha } from "@/service/Admin/EditAdmin";
 import {
@@ -11,6 +11,7 @@ import {
 } from "@/helpers/alert.helper/alert.helper";
 import { IFormCancha } from "@/interface/IFormCancha";
 import { pausarTurnos } from "@/service/Admin/PausarTurnos";
+import { ICanchaUpdate } from "@/interface/ICanchaUpdate";
 
 const MisCanchas = () => {
   const [sedes, setSedes] = useState<ISede[]>([]);
@@ -45,48 +46,38 @@ const MisCanchas = () => {
         setSedes(updatedSedes);
         showSuccessAlert("Se elimino la cancha correctamente");
       } else {
-        showErrorAlert(
-          "No se pudo realizar la accion"
-        );
+        showErrorAlert("No se pudo realizar la accion");
       }
     } catch (error) {
       showErrorAlert(
         "Para hacer esto debes primero Pausar los turnos de esta cancha"
-      )
+      );
       console.error("Error al eliminar la cancha:", error);
     }
   };
 
   const handlePausar = async (canchaId: string) => {
     try {
-      if (userData?.token){
+      if (userData?.token) {
         await pausarTurnos(canchaId);
         showSuccessAlert("Se ha pausado los turnos correctamente");
-      }else {
-        showErrorAlert(
-          "No se pudo realizar la accion"
-        )
+      } else {
+        showErrorAlert("No se pudo realizar la accion");
       }
     } catch (error: any) {
-      showErrorAlert("No se pudieron pausar los turnos")
+      showErrorAlert("No se pudieron pausar los turnos");
       console.error("Error al pausar los turnos:", error);
-      
     }
-  }
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataFile, setFile] = useState<File | null>(null);
   const [UpdateId, setUpdateId] = useState<string>("");
-  const [updateCanchaData, setupdateCancha] = useState<IFormCancha>({
-    sedeName: "",
+  const [updateCanchaData, setupdateCancha] = useState<any>({
     name: "",
-    sport: 0,
     timeopen: "",
     timeclose: "",
-    type: "",
-    price: 0,
-    player: 0,
-    techado: false,
+    price: "",
   });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,19 +105,22 @@ const MisCanchas = () => {
     event.preventDefault();
 
     try {
-      if (userData?.token && UpdateId) {
-        const updatedCancha = await updateCancha(
+      if (userData?.token || UpdateId || dataFile || userData) {
+        const response = await updateCancha(
           UpdateId,
           userData,
-          updateCanchaData
+          updateCanchaData,
+          dataFile
         );
 
-        if (updatedCancha) {
+        if (response) {
           showSuccessAlert("La cancha se actualizó correctamente");
           setIsModalOpen(false);
         } else {
           showErrorAlert("Hubo un problema al actualizar la cancha");
         }
+      } else {
+        showErrorAlert("Faltan datos necesarios para actualizar la cancha");
       }
     } catch (error) {
       console.error("Error al actualizar la cancha:", error);
@@ -181,18 +175,19 @@ const MisCanchas = () => {
         <p className="text-gray-500 text-lg">No tienes sedes registradas.</p>
       )}
       {isModalOpen && (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-4">
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white rounded-lg p-8 max-w-md w-full">
               <h2 className="text-2xl font-bold mb-4 text-gray-800">
                 Editar Cancha
               </h2>
-              <form className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
                     Nombre:
                   </label>
                   <input
+                    value={updateCanchaData.name}
                     type="text"
                     name="name"
                     onChange={handleUpdateChange}
@@ -267,7 +262,7 @@ const MisCanchas = () => {
               </form>
             </div>
           </div>
-        </form>
+        </div>
       )}
     </div>
   );
