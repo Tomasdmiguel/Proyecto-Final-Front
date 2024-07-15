@@ -2,7 +2,6 @@
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
-
 import { ISede, ICancha } from "@/interface/ISedes";
 import { deleteCancha } from "@/service/Admin/DeletAdmin";
 import { updateCancha } from "@/service/Admin/EditAdmin";
@@ -10,11 +9,14 @@ import { showErrorAlert, showSuccessAlert } from "@/helpers/alert.helper/alert.h
 import { pausarTurnos } from "@/service/Admin/PausarTurnos";
 import { TurnoPausa } from "@/interface/TurnoPausa";
 
-
 const MisCanchas = () => {
   const [sedes, setSedes] = useState<ISede[]>([]);
   const [turnos, setTurnos] = useState<TurnoPausa[]>([]);
   const { userData } = useUser();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dataFile, setFile] = useState<File | null>(null);
+  const [UpdateId, setUpdateId] = useState<string>("");
+  const [updateCanchaData, setupdateCancha] = useState<any>({});
 
   useEffect(() => {
     const fetchSedes = async () => {
@@ -36,7 +38,16 @@ const MisCanchas = () => {
   useEffect(() => {
     const fetchTurnos = async () => {
       try {
-        const fetchedTurnos: TurnoPausa[] = []; 
+        const fetchedTurnos: TurnoPausa[] = sedes.reduce((acc: TurnoPausa[], sede) => {
+          if (sede.canchas) {
+            const turnosSede = sede.canchas.map((cancha) => ({
+              id: cancha.id,
+              isActive: false,
+            }));
+            acc.push(...turnosSede);
+          }
+          return acc;
+        }, []);
         setTurnos(fetchedTurnos);
       } catch (error) {
         console.error("Error fetching turnos:", error);
@@ -44,7 +55,7 @@ const MisCanchas = () => {
     };
 
     fetchTurnos();
-  }, []);
+  }, [sedes]);
 
   const handleDeleteCancha = async (canchaId: string) => {
     try {
@@ -56,12 +67,14 @@ const MisCanchas = () => {
           canchas: sede?.canchas?.filter((cancha) => cancha.id !== canchaId),
         }));
         setSedes(updatedSedes);
-        showSuccessAlert("Se elimino la cancha correctamente");
+        showSuccessAlert("Se eliminó la cancha correctamente");
       } else {
-        showErrorAlert("No se pudo realizar la accion");
+        showErrorAlert("No se pudo realizar la acción");
       }
     } catch (error) {
-      showErrorAlert("Para hacer esto debes primero Pausar los turnos de esta cancha");
+      showErrorAlert(
+        "Para hacer esto debes primero pausar los turnos de esta cancha"
+      );
       console.error("Error al eliminar la cancha:", error);
     }
   };
@@ -72,10 +85,10 @@ const MisCanchas = () => {
       if (result.success) {
         const newStatus = !currentStatus;
         const successMessage = newStatus
-          ? "Turnos restaurados correctamente"
-          : "Turnos pausados correctamente";
+          ? "Turnos pausados correctamente"
+          : "Turnos habilitados correctamente";
         showSuccessAlert(successMessage);
-        
+
         const updatedTurnos = turnos.map((turno) =>
           turno.id === canchaId ? { ...turno, isActive: newStatus } : turno
         );
@@ -88,16 +101,12 @@ const MisCanchas = () => {
     }
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dataFile, setFile] = useState<File | null>(null);
-  const [UpdateId, setUpdateId] = useState<string>("");
-  const [updateCanchaData, setupdateCancha] = useState<any>({});
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       setFile(event.target.files[0]);
     }
   };
+
   const handleUpdateChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -107,33 +116,28 @@ const MisCanchas = () => {
       [name]: value,
     });
   };
+
   const handleEstadoCancha = (cancha: any) => {
     if (cancha) {
       setUpdateId(cancha.id);
-      setupdateCancha({
-        name: cancha.name,
-        timeopen: cancha.timeopen,
-        timeclose: cancha.timeclose,
-        price: cancha.price,
-      });
+      setupdateCancha(cancha);
       setIsModalOpen(true);
     }
   };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+
     try {
-      if (userData?.token || UpdateId || dataFile || userData) {
-        const status = await updateCancha(
+      if (userData?.token || UpdateId || dataFile || userData ) {
+        const updatedCancha = await updateCancha(
           UpdateId,
           userData,
           updateCanchaData,
           dataFile
         );
-  
-        console.log(`Response status from server: ${status}`);
-  
-        if (status === 200) {
+
+        if (updatedCancha) {
           showSuccessAlert("La cancha se actualizó correctamente");
           setIsModalOpen(false);
         } else {
@@ -145,11 +149,10 @@ const MisCanchas = () => {
       showErrorAlert("Hubo un error al actualizar la cancha");
     }
   };
-  
-  
+
   return (
     <div className="container mx-auto p-6 pb-20">
-      <h1 className="text-3xl font-extrabold mb-8 text-terciario-white">
+      <h1 className="text-3xl font-extrabold mb-8 text-gray-900">
         Mis Canchas
       </h1>
       {sedes.length > 0 ? (
@@ -157,10 +160,9 @@ const MisCanchas = () => {
           <ul className="space-y-8">
             {sedes.map((sede) => (
               <div key={sede.id}>
-                <h2 className="text-3xl font-bold mb-6 text-gray-900">
+                <h2 className="text-2xl font-bold mb-6 text-gray-800">
                   {sede.name}
                 </h2>
-
                 {sede?.canchas?.map((cancha) => {
                   const turno = turnos.find((t) => t.id === cancha.id);
                   return (
@@ -183,11 +185,11 @@ const MisCanchas = () => {
                           type="button"
                           className={`${
                             turno?.isActive
-                              ? "bg-red-500 hover:bg-red-600"
-                              : "bg-green-500 hover:bg-green-600"
+                              ? "bg-green-500 hover:bg-green-600"
+                              : "bg-red-500 hover:bg-red-600"
                           } text-white px-4 py-2 rounded-md transition duration-300`}
                         >
-                          {turno?.isActive ? "Pausar" : "Habilitar"}
+                          {turno?.isActive ? "Habilitar" : "Pausar"}
                         </button>
                         <button
                           onClick={() => handleDeleteCancha(cancha.id)}
@@ -196,7 +198,6 @@ const MisCanchas = () => {
                           Eliminar
                         </button>
                       </div>
-
                     </div>
                   );
                 })}
@@ -208,92 +209,91 @@ const MisCanchas = () => {
         <p className="text-gray-500 text-lg">No tienes sedes registradas.</p>
       )}
       {isModalOpen && (
-        <div className="space-y-4">
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white rounded-lg p-8 max-w-md w-full">
-              <h2 className="text-2xl font-bold mb-4 text-gray-800">
-                Editar Cancha
-              </h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Nombre:
-                  </label>
-                  <input
-                    value={updateCanchaData.name}
-                    type="text"
-                    name="name"
-                    onChange={handleUpdateChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Horario de apertura
-                  </label>
-                  <input
-                    type="time"
-                    value={updateCanchaData.timeopen}
-                    name="timeopen"
-                    onChange={handleUpdateChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Horario de cierre
-                  </label>
-                  <input
-                    type="time"
-                    value={updateCanchaData.timeclose}
-                    name="timeclose"
-                    onChange={handleUpdateChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Precio por jugador
-                  </label>
-                  <input
-                    type="number"
-                    value={updateCanchaData.price}
-                    name="price"
-                    onChange={handleUpdateChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Archivo (Imagen de la Cancha):
-                  </label>
-                  <input
-                    type="file"
-                    name="file"
-                    onChange={handleFileChange}
-                    className="mt-1 block w-full text-sm text-gray-500
-                    file:mr-4 file:py-2 file:px-4
-                    file:rounded-full file:border-0
-                    file:text-sm file:font-semibold
-                    file:bg-indigo-50 file:text-indigo-700
-                    hover:file:bg-indigo-100"
-                  />
-                </div>
-                <div className="flex justify-end space-x-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
-                    Cancelar
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                    Actualizar Cancha
-                  </button>
-                </div>
-              </form>
-            </div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">
+              Editar Cancha
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Nombre:
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  onChange={handleUpdateChange}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Horario de apertura
+                </label>
+                <input
+                  type="time"
+                  value={updateCanchaData.timeopen}
+                  name="timeopen"
+                  onChange={handleUpdateChange}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Horario de cierre
+                </label>
+                <input
+                  type="time"
+                  value={updateCanchaData.timeclose}
+                  name="timeclose"
+                  onChange={handleUpdateChange}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Precio por jugador
+                </label>
+                <input
+                  type="number"
+                  value={updateCanchaData.price}
+                  name="price"
+                  onChange={handleUpdateChange}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Archivo (Imagen de la Cancha):
+                </label>
+                <input
+                  type="file"
+                  name="file"
+                  onChange={handleFileChange}
+                  className="mt-1 block w-full text-sm text-gray-500
+                  file:mr-4 file:py-2 file:px-4
+                  file:rounded-full file:border-0
+                  file:text-sm file:font-semibold
+                  file:bg-indigo-50 file:text-indigo-700
+                  hover:file:bg-indigo-100"
+                />
+              </div>
+              <div className="flex justify-end space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                >
+                  Actualizar Cancha
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
@@ -302,3 +302,4 @@ const MisCanchas = () => {
 };
 
 export default MisCanchas;
+
