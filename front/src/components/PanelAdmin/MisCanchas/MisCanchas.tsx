@@ -124,26 +124,29 @@ const MisCanchas = () => {
   
     try {
       if (userData?.token || UpdateId || dataFile || userData) {
-        const response = await updateCancha(
+        const status = await updateCancha(
           UpdateId,
           userData,
           updateCanchaData,
           dataFile
         );
   
-        if (response ) {
+        console.log(`Response status from server: ${status}`);
+  
+        if (status === 200) {
           showSuccessAlert("La cancha se actualizó correctamente");
           setIsModalOpen(false);
         } else {
           showErrorAlert("Hubo un problema al actualizar la cancha");
         }
-      } 
+      }
     } catch (error) {
       console.error("Error al actualizar la cancha:", error);
       showErrorAlert("Hubo un error al actualizar la cancha");
     }
   };
- 
+  
+  
   return (
     <div className="container mx-auto p-6 pb-20">
       <h1 className="text-3xl font-extrabold mb-8 text-terciario-white">
