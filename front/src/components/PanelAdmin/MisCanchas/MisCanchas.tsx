@@ -73,7 +73,12 @@ const MisCanchas = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataFile, setFile] = useState<File | null>(null);
   const [UpdateId, setUpdateId] = useState<string>("");
-  const [updateCanchaData, setupdateCancha] = useState<any>({});
+  const [updateCanchaData, setupdateCancha] = useState<any>({
+    name: "",
+    timeopen: "",
+    timeclose: "",
+    price: "",
+  });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -98,24 +103,24 @@ const MisCanchas = () => {
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("upi", UpdateId);
-    console.log("ud", userData);
-    console.log("upcada", updateCanchaData);
 
     try {
-      if (userData?.token && UpdateId) {
-        const updatedCancha = await updateCancha(
+      if (userData?.token || UpdateId || dataFile || userData) {
+        const response = await updateCancha(
           UpdateId,
           userData,
-          updateCanchaData
+          updateCanchaData,
+          dataFile
         );
 
-        if (updatedCancha) {
+        if (response) {
           showSuccessAlert("La cancha se actualizó correctamente");
           setIsModalOpen(false);
         } else {
           showErrorAlert("Hubo un problema al actualizar la cancha");
         }
+      } else {
+        showErrorAlert("Faltan datos necesarios para actualizar la cancha");
       }
     } catch (error) {
       console.error("Error al actualizar la cancha:", error);
@@ -139,28 +144,24 @@ const MisCanchas = () => {
                 {sede?.canchas?.map((cancha) => (
                   <div
                     key={cancha.id}
-                    className="bg-gray-100 p-6 rounded-lg shadow-md mb-6 hover:shadow-lg transition-shadow duration-300"
-                  >
+                    className="bg-gray-100 p-6 rounded-lg shadow-md mb-6 hover:shadow-lg transition-shadow duration-300">
                     <h3 className="text-xl font-semibold text-gray-800">
                       {cancha.name}
                     </h3>
                     <div className="mt-4 flex justify-end space-x-4">
                       <button
                         onClick={() => handleEstadoCancha(cancha)}
-                        className="text-blue-600 hover:text-blue-800 font-medium"
-                      >
+                        className="text-blue-600 hover:text-blue-800 font-medium">
                         Editar
                       </button>
                       <button
                         onClick={() => handlePausar(cancha.id)}
-                        className="text-green-600 hover:text-green-700 font-medium"
-                      >
+                        className="text-green-600 hover:text-green-700 font-medium">
                         Pausar
                       </button>
                       <button
                         onClick={() => handleDeleteCancha(cancha.id)}
-                        className="text-red-600 hover:text-red-800 font-medium"
-                      >
+                        className="text-red-600 hover:text-red-800 font-medium">
                         Eliminar
                       </button>
                     </div>
@@ -186,6 +187,7 @@ const MisCanchas = () => {
                     Nombre:
                   </label>
                   <input
+                    value={updateCanchaData.name}
                     type="text"
                     name="name"
                     onChange={handleUpdateChange}
@@ -248,14 +250,12 @@ const MisCanchas = () => {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors"
-                  >
+                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-                  >
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
                     Actualizar Cancha
                   </button>
                 </div>

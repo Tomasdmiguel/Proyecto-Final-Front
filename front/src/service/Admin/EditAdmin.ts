@@ -39,25 +39,36 @@ export const updateSede = async (
 
 export const updateCancha = async (
   id: string,
-  userSession: IUserSession,
-  cancha: any
+  userSession: IUserSession | null,
+  cancha: any | null,
+  file: File | null
 ) => {
+  const formData = new FormData();
+
   try {
+    if (file) {
+      formData.append("file", file);
+    }
+    if (cancha.name) formData.append("name", cancha.name);
+    if (cancha.timeopen) formData.append("timeopen", cancha.timeopen);
+    if (cancha.timeclose) formData.append("timeclose", cancha.timeclose);
+    if (cancha.price) formData.append("price", cancha.price);
+
     const response = await fetch(`${API_URL}/cancha/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userSession.token}`,
+        Authorization: `Bearer ${userSession?.token}`,
       },
-      body: JSON.stringify(cancha),
+      body: formData,
     });
 
-    if (!response.ok) {
+    if (!response.status) {
+      console.log(`Error: ${response.status}`);
       throw new Error(`Error: ${response.status}`);
+    } else {
+      console.log(`True: ${response.status}`);
     }
-
-    const data = await response.json();
-    return data;
+    return response.text();
   } catch (error) {
     console.error("Error updating cancha:", error);
     throw error;
