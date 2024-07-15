@@ -129,7 +129,7 @@ const MisCanchas = () => {
     event.preventDefault();
 
     try {
-      if (userData?.token && UpdateId) {
+      if (userData?.token || UpdateId || dataFile || userData ) {
         const updatedCancha = await updateCancha(
           UpdateId,
           userData,
