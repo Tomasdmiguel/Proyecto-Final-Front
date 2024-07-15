@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useSport } from "@/context/SportContext";
 import { useUser } from "@/context/UserContext";
 import { usePathname, useRouter } from "next/navigation";
+
 export default function NavBar() {
   const { userData } = useUser();
   const { sport } = useSport();
@@ -23,114 +24,49 @@ export default function NavBar() {
     }, 125);
   };
 
+  // Estado para controlar el menú en responsive
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Función para toggle el estado del menú
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
-    <nav
-      className={`flex flex-row justify-center items-center h-[15vh] w-screen p-2  border-b-2 ${
-        sport == 2
-          ? "border-blue-400 text-blue-400 bg-terciario-white"
-          : sport == 3
-          ? "border-orange-500 text-orange-500 bg-terciario-white"
-          : sport == 4
-          ? "border-blue-600 text-blue-600 bg-gray-900"
-          : "border-main text-main bg-terciario-white"
-      }`}
-    >
-      {!isAdminPanel ? (
-        <div className="flex flex-row justify-around items-center lg:max-w-[60vw]">
-          <Link href={"/"}>
-            <div>
-              <img src="/icon.png" alt="Company Logo" className="w-[12vh]" />
-            </div>
-          </Link>
-
-          <div className="px-5">
-            <ul className="max-w-[768px] flex flex-row items-center space-x-9 text-xl font-bebas-neue uppercase ">
-              <li>
-                <Link
-                  href={"/"}
-                  className="hover:font-bold p-2 text-2xl duration-300 ease-in-out"
-                >
-                  Inicio
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href={"/sedes"}
-                  className="hover:font-black p-2 text-2xl duration-300 ease-in-out"
-                >
-                  Sedes
-                </Link>
-              </li>
-            </ul>
+    <header className="inset-x-0 top-0 z-50 bg-white px-10 overflow-hidden">
+      {!isAdminPanel && (
+        <nav className="flex items-center justify-between p-3 lg:px-8" aria-label="Global">
+          <div className="flex lg:flex-1 items-center">
+            <Link href="/" className="-m-1.5 p-1.5">
+              <img className="h-20 w-auto hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out" src="logo2.png" alt="Your Company Logo" />
+            </Link>
           </div>
 
-          {userData?.userDb.rol === "superadmin" ? (
-            <Link
-              href="/SuperAdmin"
-              className="hover:font-black p-2 text-2xl duration-300 ease-in-out"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className={`fill-none ${
-                  sport === 2
-                    ? "stroke-blue-400"
-                    : sport === 3
-                    ? "stroke-orange-500"
-                    : sport === 4
-                    ? "stroke-blue-600"
-                    : "stroke-main"
-                }`}
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+          <div className="hidden lg:flex lg:gap-x-12 flex-grow justify-center">
+            <Link href="/sedes" className="text-xl font-semibold leading-6 text-gray-900">Sedes</Link>
+            {userData?.token && (
+              <Link href="/Chat" className="text-xl font-semibold leading-6 text-gray-900">Chat</Link>
+            )}
+          </div>
+
+          <div className="flex lg:hidden">
+            <button type="button" onClick={toggleMenu} className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+              <span className="sr-only">Open main menu</span>
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
               </svg>
-            </Link>
-          ) : userData?.userDb.rol === "user" ||
-            userData?.userDb.rol === "admin" ||
-            userData?.token ? (
-            <div className=" flex flex-row items-center space-x-10 px-5">
-              <Link href="/Chat">
-                <svg
-                  className={`fill-none ${
-                    sport === 2
-                      ? "stroke-blue-400"
-                      : sport === 3
-                      ? "stroke-orange-500"
-                      : sport === 4
-                      ? "stroke-blue-600"
-                      : "stroke-main"
-                  }`}
-                  width="40"
-                  height="40"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" />
-                </svg>
-              </Link>
+            </button>
+          </div>
+
+          <div className="hidden lg:flex lg:flex-1 gap-x-4 lg:justify-end">
+            {userData?.userDb.rol === "superadmin" ? (
               <Link
-                href="/Dashboard"
-                className={`duration-300 ease-in-out ${""}`}
+                href="/SuperAdmin"
+                className="hover:font-black p-2 text-2xl duration-300 ease-in-out"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`fill-none ${
-                    sport === 2
-                      ? "stroke-blue-400"
-                      : sport === 3
-                      ? "stroke-orange-500"
-                      : sport === 4
-                      ? "stroke-blue-600"
-                      : "stroke-main"
-                  }`}
+                  className="fill-none stroke-main"
                   width="40"
                   height="40"
                   viewBox="0 0 24 24"
@@ -141,60 +77,72 @@ export default function NavBar() {
                   <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                 </svg>
               </Link>
-            </div>
-          ) : (
-            <Link
-              href="/Login"
-              className={`font-bebas-neue font-bold text-base md:text-lg p-2 rounded-lg border-2 hover:text-terciario-white duration-300 ease-in-out ${
-                sport === 2
-                  ? "border-blue-400 text-blue-400 hover:bg-blue-400"
-                  : sport === 3
-                  ? "border-orange-500 text-orange-600 hover:bg-orange-500"
-                  : "border-main text-main hover:bg-main"
-              }`}
-            >
-              Log In
-            </Link>
-          )}
-        </div>
-      ) : (
-        <div className="grid w-full grid-cols-3 py-6 px-10">
-          <div></div>
-          <div className="flex items-center justify-center">
-            <img
-              src="/icon2.jpg"
-              alt="Company Logo"
-              className="w-[12vh] rounded-full"
-            />
-          </div>
-          <div className="flex items-center justify-end">
-            <button
-              type="submit"
-              onClick={redirect}
-              className="bg-white space-x-2 text-center w-32 rounded-2xl h-12 relative font-sans text-black text-xl font-semibold group"
-            >
-              <div className="bg-blue-600 rounded-xl h-10 w-1/4 flex items-center justify-center absolute left-1 top-[4px] group-hover:w-[120px] z-10 duration-500">
-                <svg
-                  width="25px"
-                  height="25px"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
+            ) : userData?.userDb.rol === "user" ||
+              userData?.userDb.rol === "admin" ||
+              userData?.token ? (
+              <div className="flex items-center space-x-10 px-5">
+                <Link
+                  href="/Dashboard"
+                  className={`duration-300 ease-in-out ${""}`}
                 >
-                  <path
-                    fill="#000000"
-                    d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"
-                  ></path>
-                  <path
-                    fill="#000000"
-                    d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
-                  ></path>
-                </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="fill-none stroke-main hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                  </svg>
+                </Link>
               </div>
-              <p className="translate-x-2">Volver</p>
-            </button>
+            ) : (
+              <div className="hidden lg:flex lg:flex-1 gap-x-4 lg:justify-end">
+                <Link href="/AddAdmin" className="py-2 px-5 rounded-xl font-medium text-black text-center border border-gray-900 hover:bg-gray-900 hover:text-white duration-150 block md:py-3 md:inline">Suma tu cancha</Link>
+                <Link href='/Login' className="py-2 px-5 rounded-xl font-medium text-white text-center bg-gray-900 hover:bg-white border border-gray-900 hover:text-gray-900 hover:border hover:border-gray-900 active:bg-gray-800 duration-150 block md:py-3 md:inline">Ingresa</Link>
+              </div>
+            )}
+          </div>
+        </nav>
+      )}
+      {/* Mobile menu, show/hide based on menu open state. */}
+      {menuOpen && (
+        <div className="lg:hidden" role="dialog" aria-modal="true">
+          {/* Background backdrop, show/hide based on slide-over state. */}
+          <div className="fixed inset-0 z-50"></div>
+          <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div className="flex items-center justify-between">
+              <Link href="/" className="-m-1.5 p-1.5">
+                <span className="sr-only">Your Company</span>
+                <img className="h-8 w-auto" src="logo2.png" alt="Your Company Logo" />
+              </Link>
+              <button type="button" onClick={toggleMenu} className="-m-2.5 rounded-md p-2.5 text-gray-700">
+                <span className="sr-only">Close menu</span>
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="mt-6 flow-root">
+              <div className="-my-6 divide-y divide-gray-500/10">
+                <div className="space-y-2 py-6">
+                  <Link href="/sedes" className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" onClick={toggleMenu}>Sedes</Link>
+                  {userData?.token && (
+                    <Link href="/Chat" className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" onClick={toggleMenu}>Chat</Link>
+                  )}
+                </div>
+                <div className="py-6">
+                  <Link href="/Login" className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" onClick={toggleMenu}>Ingresa</Link>
+                  <Link href="/AddAdmin" className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" onClick={toggleMenu}>Suma tu cancha</Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 }
