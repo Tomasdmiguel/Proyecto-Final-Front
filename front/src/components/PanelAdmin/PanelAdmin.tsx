@@ -1,14 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import MisCanchas from "./MisCanchas/MisCanchas";
 import MisSedes from "./MisSedes/MisSedes";
 import Estadisticas from "../Estadisticas/Estadisticas";
 import Link from "next/link";
 import { useSport } from "@/context/SportContext";
+import { usePathname } from "next/navigation";
 
 const PanelAdmin = () => {
   const [activeView, setActiveView] = useState("estadistica");
   const { handleSport } = useSport();
+  const pathname = usePathname();
   const renderView = () => {
     switch (activeView) {
       case "estadistica":
@@ -21,6 +23,12 @@ const PanelAdmin = () => {
         return <Estadisticas />;
     }
   };
+  useEffect(() => {
+    const isPanel = pathname === "/PanelAdmin";
+    if (isPanel) {
+      handleSport(4);
+    }
+  }, [handleSport, pathname]);
 
   return (
     <div className="flex min-h-screen w-4/5 shadow-lg shadow-blue-600">
