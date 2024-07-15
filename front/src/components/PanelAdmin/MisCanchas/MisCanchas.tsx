@@ -2,12 +2,14 @@
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
+
 import { ISede, ICancha } from "@/interface/ISedes";
 import { deleteCancha } from "@/service/Admin/DeletAdmin";
 import { updateCancha } from "@/service/Admin/EditAdmin";
 import { showErrorAlert, showSuccessAlert } from "@/helpers/alert.helper/alert.helper";
 import { pausarTurnos } from "@/service/Admin/PausarTurnos";
 import { TurnoPausa } from "@/interface/TurnoPausa";
+
 
 const MisCanchas = () => {
   const [sedes, setSedes] = useState<ISede[]>([]);
@@ -108,37 +110,40 @@ const MisCanchas = () => {
   const handleEstadoCancha = (cancha: any) => {
     if (cancha) {
       setUpdateId(cancha.id);
-      setupdateCancha(cancha);
+      setupdateCancha({
+        name: cancha.name,
+        timeopen: cancha.timeopen,
+        timeclose: cancha.timeclose,
+        price: cancha.price,
+      });
       setIsModalOpen(true);
     }
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("upi", UpdateId);
-    console.log("ud", userData);
-    console.log("upcada", updateCanchaData);
-
+  
     try {
-      if (userData?.token && UpdateId) {
-        const updatedCancha = await updateCancha(
+      if (userData?.token || UpdateId || dataFile || userData) {
+        const response = await updateCancha(
           UpdateId,
           userData,
-          updateCanchaData
+          updateCanchaData,
+          dataFile
         );
-
-        if (updatedCancha) {
+  
+        if (response ) {
           showSuccessAlert("La cancha se actualizó correctamente");
           setIsModalOpen(false);
         } else {
           showErrorAlert("Hubo un problema al actualizar la cancha");
         }
-      }
+      } 
     } catch (error) {
       console.error("Error al actualizar la cancha:", error);
       showErrorAlert("Hubo un error al actualizar la cancha");
     }
   };
-
+ 
   return (
     <div className="container mx-auto p-6 pb-20">
       <h1 className="text-3xl font-extrabold mb-8 text-terciario-white">
@@ -152,6 +157,7 @@ const MisCanchas = () => {
                 <h2 className="text-3xl font-bold mb-6 text-gray-900">
                   {sede.name}
                 </h2>
+
                 {sede?.canchas?.map((cancha) => {
                   const turno = turnos.find((t) => t.id === cancha.id);
                   return (
@@ -187,6 +193,7 @@ const MisCanchas = () => {
                           Eliminar
                         </button>
                       </div>
+
                     </div>
                   );
                 })}
@@ -210,6 +217,7 @@ const MisCanchas = () => {
                     Nombre:
                   </label>
                   <input
+                    value={updateCanchaData.name}
                     type="text"
                     name="name"
                     onChange={handleUpdateChange}
@@ -272,14 +280,12 @@ const MisCanchas = () => {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors"
-                  >
+                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-                  >
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
                     Actualizar Cancha
                   </button>
                 </div>
