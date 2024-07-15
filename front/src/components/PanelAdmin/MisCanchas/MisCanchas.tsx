@@ -38,12 +38,11 @@ const MisCanchas = () => {
   useEffect(() => {
     const fetchTurnos = async () => {
       try {
-        // Simulación de datos para demostración, reemplaza con tu lógica real
         const fetchedTurnos: TurnoPausa[] = sedes.reduce((acc: TurnoPausa[], sede) => {
           if (sede.canchas) {
             const turnosSede = sede.canchas.map((cancha) => ({
               id: cancha.id,
-              isActive: false, // Debes ajustar esto según tu lógica real
+              isActive: false,
             }));
             acc.push(...turnosSede);
           }
@@ -134,7 +133,8 @@ const MisCanchas = () => {
         const updatedCancha = await updateCancha(
           UpdateId,
           userData,
-          updateCanchaData
+          updateCanchaData,
+          dataFile
         );
 
         if (updatedCancha) {

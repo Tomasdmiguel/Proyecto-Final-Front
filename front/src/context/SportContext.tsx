@@ -13,7 +13,7 @@ const SportContext = createContext<ISport | undefined>(undefined);
 export const SportProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [sport, setSport] = useState<number>(0);
+  const [sport, setSport] = useState<number>(1);
   const [home, setHome] = useState<boolean>(true);
 
   const handleSport = (n: number) => {
