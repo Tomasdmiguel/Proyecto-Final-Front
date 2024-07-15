@@ -1,19 +1,21 @@
+import { error } from "console";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const pausarTurnos = async (id: string): Promise<void> =>{
+export const pausarTurnos = async (id: string) =>{
     try {
         const response = await fetch(`${API_URL}/cancha/eliminacion/pausa/cancha/${id}`, {
           method: "GET",
         });
     
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(`Error eliminando los turnos: ${errorData.message}`);
+        if (response.ok) {
+         return { success: true, message: "Turnos eliminados correctamente"}
+        } else {
+          const errorMessage = await response.text();
+          return { success: false, message: errorMessage ||"Error eliminando turnos"}
         }
-    
-        console.log("Turnos eliminados correctamente");
-      } catch (error) {
-        console.error("Error eliminando turnos:", error);
-        throw error;
+        
+      } catch (error: any) {
+       return { success: false, message: error.message ||"ha ocurrido un error, intente mas tarde" }
       }
-}
+    }
