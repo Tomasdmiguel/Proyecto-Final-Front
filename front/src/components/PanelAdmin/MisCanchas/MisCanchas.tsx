@@ -74,10 +74,7 @@ const MisCanchas = () => {
   const [dataFile, setFile] = useState<File | null>(null);
   const [UpdateId, setUpdateId] = useState<string>("");
   const [updateCanchaData, setupdateCancha] = useState<any>({
-    name: "",
-    timeopen: "",
-    timeclose: "",
-    price: "",
+   
   });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +94,12 @@ const MisCanchas = () => {
   const handleEstadoCancha = (cancha: any) => {
     if (cancha) {
       setUpdateId(cancha.id);
-      setupdateCancha(cancha);
+      setupdateCancha({
+        name: cancha.name ,
+        timeopen: cancha.timeopen ,
+        timeclose: cancha.timeclose, 
+        price: cancha.price
+      });
       setIsModalOpen(true);
     }
   };
@@ -127,7 +129,7 @@ const MisCanchas = () => {
       showErrorAlert("Hubo un error al actualizar la cancha");
     }
   };
-
+console.log(updateCanchaData)
   return (
     <div className="container mx-auto p-6 pb-20">
       <h1 className="text-3xl font-extrabold mb-8 text-terciario-white">
