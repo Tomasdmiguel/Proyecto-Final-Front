@@ -8,13 +8,7 @@ const CardSede = ({ name, location, description, id, imgUrl }: ISede) => {
   const { sport } = useSport();
   return (
     <Link
-      className={`rounded overflow-hidden flex flex-col hover:scale-105 transition duration-300 ease-in-out ${
-        sport == 2
-          ? "hover:shadow-md hover:shadow-blue-400 shadow-2xl border border-blue-300"
-          : sport == 3
-          ? "hover:shadow-md hover:shadow-orange-500 shadow-2xl border hover:border-orange-300"
-          : "hover:shadow-md hover:shadow-main shadow-2xl border hover:border-green-400"
-      }`}
+      className={`rounded overflow-hidden flex flex-col hover:scale-105 transition duration-300 ease-in-out hover:shadow-md shadow-2xl border`}
       href={`/sede/${id}`}
     >
       <div className="relative">

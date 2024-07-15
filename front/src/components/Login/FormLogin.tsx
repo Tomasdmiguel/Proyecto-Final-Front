@@ -105,186 +105,106 @@ const FormLogin = () => {
   };
 
   return (
-    <div className="bg-gray-700 max-w-md w-full p-8 rounded-lg shadow-lg space-y-3">
-      <h1 className="text-terciario-white text-center text-3xl font-bold mb-6">
-        RESERVA GOL
-      </h1>
+    <div className="w-full h-screen flex justify-center items-center">
+      <div className="flex bg-white h-full shadow-lg overflow-hidden w-full">
+        <div
+          className="hidden md:block lg:w-1/2 bg-cover bg-blue-700"
+          style={{
+            backgroundImage: `url(loginImage.png)`,
+          }}
+        ></div>
+        <div className="w-full lg:w-1/2 flex flex-col justify-center items-center mb-20">
+          <div className="w-full p-8 lg:w-1/2 justify-center align-middle flex flex-col mb-10">
+            <form onSubmit={handleSubmit}>
+              <div className="mt-4">
+                <h1 className="text-2xl font-bold text-center text-gray-700">Iniciar sesión</h1>
+              </div>
+              <div className="mt-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Correo electronico
+                </label>
+                <input
+                  className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                  type="email"
+                  name="email"
+                  value={data.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mt-4 flex flex-col justify-between">
+                <div className="flex justify-between">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Contraseña
+                  </label>
+                </div>
+                <input
+                  className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                  type="password"
+                  name="password"
+                  value={data.password}
+                  onChange={handleChange}
+                  required
+                />
+                <a
+                  href="#"
+                  className="text-xs text-gray-500 hover:text-gray-900 text-end w-full mt-2"
+                >
+                  Olvidaste tu contraseña?
+                </a>
+              </div>
+              <div className="mt-8">
+                <button className="bg-blue-700 text-white font-bold py-3 px-4 w-full rounded hover:bg-blue-600">
+                  Iniciar sesión
+                </button>
+              </div>
 
-      <p
-        className={`${
-          sport == 2
-            ? "text-blue-400"
-            : sport == 3
-            ? "text-orange-500"
-            : "text-main"
-        } text-center font-semibold text-lg mb-4`}
-      >
-        Inicia sesión en tu cuenta
-      </p>
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-terciario-white mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={data.email}
-            placeholder="Escribí tu email"
-            onChange={handleChange}
-            className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${
-              sport == 2
-                ? "ring-blue-400"
-                : sport == 3
-                ? "ring-orange-500"
-                : "focus:ring-main"
-            }`}
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-terciario-white mb-2">
-            Contraseña
-          </label>
-          <div className="flex flex-row space-x-4 items-center">
-            <input
-              type={passwordVisible ? "text" : "password"}
-              name="password"
-              value={data.password}
-              placeholder="Escribe tu contraseña"
-              onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${
-                sport == 2
-                  ? "ring-blue-400"
-                  : sport == 3
-                  ? "ring-orange-500"
-                  : "focus:ring-main"
-              }`}
-            />
+            </form>
             <button
-              className={`p-[1px] h-2/3 border-2 ${
-                sport == 2
-                  ? "border-blue-400"
-                  : sport == 3
-                  ? "border-orange-500"
-                  : "border-main"
-              }  rounded-full`}
-              type="button"
-              onClick={togglePasswordVisibility}
+              onClick={callLoginGoogle}
+              className=" flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
             >
-              {passwordVisible ? (
-                <svg
-                  className={`h-[30px] w-[30px] fill-none ${
-                    sport == 2
-                      ? "stroke-blue-400"
-                      : sport == 3
-                      ? "stroke-orange-500"
-                      : "stroke-main"
-                  }`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                  <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                </svg>
-              ) : (
-                <svg
-                  className={`h-[30px] w-[30px] fill-none ${
-                    sport == 2
-                      ? "stroke-blue-400"
-                      : sport == 3
-                      ? "stroke-orange-500"
-                      : "stroke-main"
-                  }`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" />
-                  <path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" />
-                  <path d="M3 3l18 18" />
-                </svg>
-              )}
+              <div className="flex px-5 justify-center w-full py-3">
+                <div className="min-w-[30px]">
+                  <svg className="h-6 w-6" viewBox="0 0 40 40">
+                    <path
+                      d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
+                      fill="#FFC107"
+                    />
+                    <path
+                      d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z"
+                      fill="#FF3D00"
+                    />
+                    <path
+                      d="M20 36.6667C24.305 36.6667 28.2167 35.0192 31.1742 32.34L26.0159 27.975C24.3425 29.2425 22.2625 30 20 30C15.665 30 11.9842 27.2359 10.5975 23.3784L5.16254 27.5659C7.92087 32.9634 13.5225 36.6667 20 36.6667Z"
+                      fill="#4CAF50"
+                    />
+                    <path
+                      d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.7592 25.1975 27.56 26.805 26.0133 27.9758C26.0142 27.975 26.015 27.975 26.0158 27.9742L31.1742 32.3392C30.8092 32.6708 36.6667 28.3333 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
+                      fill="#1976D2"
+                    />
+                  </svg>
+                </div>
+                <div className="flex w-full justify-center">
+                  <h1 className="whitespace-nowrap text-gray-600 font-bold">
+                    Iniciar sesion con Google
+                  </h1>
+                </div>
+              </div>
             </button>
+            <div className="mt-4 flex items-center w-full text-center">
+              <Link
+                href="/Register"
+                className="text-xs text-gray-500 capitalize text-center w-full"
+              >
+                No tienes cuenta?
+                <span className="text-blue-700"> Registrate aqui.</span>
+              </Link>
+            </div>
           </div>
         </div>
 
-        <button
-          type="submit"
-          className={`w-full border grid grid-cols-3 items-center ${
-            sport == 2
-              ? "border-blue-400 hover:text-blue-400"
-              : sport == 3
-              ? "border-orange-500 hover:text-orange-500"
-              : "border-main hover:text-main"
-          } text-terciario-white hover:bg-terciario-white  p-3 rounded-lg duration-300 ease-in-out`}
-        >
-          <div className="col-span-1 flex justify-end items-center">
-            <img
-              src="/icon.png"
-              alt="Page icon"
-              className="w-5 h-5 col-span-1"
-            />
-          </div>
-          Iniciar sesión
-        </button>
-      </form>
-
-      <button
-        onClick={callLoginGoogle}
-        className={`w-full border flex flex-row justify-center items-center ${
-          sport == 2
-            ? "border-blue-400 hover:text-blue-400"
-            : sport == 3
-            ? "border-orange-500 hover:text-orange-500"
-            : "border-main hover:text-main"
-        } text-terciario-white hover:bg-terciario-white  p-3 rounded-lg duration-300 ease-in-out`}
-      >
-        <svg
-          className={`h-5 w-5  ${
-            sport == 2
-              ? "stroke-blue-400"
-              : sport == 3
-              ? "stroke-orange-500"
-              : "stroke-main"
-          } mr-3`}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M20.945 11a9 9 0 1 1 -3.284 -5.997l-2.655 2.392a5.5 5.5 0 1 0 2.119 6.605h-4.125v-3h7.945z" />
-        </svg>
-        Iniciar sesión con Google
-      </button>
-
-      <p className="text-terciario-white text-center mt-4">
-        Si no tienes una cuenta
-        <br />
-        <Link
-          className={`${
-            sport == 2
-              ? "text-blue-400"
-              : sport == 3
-              ? "text-orange-500"
-              : "text-main"
-          } text-center font-semibold text-md mb-4`}
-          href="/Register"
-        >
-          regístrate
-        </Link>
-      </p>
+      </div>
     </div>
   );
 };
