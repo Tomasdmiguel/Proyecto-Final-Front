@@ -1,6 +1,6 @@
 import { IUserSession } from "@/interface/context";
-import { ICanchaUpdate } from "@/interface/ICanchaUpdate";
-import { ICancha } from "@/interface/ISedes";
+// import { ICanchaUpdate } from "@/interface/ICanchaUpdate";
+// import { ICancha } from "@/interface/ISedes";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

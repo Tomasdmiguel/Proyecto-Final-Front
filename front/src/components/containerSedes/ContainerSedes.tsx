@@ -21,63 +21,41 @@ export const ContainerSedes = ({ sedes }: { sedes: ISede[] }) => {
 
   return (
     <div
-      className={`w-full min-w-[60vw] max-w-[80vw] lg:min-w-[45vw] lg:w-[45vw] h-full font-Marko ${
-        sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
-      } p-6  shadow-xl rounded-lg space-y-4 flex flex-col items-center`}
+      className={`w-full h-full font-bold shadow-xl rounded-lg flex flex-col items-center`}
     >
-      <div className="flex flex-row w-full justify-around">
-        <div
-          className={`border-b-2 ease-in-out duration-100 p-2 hover:border-secundario ${
-            sport == 1
-              ? "border-secundario"
-              : sport == 2
-              ? "border-blue-400"
-              : sport == 3
-              ? "border-orange-500"
-              : "border-main "
+      <div className="flex flex-row w-full h-[7.5vh] justify-around">
+        <button
+          onClick={() => handleSport(1)}
+          className={`h-full w-full  rounded-t-lg ${
+            sport == 1 ? "bg-green-200 " : "bg-terciario-white"
           }`}
         >
-          <button onClick={() => handleSport(1)} className="sports-button">
-            <img className="sports-img" src="/futbol.jpg" alt="futbol" />
-            <h2 className="absolute text-main ">Fútbol</h2>
-          </button>
-        </div>
-        <div
-          className={`border-b-2 ease-in-out duration-100 p-2 hover:border-secundario ${
-            sport == 1
-              ? "border-main"
-              : sport == 2
-              ? " border-secundario"
-              : sport == 3
-              ? "border-orange-500"
-              : "border-main "
+          <h2 className="text-main uppercase ">Fútbol</h2>
+        </button>
+
+        <button
+          onClick={() => handleSport(2)}
+          className={`h-full w-full rounded-t-lg ${
+            sport == 2 ? "bg-blue-200" : "bg-terciario-white"
           }`}
         >
-          <button onClick={() => handleSport(2)} className="sports-button">
-            <img className="sports-img" src="/padel.png" alt="padel" />
-            <h2 className="absolute self-center text-blue-400">Padel</h2>
-          </button>
-        </div>
-        <div
-          className={`border-b-2 ease-in-out duration-100 p-2 hover:border-secundario ${
-            sport == 1
-              ? "border-main"
-              : sport == 2
-              ? " border-blue-400"
-              : sport == 3
-              ? " border-secundario"
-              : "border-main "
+          <h2 className="uppercase text-blue-400">Padel</h2>
+        </button>
+
+        <button
+          onClick={() => handleSport(3)}
+          className={`h-full w-full rounded-t-lg ${
+            sport == 3 ? "bg-orange-200" : "bg-terciario-white"
           }`}
         >
-          <button onClick={() => handleSport(3)} className="sports-button">
-            <img className="sports-img" src="/tenis.jpg" alt="tenis" />
-            <h2 className="absolute text-orange-500">Tenis</h2>
-          </button>
-        </div>
+          <h2 className="uppercase text-orange-500">Tenis</h2>
+        </button>
       </div>
       <div
-        className={`p-4 rounded-md flex flex-col justify-center items-center shadow-md space-y-4 text-terciario-white w-full ${
-          sport == 1 || sport == 2 || sport == 3 ? "flex" : "hidden absolute"
+        className={`rounded-md flex flex-col justify-center items-center shadow-md space-y-4 text-terciario-white w-full ${
+          (sport == 1 && "bg-green-200") || sport == 2 || sport == 3
+            ? "flex"
+            : "hidden absolute"
         }`}
       >
         {sport == 1 ? (
