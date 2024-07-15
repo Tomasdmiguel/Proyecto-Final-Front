@@ -5,18 +5,16 @@ import Carousel from "../carusel/Carusel";
 import CarruselC from "../carruselCancha/carrusel";
 import { getCanchas } from "@/service/ApiGetCanchas";
 import TitleHome from "../TitleHome/TitleHome";
-import { CancheroHome } from "../CancheroHome/CancheroHome";
 
 export const HomeContainer = async () => {
   const sedes = await getSedes();
   const canchas = await getCanchas();
   return (
-    <div className="flex flex-col items-center w-[100vw] ">
-      <Carousel />
-      {/* <TitleHome /> */}
+    <div className="min-h-[90vh] flex flex-col items-center space-y-16">
+      <Carousel sedes={sedes} />
+      <TitleHome />
       <ContainerSedes sedes={sedes} />
       <CarruselC canchas={canchas} />
-      <CancheroHome />
       <SobreNosotros />
     </div >
   );
