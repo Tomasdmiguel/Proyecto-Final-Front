@@ -62,9 +62,9 @@ const FormCancha = ({ id }: { id: string }) => {
     event.preventDefault();
     setLoading(true);
 
-    if (CCancha(data)) {
+    if (CCancha(data) && userData) {
       try {
-        const response = await fetchFormCancha(data);
+        const response = await fetchFormCancha(data, userData);
 
         if (response.success) {
           Swal.fire({
