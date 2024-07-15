@@ -62,17 +62,15 @@ export const updateCancha = async (
       body: formData,
     });
 
-    const responseText = await response.text();
-
     if (!response.ok) {
       console.log(`Error: ${response.status}`);
-      throw new Error(responseText || `Error: ${response.status}`);
-    } else {
-      console.log(`Success: ${response.status}`);
+      throw new Error(`Error: ${response.status}`);
     }
-    return responseText;
+
+    console.log(`Success: ${response.status}`);
+    return response.status; 
   } catch (error) {
     console.error("Error updating cancha:", error);
-    throw new Error("La respuesta no es JSON");
+    throw new Error("Hubo un error al actualizar la cancha");
   }
 };
