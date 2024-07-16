@@ -7,38 +7,33 @@ export default function Footer() {
   const { sport } = useSport();
   return (
     <footer
-      className={` border-t-2 ${sport === 2
+      className={` border-t-2 ${
+        sport === 2
           ? "border-blue-400 bg-terciario-white"
           : sport === 3
-            ? "border-orange-500 bg-terciario-white"
-            : sport === 4
-              ? "border-blue-600 bg-gray-900"
-              : "border-main bg-terciario-white text-terciario-white"
-        }`}
+          ? "border-orange-500 bg-terciario-white"
+          : sport === 4
+          ? "border-blue-600 bg-gray-900"
+          : "border-main bg-terciario-white text-terciario-white"
+      }`}
     >
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <div className="md:flex md:justify-between">
+        <div className="md:flex md:items-center md:justify-between">
           <div className="mb-6 md:mb-0">
-            <a href="#" className="flex items-center">
+            <a href="/" className="flex items-center">
               <img
-                src={sport == 4 ? "/icon2.jpg" : "/icon.png"}
-                className={`h-32 mx-4  ${sport == 4 && "rounded-full"}`}
-                alt="FlowBite Logo"
+                className="h-20 w-auto hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                src="/logo2.png"
+                alt="Your Company Logo"
               />
-              <span
-                className={`self-center text-2xl font-semibold whitespace-nowrap ${sport === 4 ? "text-terciario-white" : "text-black"
-                  }
-               `}
-              >
-                Reserva Gol
-              </span>
             </a>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
               <h2
-                className={`mb-6 text-sm font-semibold ${sport === 4 ? "text-terciario-white" : "text-gray-900"
-                  } uppercase`}
+                className={`mb-6 text-sm font-semibold ${
+                  sport === 4 ? "text-terciario-white" : "text-gray-900"
+                } uppercase`}
               >
                 Team Front
               </h2>
@@ -74,8 +69,9 @@ export default function Footer() {
             </div>
             <div>
               <h2
-                className={`mb-6 text-sm font-semibold ${sport === 4 ? "text-terciario-white" : "text-gray-900"
-                  } uppercase`}
+                className={`mb-6 text-sm font-semibold ${
+                  sport === 4 ? "text-terciario-white" : "text-gray-900"
+                } uppercase`}
               >
                 Team Back
               </h2>
@@ -109,14 +105,15 @@ export default function Footer() {
           </div>
         </div>
         <hr
-          className={`my-6  sm:mx-auto ${sport === 2
+          className={`my-6  sm:mx-auto ${
+            sport === 2
               ? "border-blue-400"
               : sport === 3
-                ? "border-orange-500"
-                : sport === 4
-                  ? "border-blue-600"
-                  : "border-main"
-            } lg:my-8`}
+              ? "border-orange-500"
+              : sport === 4
+              ? "border-blue-600"
+              : "border-main"
+          } lg:my-8`}
         />
       </div>
     </footer>

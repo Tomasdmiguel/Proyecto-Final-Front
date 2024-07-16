@@ -108,7 +108,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
             </p>
             <div className="flex mt-8">
               <Link
-                href="#"
+                href="#canchas"
                 className="uppercase py-2 px-4 rounded-lg bg-main border-2 border-transparent text-white text-md mr-4 hover:bg-white hover:text-main ease-in-out duration-300"
               >
                 Ver canchas
@@ -256,7 +256,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
               <p className="text-2xl">{getDayNumber(date)}</p>
             </button>
           ))}
-        </div>
+        </section>
 
         <div className="flex flex-col w-full items-center space-y-6 p-4">
           {sport == 1
