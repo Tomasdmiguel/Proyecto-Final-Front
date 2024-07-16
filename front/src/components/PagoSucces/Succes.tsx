@@ -22,7 +22,7 @@ export default function Succes() {
           El pago se realizo correctamente!
         </p>
         <div className="space-y-10 space-x-6">
-          <h1 className="text-2xl font-Marko text-black">
+          <h1 className="text-2xl text-black">
             El pago y el proceso se realizo correctamente, ahora puedes ver en
             la vista de tu usuario los detalles de la cancha que reservaste,
             como lo son hora, lugar y duracion del partido, recuerda llegar con

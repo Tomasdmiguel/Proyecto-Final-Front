@@ -19,9 +19,6 @@ const config: Config = {
         terciario: "#45474B",
         "terciario-white": "#F5F7F8",
       },
-      fontFamily: {
-        Marko: ["Marko One"],
-      },
     },
   },
   plugins: [],

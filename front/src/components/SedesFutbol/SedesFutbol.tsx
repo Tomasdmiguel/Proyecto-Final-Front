@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export const SedesFutbol = ({ sedes }: { sedes: ISede[] }) => {
-  const { sport, closeSport } = useSport();
+  const { sport } = useSport();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -18,12 +18,12 @@ export const SedesFutbol = ({ sedes }: { sedes: ISede[] }) => {
   return (
     <div
       className={`p-8 max-h-screen rounded-b-md overflow-auto overscroll-y-auto  bg-green-200 flex flex-col items-center shadow-md space-y-4 text-terciario-white w-full ${
-        sport == 1 || sport == 2 || sport == 3 ? "flex" : "hidden absolute"
+        sport == 1 ? "flex" : "hidden absolute"
       }`}
     >
       <div className="flex justify-center items-center w-full">
         <input
-          className={`m-4 w-3/4 p-3  rounded-3xl focus:ring  font-semibold hover:shadow-md text-main outline-main`}
+          className={`m-4 w-11/12 sm:w-3/4 p-3  rounded-3xl focus:ring  font-semibold hover:shadow-md text-main outline-main`}
           type="text"
           placeholder="Buscar..."
           value={searchTerm}
@@ -37,7 +37,7 @@ export const SedesFutbol = ({ sedes }: { sedes: ISede[] }) => {
               <Link
                 href={`/sede/${id}`}
                 key={id}
-                className="border-4 sm:max-h-[45vh] border-terciario-white hover:border-main w-3/4 text-black bg-terciario-white p-2 rounded flex flex-col sm:flex-row sm:items-center hover:cursor-pointer ease-in-out duration-300"
+                className="border-4 sm:max-h-[45vh] border-terciario-white hover:border-main w-11/12 sm:w-3/4 text-black bg-terciario-white p-2 rounded flex flex-col sm:flex-row sm:items-center hover:cursor-pointer ease-in-out duration-300"
               >
                 <div className="sm:w-1/2 p-4">
                   <img className="w-full max-h-[35vh]" src={imgUrl} alt="" />
@@ -74,7 +74,7 @@ export const SedesFutbol = ({ sedes }: { sedes: ISede[] }) => {
               <Link
                 href={`/sede/${id}`}
                 key={id}
-                className="border-4 sm:max-h-[45vh] border-terciario-white hover:border-main w-3/4 text-black bg-terciario-white p-2 rounded flex flex-col sm:flex-row sm:items-center hover:cursor-pointer ease-in-out duration-300"
+                className="border-4 sm:max-h-[45vh] border-terciario-white hover:border-main w-11/12 sm:w-3/4 text-black bg-terciario-white p-2 rounded flex flex-col sm:flex-row sm:items-center hover:cursor-pointer ease-in-out duration-300"
               >
                 <div className="sm:w-1/2 p-4">
                   <img className="w-full max-h-[35vh]" src={imgUrl} alt="" />
