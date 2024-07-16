@@ -8,20 +8,19 @@ import { usePathname, useRouter } from "next/navigation";
 
 export default function NavBar() {
   const { userData } = useUser();
-  const { sport } = useSport();
+  const { sport, handleSport } = useSport();
   const pathname = usePathname();
   const router = useRouter();
 
   // Verifica si la ruta actual es '/PanelAdmin'
   const isAdminPanel = pathname === "/PanelAdmin";
-  const { handleSport } = useSport();
 
   const redirect = () => {
     router.push("/Dashboard");
     handleSport(0);
     setTimeout(() => {
       window.location.reload();
-    }, 125);
+    }, 150);
   };
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,13 +33,15 @@ export default function NavBar() {
     <header
       className={`inset-x-0 ${
         sport == 2
-          ? "border-b-2 border-blue-400"
+          ? "border-blue-400 text-blue-400 bg-terciario-white"
           : sport == 3
-          ? "border-b-2 border-orange-500"
-          : "border-b-2 border-main"
-      } top-0 min-w-screen z-50 bg-white px-10 overflow-hidden`}
+          ? "border-orange-500 text-orange-500 bg-terciario-white"
+          : sport == 4
+          ? "border-blue-600 text-blue-600 bg-gray-900"
+          : "border-main text-main bg-terciario-white"
+      } top-0 min-w-screen border-b-2 z-50 px-10 overflow-hidden`}
     >
-      {!isAdminPanel && (
+      {!isAdminPanel ? (
         <nav
           className="flex items-center justify-between p-3 lg:px-8"
           aria-label="Global"
@@ -155,6 +156,43 @@ export default function NavBar() {
             )}
           </div>
         </nav>
+      ) : (
+        <div className="grid w-full grid-cols-3 py-6 px-10">
+          <div></div>
+          <div className="flex items-center justify-center">
+            <img
+              src="/logo2w.png"
+              alt="Company Logo"
+              className="w-[15vh] rounded-full"
+            />
+          </div>
+          <div className="flex items-center justify-end">
+            <button
+              type="submit"
+              onClick={redirect}
+              className="bg-white space-x-2 text-center w-32 rounded-2xl h-12 relative font-sans text-black text-xl font-semibold group"
+            >
+              <div className="bg-blue-600 rounded-xl h-10 w-1/4 flex items-center justify-center absolute left-1 top-[4px] group-hover:w-[120px] z-10 duration-500">
+                <svg
+                  width="25px"
+                  height="25px"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="#000000"
+                    d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"
+                  ></path>
+                  <path
+                    fill="#000000"
+                    d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
+                  ></path>
+                </svg>
+              </div>
+              <p className="translate-x-2">Volver</p>
+            </button>
+          </div>
+        </div>
       )}
       {/* Mobile menu, show/hide based on menu open state. */}
       {menuOpen && (
