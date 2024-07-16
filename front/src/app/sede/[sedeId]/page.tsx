@@ -206,16 +206,12 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
           </button>
         </div>
 
-        <div
-          className={`flex flex-row justify-evenly w-full sm:w-[80vw] lg:w-[60vw] ${
-            sport == 0 ? "text-main" : "text-terciario-white"
-          }`}
-        >
+        <div className="flex sm:flex-row space-x-2 sm:space-x-0 sm:justify-evenly overscroll-x-auto sm:overflow-hidden sm:overscroll-none max-w-[80vw] sm:w-[80vw] md:min-w-[70vw] lg:min-w-[60vw] overflow-x-auto">
           {next7Days.map((date, index) => (
             <button
               onClick={() => setDateClick(date)}
               key={index}
-              className={`w-[12vw] h-[12vw] md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full flex flex-col items-center justify-center transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg ${
+              className={`min-w-[20vw] h-[20vw] sm:min-w-0 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full flex flex-col items-center justify-center transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg ${
                 date1.toISOString().split("T")[0] ===
                 date.toISOString().split("T")[0]
                   ? sport == 1
@@ -230,7 +226,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
                   : "bg-white text-gray-700"
               }`}
             >
-              <p className="font-bold text-xs sm:text-lg capitalize text-center leading-tight">
+              <p className="font-bold text-sm sm:text-lg capitalize text-center leading-tight">
                 {getDayName(date)}
               </p>
               <p className="sm:text-2xl">{getDayNumber(date)}</p>

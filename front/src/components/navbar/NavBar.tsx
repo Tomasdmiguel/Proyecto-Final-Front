@@ -38,7 +38,7 @@ export default function NavBar() {
           : sport == 3
           ? "border-b-2 border-orange-500"
           : "border-b-2 border-main"
-      } top-0 z-50 bg-white px-10 overflow-hidden`}
+      } top-0 min-w-screen z-50 bg-white px-10 overflow-hidden`}
     >
       {!isAdminPanel && (
         <nav
