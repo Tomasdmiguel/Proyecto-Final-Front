@@ -122,7 +122,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
               </Link> */}
             </div>
           </div>
-          <div className="w-80 h-80 rounded-full overflow-hidden m-auto">
+          <div className="w-80 h-80 rounded-full overflow-hidden m-auto hidden sm:block">
             <img
               src={sede?.imgUrl}
               className="w-full h-full object-cover"
@@ -133,20 +133,18 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
       </div>
 
       <div
-        className={`flex flex-col space-y-16 items-center p-10 ${
-          sport == 2
-            ? "bg-blue-400 text-blue-400"
-            : sport == 3
+        className={`flex flex-col space-y-16 items-center p-10 ${sport == 2
+          ? "bg-blue-400 text-blue-400"
+          : sport == 3
             ? "bg-orange-500 text-orange-500"
             : sport == 1
-            ? "bg-main text-main"
-            : "bg-terciario-white text-main"
-        }`}
+              ? "bg-main text-main"
+              : "bg-terciario-white text-main"
+          }`}
       >
         <div
-          className={`min-w-[50vw] bg-terciario-white space-x-4 p-6 shadow-xl rounded-lg flex flex-row items-center justify-evenly ${
-            sport == 0 && "border-gradient"
-          }`}
+          className={`min-w-[50vw] bg-terciario-white space-x-4 p-6 shadow-xl rounded-lg flex flex-row items-center justify-evenly ${sport == 0 && "border-gradient"
+            }`}
         >
           <button
             onClick={() => handleSport(1)}
@@ -233,28 +231,26 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
         </div>
 
         <div
-          className={`flex flex-row justify-evenly w-[80vw] lg:w-[60vw] ${
-            sport == 0 ? "text-main" : "text-terciario-white"
-          }`}
+          className={`flex flex-row justify-evenly w-[80vw] lg:w-[60vw] ${sport == 0 ? "text-main" : "text-terciario-white"
+            }`}
         >
           {next7Days.map((date, index) => (
             <button
               onClick={() => setDateClick(date)}
               key={index}
-              className={`h-28 w-28 rounded-full flex flex-col items-center justify-center transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg font-inter ${
-                date1.toISOString().split("T")[0] ===
+              className={`h-28 w-28 rounded-full flex flex-col items-center justify-center transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg font-inter ${date1.toISOString().split("T")[0] ===
                 date.toISOString().split("T")[0]
-                  ? sport == 1
-                    ? "bg-terciario-white text-main"
-                    : sport == 2
+                ? sport == 1
+                  ? "bg-terciario-white text-main"
+                  : sport == 2
                     ? "bg-terciario-white text-blue-400"
                     : sport == 3
-                    ? "bg-terciario-white text-orange-500"
-                    : sport == 0
-                    ? "bg-main text-terciario-white"
-                    : ""
-                  : "bg-white text-gray-700"
-              }`}
+                      ? "bg-terciario-white text-orange-500"
+                      : sport == 0
+                        ? "bg-main text-terciario-white"
+                        : ""
+                : "bg-white text-gray-700"
+                }`}
             >
               <p className="font-bold text-lg capitalize">{getDayName(date)}</p>
               <p className="text-2xl">{getDayNumber(date)}</p>
@@ -265,41 +261,41 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
         <div className="flex flex-col w-full items-center space-y-6 p-4">
           {sport == 1
             ? filteredCanchasFutbol?.map((cancha) => {
-                return (
-                  <CardCancha
-                    key={cancha?.id}
-                    cancha={cancha}
-                    date={formatDate(date1)}
-                  />
-                );
-              })
-            : sport == 2
-            ? filteredCanchasPadel?.map((cancha) => {
-                return (
-                  <CardCancha
-                    key={cancha?.id}
-                    cancha={cancha}
-                    date={formatDate(date1)}
-                  />
-                );
-              })
-            : sport == 3
-            ? filteredCanchasTenis?.map((cancha) => {
-                return (
-                  <CardCancha
-                    key={cancha?.id}
-                    cancha={cancha}
-                    date={formatDate(date1)}
-                  />
-                );
-              })
-            : sede?.canchas?.map((cancha) => (
+              return (
                 <CardCancha
                   key={cancha?.id}
                   cancha={cancha}
                   date={formatDate(date1)}
                 />
-              ))}
+              );
+            })
+            : sport == 2
+              ? filteredCanchasPadel?.map((cancha) => {
+                return (
+                  <CardCancha
+                    key={cancha?.id}
+                    cancha={cancha}
+                    date={formatDate(date1)}
+                  />
+                );
+              })
+              : sport == 3
+                ? filteredCanchasTenis?.map((cancha) => {
+                  return (
+                    <CardCancha
+                      key={cancha?.id}
+                      cancha={cancha}
+                      date={formatDate(date1)}
+                    />
+                  );
+                })
+                : sede?.canchas?.map((cancha) => (
+                  <CardCancha
+                    key={cancha?.id}
+                    cancha={cancha}
+                    date={formatDate(date1)}
+                  />
+                ))}
         </div>
       </div>
     </div>
