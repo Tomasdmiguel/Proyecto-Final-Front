@@ -61,7 +61,7 @@ const MisSedes = () => {
       }
     } catch (error) {
       showErrorAlert(
-        "Para borrar la sedes debes borrar las canchas que primero, dirigete a la seccion de Mis Canchas y elimina todas las canchas"
+        "Para borrar la sede no tiene que tener canchas registrada."
       );
       console.error("Error al eliminar la sede:", error);
     }

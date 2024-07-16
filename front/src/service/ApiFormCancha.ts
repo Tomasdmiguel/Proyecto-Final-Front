@@ -1,18 +1,31 @@
+import { IUserSession } from "@/interface/context";
 import { IFormCancha } from "@/interface/IFormCancha";
 const apiKey = process.env.NEXT_PUBLIC_API_URL;
 
-export const fetchFormCancha = async (data: IFormCancha) => {
+export const fetchFormCancha = async (data: any, userData: IUserSession) => {
+  const formData = new FormData();
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      formData.append(key, data[key]);
+    }
+  }
+  if (data.file) {
+    formData.append("file", data.file);
+  }
+
+  console.log(data);
   try {
     const response = await fetch(`${apiKey}/cancha`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        authorization: `Bearer ${userData.token}`,
       },
-      body: JSON.stringify(data),
+      body: formData,
     });
     if (response.ok) {
       return { success: true, message: "Cancha agregada exitosamente" };
     } else {
+      console.log("else-->", data);
       const errorMessage = await response.text();
       return {
         success: false,

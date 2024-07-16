@@ -2,12 +2,16 @@
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
-import { ISede, ICancha } from "@/interface/ISedes";
+import { ISede } from "@/interface/ISedes";
 import { deleteCancha } from "@/service/Admin/DeletAdmin";
 import { updateCancha } from "@/service/Admin/EditAdmin";
-import { showErrorAlert, showSuccessAlert } from "@/helpers/alert.helper/alert.helper";
+import {
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/helpers/alert.helper/alert.helper";
 import { pausarTurnos } from "@/service/Admin/PausarTurnos";
 import { TurnoPausa } from "@/interface/TurnoPausa";
+
 import { crearTurnos } from "@/service/Admin/CrearTurnos";
 
 const MisCanchas = () => {
@@ -40,16 +44,19 @@ const MisCanchas = () => {
   useEffect(() => {
     const fetchTurnos = async () => {
       try {
-        const fetchedTurnos: TurnoPausa[] = sedes.reduce((acc: TurnoPausa[], sede) => {
-          if (sede.canchas) {
-            const turnosSede = sede.canchas.map((cancha) => ({
-              id: cancha.id,
-              isActive: false,
-            }));
-            acc.push(...turnosSede);
-          }
-          return acc;
-        }, []);
+        const fetchedTurnos: TurnoPausa[] = sedes.reduce(
+          (acc: TurnoPausa[], sede) => {
+            if (sede.canchas) {
+              const turnosSede = sede.canchas.map((cancha) => ({
+                id: cancha.id,
+                isActive: false,
+              }));
+              acc.push(...turnosSede);
+            }
+            return acc;
+          },
+          []
+        );
         setTurnos(fetchedTurnos);
       } catch (error) {
         console.error("Error fetching turnos:", error);
@@ -60,27 +67,29 @@ const MisCanchas = () => {
   }, [sedes]);
 
   const handleDeleteCancha = async (canchaId: string) => {
+    console.log(canchaId);
     try {
-      if (userData?.token) {
-        await deleteCancha(canchaId);
-
-        const updatedSedes = sedes.map((sede) => ({
+      const deleted = await deleteCancha(canchaId);
+      if (deleted) {
+        const updated = sedes.map((sede) => ({
           ...sede,
           canchas: sede?.canchas?.filter((cancha) => cancha.id !== canchaId),
         }));
-        setSedes(updatedSedes);
+        console.log(updated);
+        setSedes(updated);
         showSuccessAlert("Se eliminó la cancha correctamente");
       } else {
-        showErrorAlert("No se pudo realizar la acción");
+        showErrorAlert(
+          "No se pudo realizar la acción, pausa la cancha y espera que los turnos reservados se completen"
+        );
       }
     } catch (error) {
       showErrorAlert(
-        "Para hacer esto debes primero pausar los turnos de esta cancha"
+        "No se pudo realizar la acción, pausa la cancha y espera que los turnos reservados se completen"
       );
       console.error("Error al eliminar la cancha:", error);
     }
   };
-
   const handlePausar = async (canchaId: string, currentStatus: boolean) => {
     try {
       const result = await pausarTurnos(canchaId);
@@ -143,7 +152,7 @@ const MisCanchas = () => {
     event.preventDefault();
 
     try {
-      if (userData?.token || UpdateId || dataFile || userData ) {
+      if (userData?.token || UpdateId || dataFile || userData) {
         const updatedCancha = await updateCancha(
           UpdateId,
           userData,
@@ -196,33 +205,31 @@ const MisCanchas = () => {
                   return (
                     <div
                       key={cancha.id}
-                      className="bg-gray-100 p-6 rounded-lg shadow-md mb-6 hover:shadow-lg transition-shadow duration-300"
-                    >
+                      className="bg-gray-100 p-6 rounded-lg shadow-md mb-6 hover:shadow-lg transition-shadow duration-300">
                       <h3 className="text-xl font-semibold text-gray-800">
                         {cancha.name}
                       </h3>
                       <div className="mt-4 flex justify-end space-x-4">
                         <button
                           onClick={() => handleEstadoCancha(cancha)}
-                          className="text-blue-600 hover:text-blue-800 font-medium"
-                        >
+                          className="text-blue-600 hover:text-blue-800 font-medium">
                           Editar
                         </button>
                         <button
-                          onClick={() => handlePausar(cancha.id, turno?.isActive!)}
+                          onClick={() =>
+                            handlePausar(cancha.id, turno?.isActive!)
+                          }
                           type="button"
                           className={`${
                             turno?.isActive
                               ? "bg-green-500 hover:bg-green-600"
                               : "bg-red-500 hover:bg-red-600"
-                          } text-white px-4 py-2 rounded-md transition duration-300`}
-                        >
+                          } text-white px-4 py-2 rounded-md transition duration-300`}>
                           {turno?.isActive ? "Habilitar" : "Pausar"}
                         </button>
                         <button
                           onClick={() => handleDeleteCancha(cancha.id)}
-                          className="text-red-600 hover:text-red-800 font-medium"
-                        >
+                          className="text-red-600 hover:text-red-800 font-medium">
                           Eliminar
                         </button>
                       </div>
@@ -249,6 +256,7 @@ const MisCanchas = () => {
                 </label>
                 <input
                   type="text"
+                  value={updateCanchaData.name}
                   name="name"
                   onChange={handleUpdateChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
@@ -310,14 +318,12 @@ const MisCanchas = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors"
-                >
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-                >
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
                   Actualizar Cancha
                 </button>
               </div>
@@ -330,4 +336,3 @@ const MisCanchas = () => {
 };
 
 export default MisCanchas;
-
