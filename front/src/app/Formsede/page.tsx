@@ -7,9 +7,8 @@ const RutaFormsede = () => {
   return (
     <main>
       <div
-        className={`${
-          sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
-        } flex justify-center items-center min-h-screen p-4 `}
+        className={`${sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
+          } flex justify-center items-center min-h-screen`}
       >
         <FormSede />
       </div>
