@@ -12,7 +12,7 @@ import { fetchUserById } from "@/service/ApiUser";
 const MiReservas = () => {
   const [turnos, setTurnos] = useState<ITurno[]>();
   const [loading, setLoading] = useState(false);
-  const [loadingId, setLoadingId] = useState<string | null>(null); 
+  const [loadingId, setLoadingId] = useState<string | null>(null);
   const { userData } = useUser();
 
   useEffect(() => {
@@ -25,10 +25,10 @@ const MiReservas = () => {
 
   const cancelarTurno = async (id: string) => {
     setLoading(true);
-    setLoadingId(id); 
+    setLoadingId(id);
     try {
       console.log(userData?.token);
-      
+
       const result = await fetchCancelarTurno(userData, id);
       if (result.success) {
         showSuccessAlert("Turno cancelado");
@@ -39,13 +39,15 @@ const MiReservas = () => {
       showErrorAlert("Error desconocido, intenta más tarde");
     } finally {
       setLoading(false);
-      setLoadingId(null); 
+      setLoadingId(null);
     }
   };
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg space-y-4 space-x-10 min-w-[60vw] text-black">
-      <h1 className="text-3xl font-bebas-neue font-semibold text-black">Mis Reservas</h1>
+      <h1 className="text-3xl font-bebas-neue font-semibold text-black">
+        Mis Reservas
+      </h1>
       <p className="text-lg text-gray-400">
         Esta es la sección de tus reservas.
       </p>
@@ -59,9 +61,7 @@ const MiReservas = () => {
               key={index}
               className="w-full rounded-sm shadow-xl hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-y-4"
             >
-              <h2 className="font-Marko font-bold text-3xl">
-                {turno?.cancha?.name}
-              </h2>
+              <h2 className="font-bold text-3xl">{turno?.cancha?.name}</h2>
               <p>Hora: {turno.time}</p>
               <p>Dirección: {turno?.cancha?.sede?.location}</p>
               <p>Duración: 1 Hora</p>
@@ -80,7 +80,11 @@ const MiReservas = () => {
               <div className="flex justify-end mt-4">
                 <button
                   onClick={() => cancelarTurno(turno.id)}
-                  className={`bg-terciario text-white p-3 rounded-lg font-semibold hover:bg-white hover:text-terciario duration-200 ease-in-out ${loading && loadingId === turno.id ? 'cursor-not-allowed opacity-50' : ''}`}
+                  className={`bg-terciario text-white p-3 rounded-lg font-semibold hover:bg-white hover:text-terciario duration-200 ease-in-out ${
+                    loading && loadingId === turno.id
+                      ? "cursor-not-allowed opacity-50"
+                      : ""
+                  }`}
                   disabled={loading && loadingId === turno.id}
                 >
                   {loading && loadingId === turno.id ? (

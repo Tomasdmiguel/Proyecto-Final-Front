@@ -78,13 +78,11 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
 
   return (
     <div>
-
-
       <div className="bg-white dark:bg-gray-800 flex py-20 relative z-20 items-center overflow-hidden">
         <div className="container mx-auto px-6 flex relative py-16">
           <div className="sm:w-2/3 lg:w-2/5 flex flex-col relative z-20">
             <span className="w-20 h-2 bg-gray-800 dark:bg-white mb-12"></span>
-            <h1 className="font-bebas-neue uppercase text-6xl sm:text-8xl font-black flex flex-col leading-none dark:text-white text-gray-800">
+            <h1 className="uppercase text-6xl sm:text-8xl font-black flex flex-col leading-none dark:text-white text-gray-800">
               {sede?.name}
             </h1>
             <div className="px-2 py-3 flex flex-row items-center justify-between">
@@ -131,26 +129,24 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
               alt={sede?.name}
             />
           </div>
-
-
-
         </div>
       </div>
 
-
       <div
-        className={`flex flex-col space-y-16 items-center p-10 ${sport == 2
-          ? "bg-blue-400 text-blue-400"
-          : sport == 3
+        className={`flex flex-col space-y-16 items-center p-10 ${
+          sport == 2
+            ? "bg-blue-400 text-blue-400"
+            : sport == 3
             ? "bg-orange-500 text-orange-500"
             : sport == 1
-              ? "bg-main text-main"
-              : "bg-terciario-white text-main"
-          }`}
+            ? "bg-main text-main"
+            : "bg-terciario-white text-main"
+        }`}
       >
-
         <div
-          className={`min-w-[50vw] bg-terciario-white space-x-4 p-6 shadow-xl rounded-lg flex flex-row items-center justify-evenly ${sport == 0 && "border-gradient"}`}
+          className={`min-w-[50vw] bg-terciario-white space-x-4 p-6 shadow-xl rounded-lg flex flex-row items-center justify-evenly ${
+            sport == 0 && "border-gradient"
+          }`}
         >
           <button
             onClick={() => handleSport(1)}
@@ -236,29 +232,29 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
           </button>
         </div>
 
-
-
-
-
         <div
-          className={`flex flex-row justify-evenly w-[80vw] lg:w-[60vw] ${sport == 0 ? "text-main" : "text-terciario-white"}`}
+          className={`flex flex-row justify-evenly w-[80vw] lg:w-[60vw] ${
+            sport == 0 ? "text-main" : "text-terciario-white"
+          }`}
         >
           {next7Days.map((date, index) => (
             <button
               onClick={() => setDateClick(date)}
               key={index}
-              className={`h-28 w-28 rounded-full flex flex-col items-center justify-center transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg font-inter ${date1.toISOString().split("T")[0] === date.toISOString().split("T")[0]
-                ? sport == 1
-                  ? "bg-terciario-white text-main"
-                  : sport == 2
+              className={`h-28 w-28 rounded-full flex flex-col items-center justify-center transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg font-inter ${
+                date1.toISOString().split("T")[0] ===
+                date.toISOString().split("T")[0]
+                  ? sport == 1
+                    ? "bg-terciario-white text-main"
+                    : sport == 2
                     ? "bg-terciario-white text-blue-400"
                     : sport == 3
-                      ? "bg-terciario-white text-orange-500"
-                      : sport == 0
-                        ? "bg-main text-terciario-white"
-                        : ""
-                : "bg-white text-gray-700"
-                }`}
+                    ? "bg-terciario-white text-orange-500"
+                    : sport == 0
+                    ? "bg-main text-terciario-white"
+                    : ""
+                  : "bg-white text-gray-700"
+              }`}
             >
               <p className="font-bold text-lg capitalize">{getDayName(date)}</p>
               <p className="text-2xl">{getDayNumber(date)}</p>
@@ -269,16 +265,6 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
         <div className="flex flex-col w-full items-center space-y-6 p-4">
           {sport == 1
             ? filteredCanchasFutbol?.map((cancha) => {
-              return (
-                <CardCancha
-                  key={cancha?.id}
-                  cancha={cancha}
-                  date={formatDate(date1)}
-                />
-              );
-            })
-            : sport == 2
-              ? filteredCanchasPadel?.map((cancha) => {
                 return (
                   <CardCancha
                     key={cancha?.id}
@@ -287,35 +273,40 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
                   />
                 );
               })
-              : sport == 3
-                ? filteredCanchasTenis?.map((cancha) => {
-                  return (
-                    <CardCancha
-                      key={cancha?.id}
-                      cancha={cancha}
-                      date={formatDate(date1)}
-                    />
-                  );
-                })
-                : sede?.canchas?.map((cancha) => (
+            : sport == 2
+            ? filteredCanchasPadel?.map((cancha) => {
+                return (
                   <CardCancha
                     key={cancha?.id}
                     cancha={cancha}
                     date={formatDate(date1)}
                   />
-                ))}
+                );
+              })
+            : sport == 3
+            ? filteredCanchasTenis?.map((cancha) => {
+                return (
+                  <CardCancha
+                    key={cancha?.id}
+                    cancha={cancha}
+                    date={formatDate(date1)}
+                  />
+                );
+              })
+            : sede?.canchas?.map((cancha) => (
+                <CardCancha
+                  key={cancha?.id}
+                  cancha={cancha}
+                  date={formatDate(date1)}
+                />
+              ))}
         </div>
       </div>
-
-
     </div>
-
   );
 };
 
 export default SedeById;
-
-
 
 // "use client";
 // import CardCancha from "@/components/CardCancha/CardCancha";
@@ -396,7 +387,7 @@ export default SedeById;
 
 //   return (
 //     <div
-//       className={`font-Marko min-h-[80vh]  flex flex-col space-y-16 items-center p-10 ${sport == 2
+//       className={`min-h-[80vh]  flex flex-col space-y-16 items-center p-10 ${sport == 2
 //         ? "bg-blue-400 text-blue-400"
 //         : sport == 3
 //           ? "bg-orange-500 text-orange-500"

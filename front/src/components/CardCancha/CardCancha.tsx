@@ -175,9 +175,7 @@ export const CardCancha = ({
           )}
         </div>
         <div className="w-3/5 flex flex-col h-auto items-center justify-evenly">
-          <h1 className="font-Marko font-bold uppercase text-3xl p-2">
-            {cancha.name}
-          </h1>
+          <h1 className="font-bold uppercase text-3xl p-2">{cancha.name}</h1>
           <div className="flex flex-row p-2 w-full justify-evenly">
             <h2>Reserva: ${cancha.price} </h2>
             <h2>Jugadores: {cancha.player} </h2>
@@ -245,7 +243,6 @@ export const CardCancha = ({
                       : "text-terciario-white border-terciario-white"
                   }`}
                 >
-
                   <div>
                     {turno.status == "libre" ? (
                       <p className="capitalize font-semibold col-span-1">
@@ -407,21 +404,21 @@ export const CardCancha = ({
                     )}
                   </div>
                   <div className="col-span-1 flex items-center justify-end">
-                  {turno.status === "libre" ? (
-                 <button
-                type="button"
-                  className="uppercase font-semibold relative"
-                  onClick={() => alertClick(turno.id)}
-                  disabled={loading}
-                  >
-                  {loading && (
-                  <div className="inset-0 flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
-                  </div>
-              )}
-                   {loading ? "Cargando..." : "Reservar"}
-                   </button>
-                   ) : (
+                    {turno.status === "libre" ? (
+                      <button
+                        type="button"
+                        className="uppercase font-semibold relative"
+                        onClick={() => alertClick(turno.id)}
+                        disabled={loading}
+                      >
+                        {loading && (
+                          <div className="inset-0 flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+                          </div>
+                        )}
+                        {loading ? "Cargando..." : "Reservar"}
+                      </button>
+                    ) : (
                       <p
                         className={`uppercase col-span-1 font-semibold hover:cursor-not-allowed text-black text-center `}
                       >
