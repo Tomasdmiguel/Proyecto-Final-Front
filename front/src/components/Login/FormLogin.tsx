@@ -36,7 +36,7 @@ const FormLogin = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-  //!Función para iniciar sesión con Google
+
   const callLoginGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
@@ -50,13 +50,20 @@ const FormLogin = () => {
         phone: result.user.phoneNumber || "",
         rol: "",
       };
-
+  
       const userGoogle = await PostRegistroGoogle(userDb);
+   
+  
+      if (userGoogle.response?.statusCode === 404) {
+        showErrorAlert("Usuario en lista negra.");
+        return;
+      }
       const user = await FetchUserByEmail(userDb.email);
       const userSession: IUserSession = {
         token: userGoogle.token,
         userDb: user,
       };
+  
       logIn(userSession);
       showSuccessAlert(
         "Login exitoso",
@@ -64,11 +71,12 @@ const FormLogin = () => {
       );
       router.push("/");
     } catch (error: any) {
+      console.error('Google Login Error:', error); 
       showErrorAlert("Error de inicio de sesión");
     }
   };
+  
 
-  //*Función que guarda los cambios
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     setData({
@@ -77,7 +85,6 @@ const FormLogin = () => {
     });
   };
 
-  //*Función que envía el formulario
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -85,11 +92,20 @@ const FormLogin = () => {
       try {
         const response = await fetchLogin(data);
         if (response.success) {
-          const user = response.data;
-          logIn(user);
-
-          showSuccessAlert("Login exitoso.", "Sesión iniciada correctamente.");
-          router.push("/");
+          const statusCode = response.data.response?.statusCode;
+          if (statusCode === 404) {
+            showErrorAlert(
+              "Este usuario esta en la lista negra de Reserva Gol."
+            );
+          } else {
+            const user = response.data;
+            logIn(user);
+            showSuccessAlert(
+              "Login exitoso.",
+              "Sesión iniciada correctamente."
+            );
+            router.push("/");
+          }
         } else {
           showErrorAlert("Email o contraseña incorrecto.");
         }
@@ -111,13 +127,14 @@ const FormLogin = () => {
           className="hidden md:block lg:w-1/2 bg-cover bg-blue-700"
           style={{
             backgroundImage: `url(loginImage.png)`,
-          }}
-        ></div>
+          }}></div>
         <div className="w-full lg:w-1/2 flex flex-col justify-center items-center mb-20">
           <div className="w-full p-8 lg:w-1/2 justify-center align-middle flex flex-col mb-10">
             <form onSubmit={handleSubmit}>
               <div className="mt-4">
-                <h1 className="text-2xl font-bold text-center text-gray-700">Iniciar sesión</h1>
+                <h1 className="text-2xl font-bold text-center text-gray-700">
+                  Iniciar sesión
+                </h1>
               </div>
               <div className="mt-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -148,8 +165,7 @@ const FormLogin = () => {
                 />
                 <a
                   href="#"
-                  className="text-xs text-gray-500 hover:text-gray-900 text-end w-full mt-2"
-                >
+                  className="text-xs text-gray-500 hover:text-gray-900 text-end w-full mt-2">
                   Olvidaste tu contraseña?
                 </a>
               </div>
@@ -158,12 +174,10 @@ const FormLogin = () => {
                   Iniciar sesión
                 </button>
               </div>
-
             </form>
             <button
               onClick={callLoginGoogle}
-              className=" flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
-            >
+              className=" flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
               <div className="flex px-5 justify-center w-full py-3">
                 <div className="min-w-[30px]">
                   <svg className="h-6 w-6" viewBox="0 0 40 40">
@@ -195,15 +209,13 @@ const FormLogin = () => {
             <div className="mt-4 flex items-center w-full text-center">
               <Link
                 href="/Register"
-                className="text-xs text-gray-500 capitalize text-center w-full"
-              >
+                className="text-xs text-gray-500 capitalize text-center w-full">
                 No tienes cuenta?
                 <span className="text-blue-700"> Registrate aqui.</span>
               </Link>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

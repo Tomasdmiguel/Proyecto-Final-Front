@@ -12,7 +12,7 @@ export default function NavBar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Verifica si la ruta actual es '/PanelAdmin'
+
   const isAdminPanel = pathname === "/PanelAdmin";
   const { handleSport } = useSport();
 
@@ -97,7 +97,7 @@ export default function NavBar() {
           </div>
 
           <div className="hidden lg:flex lg:flex-1 gap-x-4 lg:justify-end">
-            {userData?.userDb.rol === "superadmin" ? (
+            {userData?.userDb?.rol === "superadmin" ? (
               <Link
                 href="/SuperAdmin"
                 className="hover:font-black p-2 text-2xl duration-300 ease-in-out"
@@ -115,8 +115,8 @@ export default function NavBar() {
                   <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                 </svg>
               </Link>
-            ) : userData?.userDb.rol === "user" ||
-              userData?.userDb.rol === "admin" ||
+            ) : userData?.userDb?.rol === "user" ||
+              userData?.userDb?.rol === "admin" ||
               userData?.token ? (
               <div className="flex items-center space-x-10 px-5">
                 <Link
@@ -156,10 +156,10 @@ export default function NavBar() {
           </div>
         </nav>
       )}
-      {/* Mobile menu, show/hide based on menu open state. */}
+      
       {menuOpen && (
         <div className="lg:hidden" role="dialog" aria-modal="true">
-          {/* Background backdrop, show/hide based on slide-over state. */}
+       
           <div className="fixed inset-0 z-50"></div>
           <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
@@ -214,7 +214,7 @@ export default function NavBar() {
                   )}
                 </div>
                 <div className="py-6">
-                  {userData?.userDb.rol === "superadmin" ? (
+                  {userData?.userDb?.rol === "superadmin" ? (
                     <Link
                       href="/SuperAdmin"
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
@@ -222,8 +222,8 @@ export default function NavBar() {
                     >
                       Panel de control
                     </Link>
-                  ) : userData?.userDb.rol === "user" ||
-                    userData?.userDb.rol === "admin" ||
+                  ) : userData?.userDb?.rol === "user" ||
+                    userData?.userDb?.rol === "admin" ||
                     userData?.token ? (
                     <Link
                       href="/Dashboard"
