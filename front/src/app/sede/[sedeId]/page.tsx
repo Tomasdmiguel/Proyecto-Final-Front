@@ -206,7 +206,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
           </button>
         </div>
 
-        <div className="flex sm:flex-row space-x-2 sm:space-x-0 sm:justify-evenly overscroll-x-auto sm:overflow-hidden sm:overscroll-none max-w-[80vw] sm:w-[80vw] md:min-w-[70vw] lg:min-w-[60vw] overflow-x-auto">
+        <div className="flex sm:flex-row space-x-2 p-4  sm:space-x-0 sm:justify-evenly overscroll-x-auto  overflow-x-auto sm:overflow-hidden sm:overscroll-none max-w-[80vw] sm:w-[80vw] md:min-w-[70vw] lg:min-w-[60vw] ">
           {next7Days.map((date, index) => (
             <button
               onClick={() => setDateClick(date)}

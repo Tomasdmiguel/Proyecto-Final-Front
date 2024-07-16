@@ -100,7 +100,7 @@ export const CardCancha = ({
           : cancha.sport == 3
           ? "bg-orange-500 hover:text-orange-500 hover:border-orange-500"
           : "bg-main hover:text-main hover:border-main"
-      } hover:bg-terciario-white rounded-lg text-terciario-white border-2 border-terciario-white flex flex-col w-4/5 lg:w-3/5 p-2 ease-in-out duration-300`}
+      } hover:bg-terciario-white rounded-lg text-terciario-white border-2 border-terciario-white flex flex-col w-full sm:w-4/5 lg:w-3/5 p-2 ease-in-out duration-300`}
     >
       <div className="w-full flex flex-row text-xl">
         <div className="flex justify-center w-1/5 p-2">
@@ -175,8 +175,10 @@ export const CardCancha = ({
           )}
         </div>
         <div className="w-3/5 flex flex-col h-auto items-center justify-evenly">
-          <h1 className="font-bold uppercase text-3xl p-2">{cancha.name}</h1>
-          <div className="flex flex-row p-2 w-full justify-evenly">
+          <h1 className="font-bold uppercase  text-2xl sm:text-3xl p-2">
+            {cancha.name}
+          </h1>
+          <div className="flex flex-col sm:flex-row text-base sm:text-xl p-2 w-full items-center sm:items-start justify-evenly">
             <h2>Reserva: ${cancha.price} </h2>
             <h2>Jugadores: {cancha.player} </h2>
             <h2>Techado: {cancha.techado ? "Sí" : "No"} </h2>
@@ -243,9 +245,9 @@ export const CardCancha = ({
                       : "text-terciario-white border-terciario-white"
                   }`}
                 >
-                  <div>
+                  <div className="flex items-center">
                     {turno.status == "libre" ? (
-                      <p className="capitalize font-semibold col-span-1">
+                      <p className="capitalize text-xs sm:text-lg font-semibold col-span-1">
                         disponible
                       </p>
                     ) : (
@@ -326,7 +328,7 @@ export const CardCancha = ({
                       </svg>
                     )}
                   </div>
-                  <div className="col-span-1 flex items-center justify-center">
+                  <div className="col-span-1 flex text-base sm:text-lg items-center justify-center">
                     <p className="col-span-1">{turno.time}h. </p>
                   </div>
                   <div className="col-span-1 flex items-center justify-center">
@@ -403,7 +405,7 @@ export const CardCancha = ({
                       </svg>
                     )}
                   </div>
-                  <div className="col-span-1 flex items-center justify-end">
+                  <div className="col-span-1 flex text-xs sm:text-lg items-center justify-end">
                     {turno.status === "libre" ? (
                       <button
                         type="button"
