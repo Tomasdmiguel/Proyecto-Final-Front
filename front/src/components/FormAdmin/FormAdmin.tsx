@@ -48,10 +48,6 @@ const FormAdmin = () => {
       setLoading(true);
       if (CAdmin(data)) {
         const result = await ApiPostAdmin(data);
-
-        console.log(data);
-        console.log(result.success);
-
         if (result.success) {
           showSuccessAlert(
             `Nos contactaremos en breve, gracias por elegirnos ${data.name}`
