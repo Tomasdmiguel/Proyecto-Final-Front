@@ -124,130 +124,130 @@ const FormSede = () => {
   };
 
   return (
-    // <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={libraries} onError={(e) => console.error('Error loading Google Maps script:', e)}>
-    <div className="w-full h-screen flex justify-center items-center">
-      <div className="flex bg-white h-full shadow-lg overflow-hidden w-full">
-        <div
-          className="hidden md:block lg:w-1/2 bg-cover"
-          style={{
-            backgroundImage: `url(createSede.png)`,
-          }}
-        ></div>
-        <div
-          className="w-full lg:w-1/2 flex flex-col justify-center items-center 2xl:pb-20 2xl:pr-20"
-          style={{
-            backgroundImage: `url(fondoCreateForm.png)`,
-          }}
-        >
-          <div className="md:w-1/2 lg:w-1/2 justify-center align-middle flex flex-col">
+    <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={libraries} onError={(e) => console.error('Error loading Google Maps script:', e)}>
+      <div className="w-full h-screen flex justify-center items-center">
+        <div className="flex bg-white h-full shadow-lg overflow-hidden w-full">
+          <div
+            className="hidden md:block lg:w-1/2 bg-cover"
+            style={{
+              backgroundImage: `url(createSede.png)`,
+            }}
+          ></div>
+          <div
+            className="w-full lg:w-1/2 flex flex-col justify-center items-center 2xl:pb-20 2xl:pr-20"
+            style={{
+              backgroundImage: `url(fondoCreateForm.png)`,
+            }}
+          >
+            <div className="md:w-1/2 lg:w-1/2 justify-center align-middle flex flex-col">
 
-            <form onSubmit={handleSubmit}>
-              <div className="mt-4">
-                <h1 className="text-2xl font-bold text-center text-gray-700">Crea tu sede</h1>
-              </div>
-
-              <div className="mt-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Nombre
-                </label>
-                <input
-                  className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
-                  type="text"
-                  name="name"
-                  value={datoSede.name}
-                  onChange={hanldeChange}
-                  required
-                />
-              </div>
-
-              <div className="mt-4">
-                <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
-                  Descripcion
-                </label>
-                <input
-                  className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
-                  type="text"
-                  name="description"
-                  value={datoSede.description}
-                  onChange={hanldeChange}
-                  required
-                />
-              </div>
-
-              <div className="mt-4 flex flex-col justify-between">
-                <div className="flex justify-between">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Ubicación
-                  </label>
+              <form onSubmit={handleSubmit}>
+                <div className="mt-4">
+                  <h1 className="text-2xl font-bold text-center text-gray-700">Crea tu sede</h1>
                 </div>
-                {/* <Autocomplete onLoad={onLoad} onPlaceChanged={handlePlaceSelect}> */}
-                <input
-                  className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
-                  type="text"
-                  name="location"
-                  value={datoSede.location}
-                  onChange={hanldeChange}
-                  required
-                />
-                {/* </Autocomplete> */}
-              </div>
 
-              <div className="mt-4">
-                <label htmlFor="img" className="block text-gray-700 text-sm font-bold mb-2">
-                  Imagen
-                </label>
-                <div className="relative">
+                <div className="mt-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Nombre
+                  </label>
                   <input
-                    type="file"
-                    name="file"
-                    id="file"
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    onChange={handleFileChange}
+                    className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                    type="text"
+                    name="name"
+                    value={datoSede.name}
+                    onChange={hanldeChange}
                     required
                   />
-                  <label
-                    htmlFor="file"
-                    className="inline-flex items-center justify-center px-4 py-2 bg-gray-700 text-white rounded-md shadow-sm hover:bg-blue-600 cursor-pointer"
-                  >
-                    Seleccionar archivo
-                  </label>
                 </div>
-              </div>
+
+                <div className="mt-4">
+                  <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
+                    Descripcion
+                  </label>
+                  <input
+                    className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                    type="text"
+                    name="description"
+                    value={datoSede.description}
+                    onChange={hanldeChange}
+                    required
+                  />
+                </div>
+
+                <div className="mt-4 flex flex-col justify-between">
+                  <div className="flex justify-between">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                      Ubicación
+                    </label>
+                  </div>
+                  <Autocomplete onLoad={onLoad} onPlaceChanged={handlePlaceSelect}>
+                    <input
+                      className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                      type="text"
+                      name="location"
+                      value={datoSede.location}
+                      onChange={hanldeChange}
+                      required
+                    />
+                  </Autocomplete>
+                </div>
+
+                <div className="mt-4">
+                  <label htmlFor="img" className="block text-gray-700 text-sm font-bold mb-2">
+                    Imagen
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      name="file"
+                      id="file"
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      onChange={handleFileChange}
+                      required
+                    />
+                    <label
+                      htmlFor="file"
+                      className="inline-flex items-center justify-center px-4 py-2 bg-gray-700 text-white rounded-md shadow-sm hover:bg-blue-600 cursor-pointer"
+                    >
+                      Seleccionar archivo
+                    </label>
+                  </div>
+                </div>
 
 
-              <div className="mt-8">
-                <button
-                  disabled={loading}
-                  className="bg-gray-900 text-white font-bold py-3 px-4 w-full rounded hover:bg-gray-700 transition duration-300 ease-in-out"
+                <div className="mt-8">
+                  <button
+                    disabled={loading}
+                    className="bg-gray-900 text-white font-bold py-3 px-4 w-full rounded hover:bg-gray-700 transition duration-300 ease-in-out"
+                  >
+                    {loading ? (
+                      <div className="flex justify-center items-center">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                        <span className="ml-3">Creando sede...</span>
+                      </div>
+                    ) : (
+                      "Crear sede"
+                    )}
+                  </button>
+                </div>
+
+              </form>
+
+              <div className="mt-4 flex items-center w-full text-center">
+                <Link
+                  href="/FormCancha"
+                  className="text-xs text-gray-500 text-center w-full"
                 >
-                  {loading ? (
-                    <div className="flex justify-center items-center">
-                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-                      <span className="ml-3">Creando sede...</span>
-                    </div>
-                  ) : (
-                    "Crear sede"
-                  )}
-                </button>
+                  Ya tienes la sede creada?
+                  <span className="text-blue-700"> Crea tu cancha aqui.</span>
+                </Link>
               </div>
-
-            </form>
-
-            <div className="mt-4 flex items-center w-full text-center">
-              <Link
-                href="/FormCancha"
-                className="text-xs text-gray-500 text-center w-full"
-              >
-                Ya tienes la sede creada?
-                <span className="text-blue-700"> Crea tu cancha aqui.</span>
-              </Link>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
-    </div>
-    // </LoadScript>
+    </LoadScript>
   );
 };
 
