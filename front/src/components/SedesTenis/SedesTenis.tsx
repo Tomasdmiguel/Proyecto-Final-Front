@@ -17,7 +17,7 @@ export const SedesTenis = ({ sedes }: { sedes: ISede[] }) => {
 
   return (
     <div
-      className={`p-8 bg-orange-200 rounded-md flex flex-col justify-center items-center shadow-md space-y-4 text-terciario-white w-full ${
+      className={`p-8 max-h-screen rounded-b-md overflow-auto overscroll-y-auto bg-orange-200 rounded-md flex flex-col justify-center items-center shadow-md space-y-4 text-terciario-white w-full ${
         sport == 1 || sport == 2 || sport == 3 ? "flex" : "hidden absolute"
       }`}
     >
@@ -39,10 +39,10 @@ export const SedesTenis = ({ sedes }: { sedes: ISede[] }) => {
                 key={id}
                 className="border-4 max-h-[45vh] w-3/4 border-terciario-white hover:border-orange-400 text-black bg-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer  ease-in-out duration-300"
               >
-                <div className="w-1/2 p-4">
+                <div className="sm:w-1/2 p-4">
                   <img className="w-full max-h-[35vh]" src={imgUrl} alt="" />
                 </div>
-                <div className="flex flex-col p-4 space-y-4 font-bold w-1/2">
+                <div className="flex flex-col p-4 space-y-4 font-bold sm:w-1/2">
                   <h1 className="text-3xl">{name} </h1>
                   <p> {description} </p>
                   <div className="flex flex-row space-x-2 items-center">
@@ -74,12 +74,12 @@ export const SedesTenis = ({ sedes }: { sedes: ISede[] }) => {
               <Link
                 href={`/sede/${id}`}
                 key={id}
-                className="border-4 max-h-[45vh] border-terciario-white hover:border-orange-400 w-3/4 text-black bg-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer  ease-in-out duration-300"
+                className="border-4 sm:max-h-[45vh] border-terciario-white hover:border-orange-400 w-3/4 text-black bg-terciario-white p-2 rounded flex flex-col sm:flex-row sm:items-center hover:cursor-pointer  ease-in-out duration-300"
               >
-                <div className="w-1/2 p-4">
+                <div className="sm:w-1/2 p-4">
                   <img className="w-full max-h-[35vh]" src={imgUrl} alt="" />
                 </div>
-                <div className="flex flex-col p-4 space-y-4 font-bold w-1/2">
+                <div className="flex flex-col p-4 space-y-4 font-bold sm:w-1/2">
                   <h1 className="text-3xl">{name} </h1>
                   <p> {description} </p>
                   <div className="flex flex-row space-x-2 items-center">

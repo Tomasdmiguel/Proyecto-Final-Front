@@ -21,7 +21,7 @@ export const ContainerSedes = ({ sedes }: { sedes: ISede[] }) => {
 
   return (
     <div
-      className={`w-full h-full font-bold shadow-xl rounded-lg flex flex-col items-center`}
+      className={`w-[90vw] h-full font-bold shadow-xl rounded-lg flex flex-col items-center`}
     >
       <div className="flex flex-row w-full h-[7.5vh] justify-around">
         <button
