@@ -77,10 +77,10 @@ const FormRegister = () => {
 
       <p
         className={`${sport == 2
-            ? "text-blue-400"
-            : sport == 3
-              ? "text-orange-500"
-              : "text-main"
+          ? "text-blue-400"
+          : sport == 3
+            ? "text-orange-500"
+            : "text-main"
           } text-center font-semibold text-lg mb-4`}
       >
         Registrate gratis
@@ -98,10 +98,10 @@ const FormRegister = () => {
             placeholder="Escribí tu email"
             onChange={handleChange}
             className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${sport == 2
-                ? "ring-blue-400"
-                : sport == 3
-                  ? "ring-orange-500"
-                  : "focus:ring-main"
+              ? "ring-blue-400"
+              : sport == 3
+                ? "ring-orange-500"
+                : "focus:ring-main"
               }`}
           />
         </div>
@@ -117,10 +117,10 @@ const FormRegister = () => {
             placeholder="Nombre de usuario"
             onChange={handleChange}
             className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${sport == 2
-                ? "ring-blue-400"
-                : sport == 3
-                  ? "ring-orange-500"
-                  : "focus:ring-main"
+              ? "ring-blue-400"
+              : sport == 3
+                ? "ring-orange-500"
+                : "focus:ring-main"
               }`}
           />
         </div>
@@ -136,10 +136,10 @@ const FormRegister = () => {
             placeholder="Número telefónico"
             onChange={handleChange}
             className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${sport == 2
-                ? "ring-blue-400"
-                : sport == 3
-                  ? "ring-orange-500"
-                  : "focus:ring-main"
+              ? "ring-blue-400"
+              : sport == 3
+                ? "ring-orange-500"
+                : "focus:ring-main"
               }`}
           />
         </div>
@@ -156,18 +156,18 @@ const FormRegister = () => {
               placeholder="Escribe tu contraseña"
               onChange={handleChange}
               className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${sport == 2
-                  ? "ring-blue-400"
-                  : sport == 3
-                    ? "ring-orange-500"
-                    : "focus:ring-main"
+                ? "ring-blue-400"
+                : sport == 3
+                  ? "ring-orange-500"
+                  : "focus:ring-main"
                 }`}
             />
             <button
               className={`p-[1px] h-2/3 border-2 ${sport == 2
-                  ? "border-blue-400"
-                  : sport == 3
-                    ? "border-orange-500"
-                    : "border-main"
+                ? "border-blue-400"
+                : sport == 3
+                  ? "border-orange-500"
+                  : "border-main"
                 }  rounded-full`}
               type="button"
               onClick={togglePasswordVisibility}
@@ -175,10 +175,10 @@ const FormRegister = () => {
               {passwordVisible ? (
                 <svg
                   className={`h-[30px] w-[30px] fill-none ${sport == 2
-                      ? "stroke-blue-400"
-                      : sport == 3
-                        ? "stroke-orange-500"
-                        : "stroke-main"
+                    ? "stroke-blue-400"
+                    : sport == 3
+                      ? "stroke-orange-500"
+                      : "stroke-main"
                     }`}
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -193,10 +193,10 @@ const FormRegister = () => {
               ) : (
                 <svg
                   className={`h-[30px] w-[30px] fill-none ${sport == 2
-                      ? "stroke-blue-400"
-                      : sport == 3
-                        ? "stroke-orange-500"
-                        : "stroke-main"
+                    ? "stroke-blue-400"
+                    : sport == 3
+                      ? "stroke-orange-500"
+                      : "stroke-main"
                     }`}
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -228,10 +228,10 @@ const FormRegister = () => {
             placeholder="Escribe tu contraseña nuevamente"
             onChange={handleChange}
             className={`w-full p-3 rounded-lg bg-white text-black placeholder-black outline-0 focus:ring-4 ${sport == 2
-                ? "ring-blue-400"
-                : sport == 3
-                  ? "ring-orange-500"
-                  : "focus:ring-main"
+              ? "ring-blue-400"
+              : sport == 3
+                ? "ring-orange-500"
+                : "focus:ring-main"
               }`}
           />
         </div>
@@ -239,10 +239,10 @@ const FormRegister = () => {
         <button
           type="submit"
           className={`w-full border ${sport == 2
-              ? "border-blue-400 hover:bg-blue-400"
-              : sport == 3
-                ? "border-orange-500 hover:bg-orange-500"
-                : "border-main hover:bg-main"
+            ? "border-blue-400 hover:bg-blue-400"
+            : sport == 3
+              ? "border-orange-500 hover:bg-orange-500"
+              : "border-main hover:bg-main"
             } text-terciario-white p-3 rounded-lg duration-300 ease-in-out`}
         >
           Registrarse
@@ -254,10 +254,10 @@ const FormRegister = () => {
         <br />
         <Link
           className={`${sport == 2
-              ? "text-blue-400"
-              : sport == 3
-                ? "text-orange-500"
-                : "text-main"
+            ? "text-blue-400"
+            : sport == 3
+              ? "text-orange-500"
+              : "text-main"
             }`}
           href="/Login"
         >
