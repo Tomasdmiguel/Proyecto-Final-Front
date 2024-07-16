@@ -1,5 +1,3 @@
-import { error } from "console";
-
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const pausarTurnos = async (id: string) =>{
