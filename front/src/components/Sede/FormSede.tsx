@@ -235,7 +235,7 @@ const FormSede = () => {
 
               <div className="mt-4 flex items-center w-full text-center">
                 <Link
-                  href="/FormCancha"
+                  href={`/FormCancha/${userData?.userDb?.id}`}
                   className="text-xs text-gray-500 text-center w-full"
                 >
                   Ya tienes la sede creada?
