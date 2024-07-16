@@ -208,19 +208,26 @@ export default function NavBar() {
                       Perfil
                     </Link>
                   ) : (
-                    <Link
-                      href="/Login"
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      onClick={toggleMenu}>
-                      Ingresa
-                    </Link>
+                    <div>
+                      <Link
+                        href="/Login"
+                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        onClick={toggleMenu}>
+                        Ingresa
+                      </Link>
+                      <Link
+                        href="/AddAdmin"
+                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        onClick={toggleMenu}>
+                        Suma tu cancha
+                      </Link>
+                    </div>
                   )}
-                  <Link
-                    href="/AddAdmin"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    onClick={toggleMenu}>
-                    Suma tu cancha
-                  </Link>
+
+
+
+
+
                 </div>
               </div>
             </div>
