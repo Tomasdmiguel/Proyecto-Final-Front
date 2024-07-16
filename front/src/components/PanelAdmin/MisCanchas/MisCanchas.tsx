@@ -67,9 +67,13 @@ const MisCanchas = () => {
   }, [sedes]);
 
   const handleDeleteCancha = async (canchaId: string) => {
+    if (!userData) {
+      showErrorAlert("No se pudo realizar la acción, usuario no autenticado");
+      return;
+    }
     console.log(canchaId);
     try {
-      const deleted = await deleteCancha(canchaId);
+      const deleted = await deleteCancha(canchaId, userData);
       if (deleted) {
         const updated = sedes.map((sede) => ({
           ...sede,
@@ -90,16 +94,22 @@ const MisCanchas = () => {
       console.error("Error al eliminar la cancha:", error);
     }
   };
+
   const handlePausar = async (canchaId: string, currentStatus: boolean) => {
+    if (!userData) {
+      showErrorAlert("No se pudo realizar la acción, usuario no autenticado");
+      return;
+    }
+  
     try {
-      const result = await pausarTurnos(canchaId);
+      const result = await pausarTurnos(canchaId, userData);
       if (result.success) {
         const newStatus = !currentStatus;
         const successMessage = newStatus
           ? "Turnos pausados correctamente"
           : "Turnos habilitados correctamente";
         showSuccessAlert(successMessage);
-
+  
         const updatedTurnos = turnos.map((turno) =>
           turno.id === canchaId ? { ...turno, isActive: newStatus } : turno
         );
@@ -111,6 +121,7 @@ const MisCanchas = () => {
       showErrorAlert("Error al pausar los turnos");
     }
   };
+  
 
   const handleCrearTurnos = async () => {
     try {
