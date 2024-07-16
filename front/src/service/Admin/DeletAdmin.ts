@@ -1,11 +1,13 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { IUserSession } from "@/interface/context";
 
-export const deleteCancha = async (id: string): Promise<boolean> => {
+export const deleteCancha = async (id: string, user:IUserSession): Promise<boolean> => {
   try {
     const response = await fetch(`${API_URL}/cancha/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`
       },
     });
 
