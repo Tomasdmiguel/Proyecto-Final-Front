@@ -50,8 +50,8 @@ const EstadisticasRol = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold text-gray-700 mb-4">
+    <div className="p-6 col-span-2 min-h-fit max-w-[25vw] bg-gray-100 rounded-lg shadow-md">
+      <h3 className="text-xl font-bold text-gray-800 mb-6">
         Distribución de Roles
       </h3>
       {isLoading ? (

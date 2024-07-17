@@ -175,7 +175,7 @@ export const CardCancha = ({
           )}
         </div>
         <div className="w-3/5 flex flex-col h-auto items-center justify-evenly">
-          <h1 className="font-bold uppercase  text-2xl sm:text-3xl p-2">
+          <h1 className="font-bold uppercase text-center  text-2xl sm:text-3xl p-2">
             {cancha.name}
           </h1>
           <div className="flex flex-col sm:flex-row text-base sm:text-xl p-2 w-full items-center sm:items-start justify-evenly">

@@ -1,6 +1,7 @@
 "use client";
 import { fetchCancelarTurno } from "@/service/ApiCancelarTurno";
 import {
+  showConfirmationAlert,
   showErrorAlert,
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
@@ -23,24 +24,34 @@ const MiReservas = () => {
     fetchTurnos();
   }, [userData?.userDb.id]);
 
-  const cancelarTurno = async (id: string) => {
-    setLoading(true);
-    setLoadingId(id);
-    try {
-      console.log(userData?.token);
-
-      const result = await fetchCancelarTurno(userData, id);
-      if (result.success) {
-        showSuccessAlert("Turno cancelado");
-      } else {
-        showErrorAlert("Error al cancelar el turno");
+  const cancelarTurno = (id: string) => {
+    showConfirmationAlert(
+      "¿Seguro?",
+      "¿Desea cancelar el turno?",
+      async () => {
+        setLoading(true);
+        setLoadingId(id);
+        try {
+          const result = await fetchCancelarTurno(userData, id);
+          if (result.success) {
+            setTimeout(() => {
+              window.location.reload();
+            }, 150);
+            showSuccessAlert("Turno cancelado");
+          } else {
+            showErrorAlert("Error al cancelar el turno");
+          }
+        } catch (error) {
+          showErrorAlert("Error desconocido, intenta más tarde");
+        } finally {
+          setLoading(false);
+          setLoadingId(null);
+        }
+      },
+      () => {
+        showErrorAlert("Turno no cancelado");
       }
-    } catch (error) {
-      showErrorAlert("Error desconocido, intenta más tarde");
-    } finally {
-      setLoading(false);
-      setLoadingId(null);
-    }
+    );
   };
 
   return (
@@ -61,13 +72,16 @@ const MiReservas = () => {
               key={index}
               className="w-full rounded-sm shadow-xl hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-y-4"
             >
-              <h2 className="font-bold text-3xl">{turno?.cancha?.name}</h2>
+              <h2 className="font-bold text-3xl capitalize">
+                {turno?.cancha?.name}
+              </h2>
+              <p>{turno?.cancha.sede.name}</p>
               <p>Hora: {turno.time}</p>
               <p>Dirección: {turno?.cancha?.sede?.location}</p>
               <p>Duración: 1 Hora</p>
 
               <p>
-                Estado de pago:{" "}
+                Estado:{" "}
                 {turno.status === "libre"
                   ? "Cancelado"
                   : turno.status === "ocupado"
@@ -77,26 +91,28 @@ const MiReservas = () => {
                   : "Desconocido"}
               </p>
 
-              <div className="flex justify-end mt-4">
-                <button
-                  onClick={() => cancelarTurno(turno.id)}
-                  className={`bg-terciario text-white p-3 rounded-lg font-semibold hover:bg-white hover:text-terciario duration-200 ease-in-out ${
-                    loading && loadingId === turno.id
-                      ? "cursor-not-allowed opacity-50"
-                      : ""
-                  }`}
-                  disabled={loading && loadingId === turno.id}
-                >
-                  {loading && loadingId === turno.id ? (
-                    <div className="flex items-center">
-                      <div className="spinner border-2 border-gray-200 border-t-2 border-t-teal-500 rounded-full w-4 h-4 animate-spin mr-2"></div>
-                      Cargando...
-                    </div>
-                  ) : (
-                    "Cancelar Reserva"
-                  )}
-                </button>
-              </div>
+              {turno.status != "libre" && (
+                <div className="flex justify-end mt-4">
+                  <button
+                    onClick={() => cancelarTurno(turno.id)}
+                    className={`bg-terciario text-white p-3 rounded-lg font-semibold hover:bg-white hover:text-terciario duration-200 ease-in-out ${
+                      loading && loadingId === turno.id
+                        ? "cursor-not-allowed opacity-50"
+                        : ""
+                    }`}
+                    disabled={loading && loadingId === turno.id}
+                  >
+                    {loading && loadingId === turno.id ? (
+                      <div className="flex items-center">
+                        <div className="spinner border-2 border-gray-200 border-t-2 border-t-teal-500 rounded-full w-4 h-4 animate-spin mr-2"></div>
+                        Cargando...
+                      </div>
+                    ) : (
+                      "Cancelar Reserva"
+                    )}
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
