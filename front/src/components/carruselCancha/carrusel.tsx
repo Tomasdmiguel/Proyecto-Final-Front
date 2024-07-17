@@ -60,7 +60,7 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
               className="flex-none w-full h-fit md:w-1/3 px-2 my-2"
             >
               <div className="bg-white pb-4 h-[50vh] rounded-lg shadow-lg overflow-hidden transition duration-300 flex flex-col relative">
-                <div className="absolute h-48 inset-0 overflow-hidden">
+                <div className="h-96 inset-0 overflow-hidden">
                   <img
                     src={cancha?.sede?.imgUrl}
                     alt="imgCancha"
@@ -138,7 +138,7 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
             </div>
           ))}
         </div>
-        {window.innerWidth > 640 && (
+        {viewportWidth > 640 && (
           <button
             onClick={handlePrev}
             className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black text-4xl p-4 transition-opacity opacity-0 hover:opacity-100"
@@ -146,7 +146,7 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
             &#8249;
           </button>
         )}
-        {window.innerWidth > 640 && (
+        {viewportWidth > 640 && (
           <button
             onClick={handleNext}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 text-black text-4xl p-4 transition-opacity opacity-0 hover:opacity-100"

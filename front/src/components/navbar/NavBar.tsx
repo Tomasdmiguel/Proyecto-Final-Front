@@ -79,6 +79,12 @@ export default function NavBar() {
                 Chat
               </Link>
             )}
+            <Link
+              href="#about"
+              className="text-xl font-semibold leading-6 text-gray-900"
+            >
+              About
+            </Link>
           </div>
 
           <div className="flex lg:hidden">
@@ -295,6 +301,13 @@ export default function NavBar() {
                       </Link>
                     </div>
                   )}
+                  <Link
+                    href="#about"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    onClick={toggleMenu}
+                  >
+                    About
+                  </Link>
                 </div>
               </div>
             </div>
