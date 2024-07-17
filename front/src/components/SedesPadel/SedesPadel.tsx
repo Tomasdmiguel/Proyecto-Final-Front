@@ -17,13 +17,13 @@ export const SedesPadel = ({ sedes }: { sedes: ISede[] }) => {
 
   return (
     <div
-      className={`p-8 bg-blue-200 rounded-md flex flex-col justify-center items-center shadow-md space-y-4 text-terciario-white w-full ${
-        sport == 1 || sport == 2 || sport == 3 ? "flex" : "hidden absolute"
+      className={`p-8 max-h-screen bg-blue-200 rounded-b-md overflow-auto overscroll-y-auto flex flex-col items-center shadow-md space-y-4 text-terciario-white w-full ${
+        sport == 2 ? "flex" : "hidden absolute"
       }`}
     >
       <div className="flex justify-center items-center w-full">
         <input
-          className="m-4 w-3/4 p-3 rounded-3xl  font-semibold hover:shadow-md text-blue-400 outline-blue-400"
+          className="m-4 w-11/12 sm:w-3/4 p-3 rounded-3xl  font-semibold hover:shadow-md text-blue-400 outline-blue-400"
           type="text"
           placeholder="Buscar..."
           value={searchTerm}
@@ -37,12 +37,12 @@ export const SedesPadel = ({ sedes }: { sedes: ISede[] }) => {
               <Link
                 href={`/sede/${id}`}
                 key={id}
-                className="border-4 max-h-[45vh] border-terciario-white hover:border-blue-400 w-3/4 text-black bg-terciario-white p-2 rounded flex flex-row items-center hover:cursor-pointer  ease-in-out duration-300"
+                className="border-4 sm:max-h-[45vh] border-terciario-white hover:border-blue-400 w-11/12 sm:w-3/4 text-black bg-terciario-white p-2 rounded flex flex-col sm:flex-row sm:items-center hover:cursor-pointer  ease-in-out duration-300"
               >
-                <div className="w-1/2 p-4">
+                <div className="sm:w-1/2 p-4">
                   <img className="w-full max-h-[35vh]" src={imgUrl} alt="" />
                 </div>
-                <div className="flex flex-col p-4 space-y-4 font-bold w-1/2">
+                <div className="flex flex-col p-4 space-y-4 font-bold sm:w-1/2">
                   <h1 className="text-3xl">{name} </h1>
                   <p>{description} </p>
                   <div className="flex flex-row space-x-2 items-center">
@@ -74,12 +74,12 @@ export const SedesPadel = ({ sedes }: { sedes: ISede[] }) => {
               <Link
                 href={`/sede/${id}`}
                 key={id}
-                className="border-4 max-h-[45vh] border-terciario-white hover:border-blue-400 w-3/4 text-black bg-terciario-white p-8 rounded flex flex-row items-center hover:cursor-pointer 0 ease-in-out duration-300"
+                className="border-4 sm:max-h-[45vh] border-terciario-white hover:border-blue-400 w-11/12 sm:w-3/4 text-black bg-terciario-white p-2 rounded flex flex-col sm:flex-row sm:items-center hover:cursor-pointer  ease-in-out duration-300"
               >
-                <div className="w-1/2 p-4">
+                <div className="sm:w-1/2 p-4">
                   <img className="w-full max-h-[35vh]" src={imgUrl} alt="" />
                 </div>
-                <div className="flex flex-col p-4 space-y-4 font-bold w-1/2">
+                <div className="flex flex-col p-4 space-y-4 font-bold sm:w-1/2">
                   <h1 className="text-3xl">{name} </h1>
                   <p>{description} </p>
                   <div className="flex flex-row space-x-2 items-center">

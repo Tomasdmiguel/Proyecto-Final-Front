@@ -4,8 +4,7 @@ const SuperAdmin: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="container mx-auto">
-      <SuperAdminPanel/>
-   
+        <SuperAdminPanel />
       </div>
     </div>
   );

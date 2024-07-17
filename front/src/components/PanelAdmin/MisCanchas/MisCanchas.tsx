@@ -11,6 +11,9 @@ import {
 } from "@/helpers/alert.helper/alert.helper";
 import { pausarTurnos } from "@/service/Admin/PausarTurnos";
 import { TurnoPausa } from "@/interface/TurnoPausa";
+
+import { crearTurnos } from "@/service/Admin/CrearTurnos";
+
 const MisCanchas = () => {
   const [sedes, setSedes] = useState<ISede[]>([]);
   const [turnos, setTurnos] = useState<TurnoPausa[]>([]);
@@ -19,6 +22,7 @@ const MisCanchas = () => {
   const [dataFile, setFile] = useState<File | null>(null);
   const [UpdateId, setUpdateId] = useState<string>("");
   const [updateCanchaData, setupdateCancha] = useState<any>({});
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchSedes = async () => {
@@ -63,9 +67,13 @@ const MisCanchas = () => {
   }, [sedes]);
 
   const handleDeleteCancha = async (canchaId: string) => {
+    if (!userData) {
+      showErrorAlert("No se pudo realizar la acción, usuario no autenticado");
+      return;
+    }
     console.log(canchaId);
     try {
-      const deleted = await deleteCancha(canchaId);
+      const deleted = await deleteCancha(canchaId, userData);
       if (deleted) {
         const updated = sedes.map((sede) => ({
           ...sede,
@@ -86,16 +94,22 @@ const MisCanchas = () => {
       console.error("Error al eliminar la cancha:", error);
     }
   };
+
   const handlePausar = async (canchaId: string, currentStatus: boolean) => {
+    if (!userData) {
+      showErrorAlert("No se pudo realizar la acción, usuario no autenticado");
+      return;
+    }
+  
     try {
-      const result = await pausarTurnos(canchaId);
+      const result = await pausarTurnos(canchaId, userData);
       if (result.success) {
         const newStatus = !currentStatus;
         const successMessage = newStatus
           ? "Turnos pausados correctamente"
           : "Turnos habilitados correctamente";
         showSuccessAlert(successMessage);
-
+  
         const updatedTurnos = turnos.map((turno) =>
           turno.id === canchaId ? { ...turno, isActive: newStatus } : turno
         );
@@ -105,6 +119,19 @@ const MisCanchas = () => {
       }
     } catch (error: any) {
       showErrorAlert("Error al pausar los turnos");
+    }
+  };
+  
+
+  const handleCrearTurnos = async () => {
+    try {
+      setLoading(true); 
+      await crearTurnos();
+      showSuccessAlert("Turnos creados");
+    } catch (error: any) {
+      showErrorAlert("Error al crear los turnos");
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -163,13 +190,27 @@ const MisCanchas = () => {
         Mis Canchas
       </h1>
       {sedes.length > 0 ? (
-        <div className="bg-white h-[80vh] shadow-lg rounded-lg p-8 overflow-y-auto">
-          <ul className="space-y-8">
+       <div className="bg-white h-[80vh] shadow-lg rounded-lg p-8 overflow-y-auto">
+       <ul className="space-y-8">
+         <button
+           onClick={handleCrearTurnos}
+           className={`text-white px-4 py-2 rounded-md transition duration-300 bg-green-500 hover:bg-green-600 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
+         >
+           {isLoading ? (
+             <svg
+               className="animate-spin h-5 w-5 mr-3 border-t-2 border-b-2 border-white rounded-full"
+               viewBox="0 0 24 24"
+             ></svg>
+           ) : (
+             'Crear turnos'
+           )}
+         </button>
             {sedes.map((sede) => (
               <div key={sede.id}>
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">
                   {sede.name}
                 </h2>
+              
                 {sede?.canchas?.map((cancha) => {
                   const turno = turnos.find((t) => t.id === cancha.id);
                   return (

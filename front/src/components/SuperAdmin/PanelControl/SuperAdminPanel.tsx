@@ -33,29 +33,33 @@ const SuperAdminPanel = () => {
           className={`p-4 text-left ${
             activeView === "home" ? "bg-gray-700" : "hover:bg-gray-700"
           }`}
-          onClick={() => setActiveView("home")}>
+          onClick={() => setActiveView("home")}
+        >
           Informacion Personal
         </button>
         <button
           className={`p-4 text-left ${
             activeView === "approve" ? "bg-gray-700" : "hover:bg-gray-700"
           }`}
-          onClick={() => setActiveView("approve")}>
+          onClick={() => setActiveView("approve")}
+        >
           Aprobar administrador
         </button>
         <button
           className={`p-4 text-left ${
             activeView === "ban" ? "bg-gray-700" : "hover:bg-gray-700"
           }`}
-          onClick={() => setActiveView("ban")}>
+          onClick={() => setActiveView("ban")}
+        >
           Banear usuario
         </button>
         <button
           className={`p-4 text-left ${
             activeView === "estadistica" ? "bg-gray-700" : "hover:bg-gray-700"
           }`}
-          onClick={() => setActiveView("estadistica")}>
-          Estadicistas de la web
+          onClick={() => setActiveView("estadistica")}
+        >
+          Estadisticas de la web
         </button>
       </nav>
 

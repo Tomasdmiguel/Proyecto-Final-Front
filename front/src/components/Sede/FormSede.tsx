@@ -124,106 +124,128 @@ const FormSede = () => {
   };
 
   return (
-    <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={libraries}>
-      <div className="bg-gray-700 max-w-md w-full p-8 rounded-lg shadow-lg text">
-        <h1 className="text-terciario-white text-center text-3xl font-bold mb-6">
-          RESERVA GOL
-        </h1>
+    <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={libraries} onError={(e) => console.error('Error loading Google Maps script:', e)}>
+      <div className="w-full h-screen flex justify-center items-center">
+        <div className="flex bg-white h-full shadow-lg overflow-hidden w-full">
+          <div
+            className="hidden md:block lg:w-1/2 bg-cover"
+            style={{
+              backgroundImage: `url(createSede.png)`,
+            }}
+          ></div>
+          <div
+            className="w-full lg:w-1/2 flex flex-col justify-center items-center 2xl:pb-20 2xl:pr-20"
+            style={{
+              backgroundImage: `url(fondoCreateForm.png)`,
+            }}
+          >
+            <div className="md:w-1/2 lg:w-1/2 justify-center align-middle flex flex-col">
 
-        <p className="text-secundario text-center mb-4">
-          Bienvenido, crea tu sede para que los jugadores puedan ver tus canchas
-        </p>
+              <form onSubmit={handleSubmit}>
+                <div className="mt-4">
+                  <h1 className="text-2xl font-bold text-center text-gray-700">Crea tu sede</h1>
+                </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-terciario-white mb-2">
-              Nombre
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={datoSede?.name}
-              placeholder="Escribi tu nombre"
-              onChange={hanldeChange}
-              className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-            />
-          </div>
+                <div className="mt-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Nombre
+                  </label>
+                  <input
+                    className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                    type="text"
+                    name="name"
+                    value={datoSede.name}
+                    onChange={hanldeChange}
+                    required
+                  />
+                </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="location"
-              className="block text-terciario-white mb-2"
-            >
-              Locacion
-            </label>
-            <Autocomplete onLoad={onLoad} onPlaceChanged={handlePlaceSelect}>
-              <input
-                type="text"
-                name="location"
-                value={datoSede?.location}
-                placeholder="Ponga su locacion"
-                onChange={hanldeChange}
-                className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-              />
-            </Autocomplete>
-          </div>
+                <div className="mt-4">
+                  <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
+                    Descripcion
+                  </label>
+                  <input
+                    className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                    type="text"
+                    name="description"
+                    value={datoSede.description}
+                    onChange={hanldeChange}
+                    required
+                  />
+                </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="description"
-              className="block text-terciario-white mb-2"
-            >
-              Descripcion
-            </label>
-            <input
-              type="text"
-              name="description"
-              value={datoSede?.description}
-              placeholder="Descripcion"
-              onChange={hanldeChange}
-              className="w-full p-3 rounded-lg bg-white text-black focus:border-yellow-600"
-            />
-          </div>
+                <div className="mt-4 flex flex-col justify-between">
+                  <div className="flex justify-between">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                      Ubicación
+                    </label>
+                  </div>
+                  <Autocomplete onLoad={onLoad} onPlaceChanged={handlePlaceSelect}>
+                    <input
+                      className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                      type="text"
+                      name="location"
+                      value={datoSede.location}
+                      onChange={hanldeChange}
+                      required
+                    />
+                  </Autocomplete>
+                </div>
 
-          <div className="bg-terciario-white max-w-md w-full p-8 rounded-lg shadow-lg text">
-            <div className="mb-6">
-              <label htmlFor="img" className="block text-gray-700 mb-2">
-                Imagen
-              </label>
-              <input
-                type="file"
-                name="file"
-                placeholder="Imagen"
-                onChange={handleFileChange}
-                className="w-full p-3 rounded-lg bg-gray-700 text-terciario-white focus:border-yellow-600"
-              />
+                <div className="mt-4">
+                  <label htmlFor="img" className="block text-gray-700 text-sm font-bold mb-2">
+                    Imagen
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      name="file"
+                      id="file"
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      onChange={handleFileChange}
+                      required
+                    />
+                    <label
+                      htmlFor="file"
+                      className="inline-flex items-center justify-center px-4 py-2 bg-gray-700 text-white rounded-md shadow-sm hover:bg-blue-600 cursor-pointer"
+                    >
+                      Seleccionar archivo
+                    </label>
+                  </div>
+                </div>
+
+
+                <div className="mt-8">
+                  <button
+                    disabled={loading}
+                    className="bg-gray-900 text-white font-bold py-3 px-4 w-full rounded hover:bg-gray-700 transition duration-300 ease-in-out"
+                  >
+                    {loading ? (
+                      <div className="flex justify-center items-center">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                        <span className="ml-3">Creando sede...</span>
+                      </div>
+                    ) : (
+                      "Crear sede"
+                    )}
+                  </button>
+                </div>
+
+              </form>
+
+              <div className="mt-4 flex items-center w-full text-center">
+                <Link
+                  href={`/FormCancha/${userData?.userDb?.id}`}
+                  className="text-xs text-gray-500 text-center w-full"
+                >
+                  Ya tienes la sede creada?
+                  <span className="text-blue-700"> Crea tu cancha aqui.</span>
+                </Link>
+              </div>
             </div>
           </div>
 
-          <button
-            type="submit"
-            className={`w-full border border-secundario text-terciario-white p-3 rounded-lg hover:bg-yellow-600 ${
-              loading ? "cursor-not-allowed opacity-50" : ""
-            }`}
-            disabled={loading}
-          >
-            {loading ? (
-              <div className="flex justify-center items-center">
-                <div className="spinner border-2 border-gray-200 border-t-2 border-t-teal-500 rounded-full w-4 h-4 animate-spin mr-2"></div>
-                Cargando...
-              </div>
-            ) : (
-              "Crear sede"
-            )}
-          </button>
-        </form>
-
-        <p className="text-terciario-white text-center mt-4">
-          Si ya tienes una sede creada, ingresa para crear tu cancha.
-        </p>
-        <Link href="/FormCancha" className="text-secundario text-center">
-          <p>Ingresa</p>
-        </Link>
+        </div>
       </div>
     </LoadScript>
   );

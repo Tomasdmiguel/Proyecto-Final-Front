@@ -1,6 +1,6 @@
 //*Este  es una ruta para poder mostrar el componente register
 "use client";
-import FormRegister from "@/components/Register/FormRegister copy";
+import FormRegister from "@/components/Register/FormRegister";
 import { useSport } from "@/context/SportContext";
 const RutaFormRegister = () => {
   const { sport } = useSport();

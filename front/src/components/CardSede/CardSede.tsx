@@ -45,7 +45,6 @@ const CardSede = ({ name, location, description, id, imgUrl }: ISede) => {
 
 export default CardSede;
 
-
 // /* eslint-disable @next/next/no-img-element */
 // import { ISede } from "@/interface/ISedes";
 // import React from "react";
@@ -65,7 +64,7 @@ export default CardSede;
 //             ? "hover:bg-orange-500 shadow-orange-500"
 //             : "hover:bg-main shadow-main"
 //         }
-//         w-full min-h-fit font-Marko text-lg flex flex-row rounded-md shadow-lg hover:text-white hover:shadow-xl  transition duration-300 ease-in-out p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 md:space-y-8`}
+//         w-full min-h-fit text-lg flex flex-row rounded-md shadow-lg hover:text-white hover:shadow-xl  transition duration-300 ease-in-out p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 md:space-y-8`}
 //     >
 //       <img className="size-60 rounded-full" src={imgUrl} alt="" />
 //       <div className="h-full flex flex-col items-center justify-start w-full ">

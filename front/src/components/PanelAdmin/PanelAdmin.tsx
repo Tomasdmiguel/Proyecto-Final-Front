@@ -3,7 +3,6 @@ import React, { use, useEffect, useState } from "react";
 import MisCanchas from "./MisCanchas/MisCanchas";
 import MisSedes from "./MisSedes/MisSedes";
 import Estadisticas from "../Estadisticas/Estadisticas";
-import Link from "next/link";
 import { useSport } from "@/context/SportContext";
 import { usePathname } from "next/navigation";
 

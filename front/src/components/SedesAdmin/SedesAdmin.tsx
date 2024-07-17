@@ -30,7 +30,7 @@ export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
                 : "hover:bg-main hover:shadow-main hover:shadow-md"
             } hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6`}
           >
-            <h2 className="font-Marko font-bold text-3xl">{sede?.name}</h2>
+            <h2 className="font-bold text-3xl">{sede?.name}</h2>
             <p>Dirección: {sede?.location}</p>
             <p>Descripción: {sede?.description}</p>
           </div>
