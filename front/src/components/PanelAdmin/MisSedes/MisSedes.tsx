@@ -27,6 +27,7 @@ const MisSedes = () => {
     description: "",
   });
   const [dataFile, setFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false); // Estado para el loader
 
   useEffect(() => {
     const fetchSedes = async () => {
@@ -66,6 +67,7 @@ const MisSedes = () => {
       console.error("Error al eliminar la sede:", error);
     }
   };
+
   const handleEstadoSede = (id: string) => {
     const sedeToUpdate = sedes.find((sede) => sede.id === id);
     if (sedeToUpdate) {
@@ -91,19 +93,28 @@ const MisSedes = () => {
     });
   };
 
-  const handleSubmitUpdate = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitUpdate = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
 
     try {
+      setIsLoading(true); // Activar el loader
+
       if (userData?.token && UpdateId) {
         const updatedFields = Object.fromEntries(
           Object.entries(UpdateSede).filter(([_, value]) => value !== "")
         );
-        await updateSede(UpdateId, userData, updatedFields, dataFile || undefined);
+        await updateSede(
+          UpdateId,
+          userData,
+          updatedFields,
+          dataFile || undefined
+        );
         showSuccessAlert("Actualizado correctamente");
         setIsModalOpen(false);
-        
-        const updatedSedes = sedes.map(sede => 
+
+        const updatedSedes = sedes.map((sede) =>
           sede.id === UpdateId ? { ...sede, ...updatedFields } : sede
         );
         setSedes(updatedSedes);
@@ -113,6 +124,8 @@ const MisSedes = () => {
     } catch (error) {
       console.error("Error al actualizar la sede:", error);
       showErrorAlert("Error al actualizar la sede");
+    } finally {
+      setIsLoading(false); // Desactivar el loader, independientemente del resultado
     }
   };
 
@@ -153,14 +166,16 @@ const MisSedes = () => {
       ) : (
         <p className="text-gray-300">No tienes sedes registradas.</p>
       )}
-      
+
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg p-8 max-w-md w-full">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Editar Sede</h2>
             <form onSubmit={handleSubmitUpdate} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Nombre:</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Nombre:
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -170,7 +185,9 @@ const MisSedes = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Descripción:</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Descripción:
+                </label>
                 <input
                   type="text"
                   name="description"
@@ -180,7 +197,9 @@ const MisSedes = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Ubicación:</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Ubicación:
+                </label>
                 <input
                   type="text"
                   name="location"
@@ -190,7 +209,9 @@ const MisSedes = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Archivo (Imagen de la Sede):</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Archivo (Imagen de la Sede):
+                </label>
                 <input
                   type="file"
                   name="file"
@@ -213,9 +234,10 @@ const MisSedes = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                  className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={isLoading}
                 >
-                  Actualizar Sede
+                  {isLoading ? 'Cargando...' : 'Actualizar Sede'}
                 </button>
               </div>
             </form>
