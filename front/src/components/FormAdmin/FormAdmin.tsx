@@ -7,11 +7,10 @@ import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
-import { useSport } from "@/context/SportContext";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const FormAdmin = () => {
-  const { sport } = useSport();
+  const router = useRouter();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -52,10 +51,11 @@ const FormAdmin = () => {
           showSuccessAlert(
             `Nos contactaremos en breve, gracias por elegirnos ${data.name}`
           );
+          router.push("/");
         } else {
           showErrorAlert(
             result.message ||
-            "La solicitud no fue exitosa. Por favor, intente nuevamente."
+              "La solicitud no fue exitosa. Por favor, intente nuevamente."
           );
         }
       } else {
@@ -83,7 +83,9 @@ const FormAdmin = () => {
         <div className="w-full lg:w-1/2 flex flex-col justify-center items-center">
           <div className="w-full p-8 lg:w-1/2 justify-center align-middle flex flex-col">
             <form onSubmit={handleSubmit}>
-              <h1 className="text-2xl font-bold mb-4 text-center text-gray-700">Formulario</h1>
+              <h1 className="text-2xl font-bold mb-4 text-center text-gray-700">
+                Formulario
+              </h1>
               <div className="mt-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Correo electronico
@@ -116,7 +118,10 @@ const FormAdmin = () => {
 
               <div className="mt-4 flex flex-col justify-between">
                 <div className="flex justify-between">
-                  <label htmlFor="bithdate" className="block text-gray-700 text-sm font-bold mb-2">
+                  <label
+                    htmlFor="bithdate"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
                     Fecha de Nacimiento
                   </label>
                 </div>
@@ -127,7 +132,7 @@ const FormAdmin = () => {
                   name="birthdate"
                   value={data.birthdate}
                   onChange={handleChange}
-                // required
+                  // required
                 />
               </div>
 
@@ -201,7 +206,10 @@ const FormAdmin = () => {
 
               <div className="mt-4 flex flex-col justify-between">
                 <div className="flex justify-between">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="password"
+                  >
                     Contraseña
                   </label>
                 </div>
@@ -218,7 +226,10 @@ const FormAdmin = () => {
 
               <div className="mt-4 flex flex-col justify-between">
                 <div className="flex justify-between">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="password"
+                  >
                     Repite la contraseña
                   </label>
                 </div>
@@ -235,7 +246,9 @@ const FormAdmin = () => {
 
               <div className="mt-8">
                 <button
-                  disabled={loading} className="bg-blue-700 text-white font-bold py-3 px-4 w-full rounded hover:bg-blue-600">
+                  disabled={loading}
+                  className="bg-blue-700 text-white font-bold py-3 px-4 w-full rounded hover:bg-blue-600"
+                >
                   {loading && (
                     <div className="flex justify-center items-center">
                       <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
@@ -243,16 +256,11 @@ const FormAdmin = () => {
                     </div>
                   )}
                   Registrarse
-
                 </button>
               </div>
-
             </form>
-
-
           </div>
         </div>
-
       </div>
     </div>
   );

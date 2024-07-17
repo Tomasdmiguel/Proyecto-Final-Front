@@ -102,13 +102,13 @@ const Estadisticas = () => {
         <p className="text-red-500">{error}</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="bg-white p-4 rounded-lg shadow-md">
+          <div className="bg-white p-4 max-w-[25vw] rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-700 mb-4">
               Cantidad de Usuarios
             </h3>
             <Bar data={barData} />
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-md">
+          <div className="bg-white p-4 max-w-[25vw] rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-700 mb-4">
               Distribución de Usuarios
             </h3>

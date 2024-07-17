@@ -2,10 +2,8 @@ import SuperAdminPanel from "@/components/SuperAdmin/PanelControl/SuperAdminPane
 
 const SuperAdmin: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="container mx-auto">
-        <SuperAdminPanel />
-      </div>
+    <div className="p-6 bg-gray-900 flex items-center justify-center w-screen">
+      <SuperAdminPanel />
     </div>
   );
 };
