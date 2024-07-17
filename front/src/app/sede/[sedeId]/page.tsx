@@ -69,13 +69,6 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
   //   console.log(canchas);
   // };
 
-  const mouseEnter = () => {
-    setHover(true);
-  };
-  const mouseLeave = () => {
-    setHover(false);
-  };
-
   return (
     <div>
       <div className="bg-white dark:bg-gray-800 flex py-20 relative z-20 items-center overflow-hidden">
@@ -88,7 +81,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
             <div className="px-2 py-3 flex flex-row items-center justify-between">
               <span className="flex flex-row items-center">
                 <svg
-                  className="h-5 w-5 text-white mr-2"
+                  className="h-5 w-5 text-gray-800 mr-2"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -128,7 +121,7 @@ const SedeById = ({ params }: { params: { sedeId: string } }) => {
               </Link> */}
             </div>
           </div>
-          <div className="w-80 h-80 rounded-full overflow-hidden m-auto">
+          <div className="w-80 h-80 rounded-full overflow-hidden m-auto hidden sm:block">
             <img
               src={sede?.imgUrl}
               className="w-full h-full object-cover"
