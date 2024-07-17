@@ -23,7 +23,7 @@ export default function Footer() {
             <a href="/" className="flex items-center">
               <img
                 className="h-20 w-auto hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
-                src="/logo2w.png"
+                src={sport == 4 ? "/logo2w.png" : "/logo2.png"}
                 alt="Your Company Logo"
               />
             </a>

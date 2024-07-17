@@ -12,11 +12,15 @@ export default function NavBar() {
   const pathname = usePathname();
   const router = useRouter();
 
-
   const isAdminPanel = pathname === "/PanelAdmin";
+  const isSuperAdminPanel = pathname === "/SuperAdmin";
 
   const redirect = () => {
-    router.push("/Dashboard");
+    if (isAdminPanel) {
+      router.push("/Dashboard");
+    } else {
+      router.push("/");
+    }
     handleSport(0);
     setTimeout(() => {
       window.location.reload();
@@ -27,6 +31,10 @@ export default function NavBar() {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+  const toggleMenu2 = () => {
+    setMenuOpen(!menuOpen);
+    handleSport(4);
   };
 
   return (
@@ -41,7 +49,7 @@ export default function NavBar() {
           : "border-main text-main bg-terciario-white"
       } top-0 min-w-screen border-b-2 z-50 px-10 overflow-hidden`}
     >
-      {!isAdminPanel ? (
+      {!isAdminPanel && !isSuperAdminPanel ? (
         <nav
           className="flex items-center justify-between p-3 lg:px-8"
           aria-label="Global"
@@ -194,10 +202,9 @@ export default function NavBar() {
           </div>
         </div>
       )}
-      
+
       {menuOpen && (
         <div className="lg:hidden" role="dialog" aria-modal="true">
-       
           <div className="fixed inset-0 z-50"></div>
           <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
@@ -256,7 +263,7 @@ export default function NavBar() {
                     <Link
                       href="/SuperAdmin"
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      onClick={toggleMenu}
+                      onClick={toggleMenu2}
                     >
                       Panel de control
                     </Link>

@@ -1,13 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardAprobacion from "../Aprobacion/CardAprobacion";
 import BanearUser from "../BanearUser/BanearUser";
 
 import Dashboard from "../CardPersonal/CardPersonal";
 import Estadisticas from "../../Estadisticas/Estadisticas";
+import { useSport } from "@/context/SportContext";
+import { usePathname } from "next/navigation";
 
 const SuperAdminPanel = () => {
   const [activeView, setActiveView] = useState("home");
+  const { handleSport } = useSport();
+  const pathname = usePathname();
 
   const renderView = () => {
     switch (activeView) {
@@ -25,10 +29,19 @@ const SuperAdminPanel = () => {
     }
   };
 
+  useEffect(() => {
+    const isPanel = pathname === "/SuperAdmin";
+    if (isPanel) {
+      handleSport(4);
+    }
+  }, [handleSport, pathname]);
+
   return (
-    <div className="flex h-screen">
-      <nav className="w-1/4 bg-gray-800 text-white flex flex-col">
-        <h1 className="text-2xl font-bold p-4">Super Admin Panel</h1>
+    <div className="flex min-h-screen w-4/5 shadow-lg shadow-blue-600">
+      <nav className="w-1/4 bg-gray-900 text-white flex flex-col border-r-2 border-blue-600">
+        <h1 className="text-2xl font-bold py-6 px-3 border-b border-gray-700">
+          Super Admin Panel
+        </h1>
         <button
           className={`p-4 text-left ${
             activeView === "home" ? "bg-gray-700" : "hover:bg-gray-700"
