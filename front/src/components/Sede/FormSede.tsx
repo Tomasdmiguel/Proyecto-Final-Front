@@ -22,7 +22,6 @@ const FormSede = () => {
   const [userData, setUserData] = useState<IUser | undefined>();
   const [dataFile, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const { sport } = useSport();
   const route = useRouter();
   const [autocomplete, setAutocomplete] =
     useState<google.maps.places.Autocomplete | null>(null);
@@ -124,7 +123,11 @@ const FormSede = () => {
   };
 
   return (
-    <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={libraries} onError={(e) => console.error('Error loading Google Maps script:', e)}>
+    <LoadScript
+      googleMapsApiKey={googleMapsApiKey}
+      libraries={libraries}
+      onError={(e) => console.error("Error loading Google Maps script:", e)}
+    >
       <div className="w-full h-screen flex justify-center items-center">
         <div className="flex bg-white h-full shadow-lg overflow-hidden w-full">
           <div
@@ -140,10 +143,11 @@ const FormSede = () => {
             }}
           >
             <div className="md:w-1/2 lg:w-1/2 justify-center align-middle flex flex-col">
-
               <form onSubmit={handleSubmit}>
                 <div className="mt-4">
-                  <h1 className="text-2xl font-bold text-center text-gray-700">Crea tu sede</h1>
+                  <h1 className="text-2xl font-bold text-center text-gray-700">
+                    Crea tu sede
+                  </h1>
                 </div>
 
                 <div className="mt-4">
@@ -161,7 +165,10 @@ const FormSede = () => {
                 </div>
 
                 <div className="mt-4">
-                  <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
+                  <label
+                    htmlFor="description"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
                     Descripcion
                   </label>
                   <input
@@ -180,7 +187,10 @@ const FormSede = () => {
                       Ubicación
                     </label>
                   </div>
-                  <Autocomplete onLoad={onLoad} onPlaceChanged={handlePlaceSelect}>
+                  <Autocomplete
+                    onLoad={onLoad}
+                    onPlaceChanged={handlePlaceSelect}
+                  >
                     <input
                       className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                       type="text"
@@ -193,7 +203,10 @@ const FormSede = () => {
                 </div>
 
                 <div className="mt-4">
-                  <label htmlFor="img" className="block text-gray-700 text-sm font-bold mb-2">
+                  <label
+                    htmlFor="img"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
                     Imagen
                   </label>
                   <div className="relative">
@@ -214,7 +227,6 @@ const FormSede = () => {
                   </div>
                 </div>
 
-
                 <div className="mt-8">
                   <button
                     disabled={loading}
@@ -230,7 +242,6 @@ const FormSede = () => {
                     )}
                   </button>
                 </div>
-
               </form>
 
               <div className="mt-4 flex items-center w-full text-center">
@@ -244,7 +255,6 @@ const FormSede = () => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </LoadScript>
