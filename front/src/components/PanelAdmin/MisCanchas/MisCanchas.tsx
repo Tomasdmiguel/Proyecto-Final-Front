@@ -341,8 +341,9 @@ const MisCanchas = () => {
                 <button
                   type="submit"
                   className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                  disabled={isLoading}
                 >
-                  Actualizar Cancha
+                  {isLoading ? "Guardando..." : "Guardar"}
                 </button>
               </div>
             </form>
