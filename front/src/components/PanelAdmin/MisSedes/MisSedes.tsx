@@ -263,9 +263,10 @@ const MisSedes = () => {
                   </button>
                   <button
                     type="submit"
-                    className="py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                    disabled={isLoading}
                   >
-                    {isLoading ? "Actualizando..." : "Actualizar"}
+                    {isLoading ? "Guardando..." : "Guardar"}
                   </button>
                 </div>
               </form>
