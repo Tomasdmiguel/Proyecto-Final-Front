@@ -11,7 +11,7 @@ export const HomeContainer = async () => {
   const sedes = await getSedes();
   const canchas = await getCanchas();
   return (
-    <div className="flex flex-col items-center w-screen space-y-10 ">
+    <div className="flex flex-col items-center w-screen space-y-10  pb-8">
       <Carousel />
       <TitleHome />
       <ContainerSedes sedes={sedes} />

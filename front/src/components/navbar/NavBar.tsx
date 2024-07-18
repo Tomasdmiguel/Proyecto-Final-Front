@@ -79,6 +79,12 @@ export default function NavBar() {
                 Chat
               </Link>
             )}
+            <Link
+              href="#about"
+              className="text-xl font-semibold leading-6 text-gray-900"
+            >
+              About
+            </Link>
           </div>
 
           <div className="flex lg:hidden">
@@ -134,7 +140,13 @@ export default function NavBar() {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="fill-none stroke-main hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                    className={`fill-none ${
+                      sport == 2
+                        ? "stroke-blue-400"
+                        : sport == 3
+                        ? "stroke-orange-500"
+                        : "stroke-main"
+                    } hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out`}
                     width="40"
                     height="40"
                     viewBox="0 0 24 24"
@@ -150,13 +162,25 @@ export default function NavBar() {
               <div className="hidden lg:flex lg:flex-1 gap-x-4 lg:justify-end">
                 <Link
                   href="/AddAdmin"
-                  className="py-2 px-5 rounded-xl font-medium text-black text-center border border-gray-900 hover:bg-gray-900 hover:text-white duration-150 block md:py-3 md:inline"
+                  className={` ${
+                    sport == 2
+                      ? "hover:bg-blue-400 border-blue-400 text-blue-400"
+                      : sport == 3
+                      ? "hover:bg-orange-500 border-orange-500 text-orange-500"
+                      : "hover:bg-main border-main text-main"
+                  }  md:text-lg p-3 rounded-lg border border-x-2 border-y-2  font-semibold  hover:text-white duration-200 ease-in-out`}
                 >
                   Suma tu cancha
                 </Link>
                 <Link
                   href="/Login"
-                  className="py-2 px-5 rounded-xl font-medium text-white text-center bg-gray-900 hover:bg-white border border-gray-900 hover:text-gray-900 hover:border hover:border-gray-900 active:bg-gray-800 duration-150 block md:py-3 md:inline"
+                  className={` ${
+                    sport == 2
+                      ? "hover:bg-blue-400 border-blue-400 text-blue-400"
+                      : sport == 3
+                      ? "hover:bg-orange-500 border-orange-500 text-orange-500"
+                      : "hover:bg-main border-main text-main"
+                  }  md:text-lg p-3 rounded-lg border border-x-2 border-y-2  font-semibold  hover:text-white duration-200 ease-in-out`}
                 >
                   Ingresa
                 </Link>
@@ -278,20 +302,29 @@ export default function NavBar() {
                       Perfil
                     </Link>
                   ) : (
-                    <Link
-                      href="/Login"
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      onClick={toggleMenu}
-                    >
-                      Ingresa
-                    </Link>
+                    <div>
+                      <Link
+                        href="/Login"
+                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        onClick={toggleMenu}
+                      >
+                        Ingresa
+                      </Link>
+                      <Link
+                        href="/AddAdmin"
+                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        onClick={toggleMenu}
+                      >
+                        Suma tu cancha
+                      </Link>
+                    </div>
                   )}
                   <Link
-                    href="/AddAdmin"
+                    href="#about"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     onClick={toggleMenu}
                   >
-                    Suma tu cancha
+                    About
                   </Link>
                 </div>
               </div>
