@@ -23,6 +23,7 @@ const MisCanchas = () => {
   const [UpdateId, setUpdateId] = useState<string>("");
   const [updateCanchaData, setupdateCancha] = useState<any>({});
   const [isLoading, setLoading] = useState(false);
+  const [isEditLoading, setEditLoading] = useState(false);
 
   useEffect(() => {
     const fetchSedes = async () => {
@@ -161,7 +162,7 @@ const MisCanchas = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setEditLoading(true);
     try {
       if (userData?.token || UpdateId || dataFile || userData) {
         const updatedCancha = await updateCancha(
@@ -181,6 +182,8 @@ const MisCanchas = () => {
     } catch (error) {
       console.error("Error al actualizar la cancha:", error);
       showErrorAlert("Hubo un error al actualizar la cancha");
+    } finally {
+      setEditLoading(false);
     }
   };
 
@@ -334,8 +337,15 @@ const MisCanchas = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                  Actualizar Cancha
+                  className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors ${isEditLoading ? 'opacity-50 pointer-events-none' : ''}`}>
+                  {isEditLoading ? (
+                    <svg
+                      className="animate-spin h-5 w-5 mr-3 border-t-2 border-b-2 border-white rounded-full"
+                      viewBox="0 0 24 24"
+                    ></svg>
+                  ) : (
+                    'Actualizar Cancha'
+                  )}
                 </button>
               </div>
             </form>
