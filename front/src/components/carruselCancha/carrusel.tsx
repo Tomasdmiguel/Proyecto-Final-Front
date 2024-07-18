@@ -66,18 +66,18 @@ const CarruselC = ({ canchas }: { canchas: ICancha[] }) => {
                     alt="imgCancha"
                     className="w-full h-full object-cover object-center"
                   />
-                  <p className="absolute bottom-2 right-2 text-xl text-white bg-black bg-opacity-50 px-2 py-1 rounded">
-                    {cancha.sport === 1
-                      ? "Fútbol"
-                      : cancha.sport === 2
-                      ? "Padel"
-                      : "Tenis"}
-                  </p>
                 </div>
-                <div className="h-full w-full flex flex-col justify-evenly items-start p-4">
+                <div className="h-full w-full flex flex-col justify-between items-start p-4">
                   <h2 className="text-2xl font-bold text-gray-900 capitalize">
                     {cancha?.name}
                   </h2>
+                  <p className="text-xl text-gray-700 ">
+                    {cancha.sport === 1
+                      ? "Fútbol"
+                      : cancha.sport === 2
+                      ? "Pádel"
+                      : "Tenis"}
+                  </p>
 
                   <div className="flex flex-row">
                     <svg
