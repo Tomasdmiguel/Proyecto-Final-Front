@@ -10,7 +10,7 @@ export default function Succes() {
   const handleTerminar = () => {
     Swal.fire({
       icon: "success",
-      title: "Pago realizado correctamente!",
+      title: "Gracias por confiar en nosotros!",
     });
     router.push("/Dashboard");
   };
@@ -27,10 +27,10 @@ export default function Succes() {
             la vista de tu usuario los detalles de la cancha que reservaste,
             como lo son hora, lugar y duracion del partido, recuerda llegar con
             buen tiempo de anticipacion. Disfruta de tu partido y gracias por
-            elegir Reservas Gol
+            elegir Reserva Gol
           </h1>
 
-          <p className="mt-10 text-xl items-center hover:font-black duration-300 ease-in-out">
+          <p className="mt-10 text-xl items-center text-main hover:font-black duration-300 ease-in-out">
             <Link href={"/Terminos"}>Terminos de seguridad del pago</Link>
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function Succes() {
           className="text-black md:text-lg p-3 rounded-lg border border-x-2 border-y-2 border-secundario hover:shadow-md hover:bg-secundario duration-200 ease-in-out mt-8 w-fit"
           onClick={handleTerminar}
         >
-          Terminar pago!
+          Ver mis reservas
         </button>
       </div>
     </div>

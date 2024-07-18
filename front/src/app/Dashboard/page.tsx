@@ -21,6 +21,7 @@ export default function Dashboard() {
   const { sport, handleSport } = useSport();
   const router = useRouter();
   const [sedes, setSedes] = useState<ISede[]>([]);
+  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
@@ -69,14 +70,46 @@ export default function Dashboard() {
     return `${dayString}-${monthString}-${year}`;
   }
 
+  const mouseEnter = () => {
+    setHover(true);
+  };
+  const mouseLeave = () => {
+    setHover(false);
+  };
   return (
     <div
-      className={` ${
-        sport == 2 ? "bg-blue-400" : sport == 3 ? "bg-orange-500" : "bg-main"
-      } flex flex-col justify-center items-center w-screen p-4 gap-24 min-h-[85vh]`}
+      className={` bg-terciario-white flex flex-col justify-center items-center w-screen p-10 space-y-10  min-h-[85vh]`}
     >
-      <div className="bg-terciario-white p-8 rounded-lg shadow-xl min-w-[60vw] max-w-[80vw] text-terciario mt-10 text-xl flex flex-row items-center justify-evenly">
-        <div className="space-y-8 w-3/5">
+      <div
+        className={`bg-white border-2 ${
+          sport == 2
+            ? "border-blue-400"
+            : sport == 3
+            ? "border-orange-400"
+            : "border-main"
+        } p-8 rounded-lg shadow-xl w-[80vw] sm:w-[60vw] lg:w-[50vw] text-terciario text-xl flex flex-col sm:flex-row items-center justify-evenly`}
+      >
+        <div className="sm:w-2/5 flex justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className={`fill-none ${
+              sport == 2
+                ? "stroke-blue-400"
+                : sport == 3
+                ? "stroke-orange-500"
+                : "stroke-main"
+            }`}
+            width="352"
+            height="252"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+          </svg>
+        </div>
+        <div className="space-y-6 sm:py-4 sm:w-3/5">
           <h1 className="text-3xl font-bebas-neue font-semibold uppercase text-black">
             Bienvenido, {userData?.userDb.name || userData?.userDb.displayName}!
           </h1>
@@ -142,7 +175,7 @@ export default function Dashboard() {
               </span>
             </p>
           )}
-          <div className="w-full flex flex-row space-x-3 justify-end items-end">
+          <div className="w-full flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:space-x-3 sm:justify-end sm:items-end">
             {userData?.userDb?.rol === "admin" && (
               <Link
                 className={` ${
@@ -151,11 +184,42 @@ export default function Dashboard() {
                     : sport == 3
                     ? "hover:bg-orange-500 border-orange-500 text-orange-500"
                     : "hover:bg-main border-main text-main"
-                }  md:text-lg p-3 rounded-lg  border-x-2 border-y-2  hover:text-terciario-white font-semibold  duration-200 ease-in-out`}
+                }  md:text-lg flex-row flex items-center space-x-2 p-3 rounded-lg justify-center  border-x-2 border-y-2  hover:text-terciario-white font-semibold  duration-200 ease-in-out`}
                 href={"/PanelAdmin"}
                 onClick={() => handleSport(4)}
+                onMouseEnter={mouseEnter}
+                onMouseLeave={mouseLeave}
               >
-                Panel de control
+                <p>Panel</p>
+                <svg
+                  className={`${
+                    hover
+                      ? "stroke-terciario-white"
+                      : sport == 2
+                      ? "stroke-blue-400 "
+                      : sport == 3
+                      ? "stroke-orange-500"
+                      : "stroke-main"
+                  }`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M3 4m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z" />
+                  <path d="M7 20h10" />
+                  <path d="M9 16v4" />
+                  <path d="M15 16v4" />
+                  <path d="M9 12v-4" />
+                  <path d="M12 12v-1" />
+                  <path d="M15 12v-2" />
+                  <path d="M12 12v-1" />
+                </svg>
               </Link>
             )}
             <button
@@ -171,27 +235,6 @@ export default function Dashboard() {
               Cerrar sesion
             </button>
           </div>
-        </div>
-
-        <div className="w-2/5 flex justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className={`fill-none ${
-              sport == 2
-                ? "stroke-blue-400"
-                : sport == 3
-                ? "stroke-orange-500"
-                : "stroke-main"
-            }`}
-            width="352"
-            height="252"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-          </svg>
         </div>
       </div>
       {userData?.userDb?.rol === "admin" ? (

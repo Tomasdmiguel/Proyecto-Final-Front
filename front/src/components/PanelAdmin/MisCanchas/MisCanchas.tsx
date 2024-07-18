@@ -100,7 +100,7 @@ const MisCanchas = () => {
       showErrorAlert("No se pudo realizar la acción, usuario no autenticado");
       return;
     }
-  
+
     try {
       const result = await pausarTurnos(canchaId, userData);
       if (result.success) {
@@ -109,7 +109,7 @@ const MisCanchas = () => {
           ? "Turnos pausados correctamente"
           : "Turnos habilitados correctamente";
         showSuccessAlert(successMessage);
-  
+
         const updatedTurnos = turnos.map((turno) =>
           turno.id === canchaId ? { ...turno, isActive: newStatus } : turno
         );
@@ -121,17 +121,16 @@ const MisCanchas = () => {
       showErrorAlert("Error al pausar los turnos");
     }
   };
-  
 
   const handleCrearTurnos = async () => {
     try {
-      setLoading(true); 
+      setLoading(true);
       await crearTurnos();
       showSuccessAlert("Turnos creados");
     } catch (error: any) {
       showErrorAlert("Error al crear los turnos");
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -186,44 +185,48 @@ const MisCanchas = () => {
 
   return (
     <div className="container mx-auto p-6 pb-20">
-      <h1 className="text-3xl font-extrabold mb-8 text-gray-900">
+      <h1 className="text-3xl font-extrabold mb-8 text-terciario-white">
         Mis Canchas
       </h1>
       {sedes.length > 0 ? (
-       <div className="bg-white h-[80vh] shadow-lg rounded-lg p-8 overflow-y-auto">
-       <ul className="space-y-8">
-         <button
-           onClick={handleCrearTurnos}
-           className={`text-white px-4 py-2 rounded-md transition duration-300 bg-green-500 hover:bg-green-600 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
-         >
-           {isLoading ? (
-             <svg
-               className="animate-spin h-5 w-5 mr-3 border-t-2 border-b-2 border-white rounded-full"
-               viewBox="0 0 24 24"
-             ></svg>
-           ) : (
-             'Crear turnos'
-           )}
-         </button>
+        <div className="bg-white h-[80vh] shadow-lg rounded-lg p-8 overflow-y-auto">
+          <ul className="space-y-8">
+            <button
+              onClick={handleCrearTurnos}
+              className={`text-white px-4 py-2 rounded-md transition duration-300 bg-green-500 hover:bg-green-600 ${
+                isLoading ? "opacity-50 pointer-events-none" : ""
+              }`}
+            >
+              {isLoading ? (
+                <svg
+                  className="animate-spin h-5 w-5 mr-3 border-t-2 border-b-2 border-white rounded-full"
+                  viewBox="0 0 24 24"
+                ></svg>
+              ) : (
+                "Crear turnos"
+              )}
+            </button>
             {sedes.map((sede) => (
               <div key={sede.id}>
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">
                   {sede.name}
                 </h2>
-              
+
                 {sede?.canchas?.map((cancha) => {
                   const turno = turnos.find((t) => t.id === cancha.id);
                   return (
                     <div
                       key={cancha.id}
-                      className="bg-gray-100 p-6 rounded-lg shadow-md mb-6 hover:shadow-lg transition-shadow duration-300">
+                      className="bg-gray-100 p-6 rounded-lg shadow-md mb-6 hover:shadow-lg transition-shadow duration-300"
+                    >
                       <h3 className="text-xl font-semibold text-gray-800">
                         {cancha.name}
                       </h3>
                       <div className="mt-4 flex justify-end space-x-4">
                         <button
                           onClick={() => handleEstadoCancha(cancha)}
-                          className="text-blue-600 hover:text-blue-800 font-medium">
+                          className="text-blue-600 hover:text-blue-800 font-medium"
+                        >
                           Editar
                         </button>
                         <button
@@ -235,12 +238,14 @@ const MisCanchas = () => {
                             turno?.isActive
                               ? "bg-green-500 hover:bg-green-600"
                               : "bg-red-500 hover:bg-red-600"
-                          } text-white px-4 py-2 rounded-md transition duration-300`}>
+                          } text-white px-4 py-2 rounded-md transition duration-300`}
+                        >
                           {turno?.isActive ? "Habilitar" : "Pausar"}
                         </button>
                         <button
                           onClick={() => handleDeleteCancha(cancha.id)}
-                          className="text-red-600 hover:text-red-800 font-medium">
+                          className="text-red-600 hover:text-red-800 font-medium"
+                        >
                           Eliminar
                         </button>
                       </div>
@@ -329,13 +334,16 @@ const MisCanchas = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors"
+                >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                  Actualizar Cancha
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Guardando..." : "Guardar"}
                 </button>
               </div>
             </form>
