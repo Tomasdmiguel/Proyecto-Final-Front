@@ -61,6 +61,11 @@ const MiReservas = () => {
   const toggleOpen = (id: string) => {
     setOpenId(openId === id ? null : id);
   };
+
+  const formatDate = (dateString: string) => {
+    const [year, month, day] = dateString.split("-");
+    return `${day}-${month}-${year}`;
+  };
   return (
     <div
       className={`bg-white p-8 rounded-lg shadow-lg space-y-4 w-[80vw] sm:w-[60vw] lg:w-[50vw] text-black border-2 ${
@@ -124,6 +129,9 @@ const MiReservas = () => {
                 <div className="bg-white m-2 flex-col flex text-sm sm:flex-col sm:text-lg">
                   <p>
                     <strong>{turno?.cancha.sede.name}</strong>
+                  </p>
+                  <p>
+                    <strong>Dia:</strong> {formatDate(turno.date)}
                   </p>
                   <p>
                     <strong>Hora:</strong> {turno.time}
