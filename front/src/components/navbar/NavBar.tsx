@@ -192,11 +192,13 @@ export default function NavBar() {
         <div className="grid w-full grid-cols-3 py-6 px-10">
           <div></div>
           <div className="flex items-center justify-center">
+            <Link href={"/"}>
             <img
               src="/logo2w.png"
               alt="Company Logo"
               className="w-[15vh] rounded-full"
             />
+            </Link>
           </div>
           <div className="flex items-center justify-end">
             <button
