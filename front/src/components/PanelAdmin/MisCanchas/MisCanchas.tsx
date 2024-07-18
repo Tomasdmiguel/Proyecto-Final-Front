@@ -195,7 +195,7 @@ const MisCanchas = () => {
       {sedes.length > 0 ? (
        <div className="bg-white h-[80vh] shadow-lg rounded-lg p-8 overflow-y-auto">
        <ul className="space-y-8">
-         <button
+         {/* <button
            onClick={handleCrearTurnos}
            className={`text-white px-4 py-2 rounded-md transition duration-300 bg-green-500 hover:bg-green-600 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
          >
@@ -207,7 +207,7 @@ const MisCanchas = () => {
            ) : (
              'Crear turnos'
            )}
-         </button>
+         </button> */}
             {sedes.map((sede) => (
               <div key={sede.id}>
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">

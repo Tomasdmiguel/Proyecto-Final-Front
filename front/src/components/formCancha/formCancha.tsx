@@ -295,7 +295,7 @@ const FormCancha = ({ id }: { id: string }) => {
                   {loading ? (
                     <div className="flex justify-center items-center">
                       <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-                      <span className="ml-3">Creando sede...</span>
+                      <span className="ml-3">Creando cancha...</span>
                     </div>
                   ) : (
                     "Crear cancha"
