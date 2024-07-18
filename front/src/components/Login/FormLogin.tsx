@@ -53,10 +53,9 @@ const FormLogin = () => {
         phone: result.user.phoneNumber || "",
         rol: "",
       };
-  
+
       const userGoogle = await PostRegistroGoogle(userDb);
-   
-  
+
       if (userGoogle.response?.statusCode === 404) {
         showErrorAlert("Usuario en lista negra.");
         return;
@@ -66,7 +65,7 @@ const FormLogin = () => {
         token: userGoogle.token,
         userDb: user,
       };
-  
+
       logIn(userSession);
       showSuccessAlert(
         "Login exitoso",
@@ -74,13 +73,12 @@ const FormLogin = () => {
       );
       router.push("/");
     } catch (error: any) {
-      console.error('Google Login Error:', error); 
+      console.error("Google Login Error:", error);
       showErrorAlert("Error de inicio de sesión");
     } finally {
       setIsGoogleLoading(false);
     }
   };
-  
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -135,7 +133,8 @@ const FormLogin = () => {
           className="hidden md:block lg:w-1/2 bg-cover bg-blue-700"
           style={{
             backgroundImage: `url(loginImage.png)`,
-          }}></div>
+          }}
+        ></div>
         <div className="w-full lg:w-1/2 flex flex-col justify-center items-center mb-20">
           <div className="w-full p-8 lg:w-1/2 justify-center align-middle flex flex-col mb-10">
             <form onSubmit={handleSubmit}>
@@ -163,22 +162,69 @@ const FormLogin = () => {
                     Contraseña
                   </label>
                 </div>
-                <input
-                  className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
-                  type="password"
-                  name="password"
-                  value={data.password}
-                  onChange={handleChange}
-                  required
-                />
+                <div className="flex flex-row items-center border border-gray-300">
+                  <input
+                    className="text-gray-700  rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                    type={passwordVisible ? "text" : "password"}
+                    name="password"
+                    value={data.password}
+                    onChange={handleChange}
+                    required
+                  />
+                  <button
+                    className={`p-[1px] h-2/3  rounded-full`}
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <svg
+                        className={`h-[30px] w-[30px] fill-none ${
+                          sport == 2
+                            ? "stroke-blue-400"
+                            : sport == 3
+                            ? "stroke-orange-500"
+                            : "stroke-gray-700"
+                        }`}
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                      </svg>
+                    ) : (
+                      <svg
+                        className={`h-[30px] w-[30px] fill-none stroke-gray-700
+                        `}
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" />
+                        <path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" />
+                        <path d="M3 3l18 18" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
                 <a
                   href="#"
-                  className="text-xs text-gray-500 hover:text-gray-900 text-end w-full mt-2">
-                  Olvidaste tu contraseña?
+                  className="text-xs text-gray-500 hover:text-gray-900 text-end w-full mt-2"
+                >
+                  ¿Olvidaste tu contraseña?
                 </a>
               </div>
               <div className="mt-8">
-                <button className="bg-blue-700 text-white font-bold py-3 px-4 w-full rounded hover:bg-blue-600" disabled={isLoading}>
+                <button
+                  className="bg-blue-700 text-white font-bold py-3 px-4 w-full rounded hover:bg-blue-600"
+                  disabled={isLoading}
+                >
                   {isLoading ? (
                     <div className="flex items-center justify-center">
                       <svg
@@ -271,7 +317,8 @@ const FormLogin = () => {
             <div className="mt-4 flex items-center w-full text-center">
               <Link
                 href="/Register"
-                className="text-xs text-gray-500 capitalize text-center w-full">
+                className="text-xs text-gray-500 capitalize text-center w-full"
+              >
                 No tienes cuenta?
                 <span className="text-blue-700"> Registrate aqui.</span>
               </Link>

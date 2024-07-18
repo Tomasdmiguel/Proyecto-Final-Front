@@ -1,20 +1,21 @@
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
-import { deleteSede } from "@/service/Admin/DeletAdmin";
 import { updateSede } from "@/service/Admin/EditAdmin";
+import { deleteSede } from "@/service/Admin/DeletAdmin";
 import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/helpers/alert.helper/alert.helper";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 
-interface Sede {
+export interface Sede {
   id: string;
   name: string;
   location: string;
   description: string;
 }
+
 const libraries: "places"[] = ["places"];
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
 
@@ -22,15 +23,15 @@ const MisSedes = () => {
   const [sedes, setSedes] = useState<Sede[]>([]);
   const { userData } = useUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [UpdateId, setUpdateId] = useState<string>("");
-  const [UpdateSede, setUpdateSede] = useState<Sede>({
+  const [updateId, setUpdateId] = useState<string>("");
+  const [updateSedeData, setUpdateSedeData] = useState<Sede>({
     id: "",
     name: "",
     location: "",
     description: "",
   });
   const [dataFile, setFile] = useState<File | null>(null);
-  const [isLoading, setIsLoading] = useState(false); // Estado para el loader
+  const [isLoading, setIsLoading] = useState(false);
   const [autocomplete, setAutocomplete] =
     useState<google.maps.places.Autocomplete | null>(null);
 
@@ -54,8 +55,8 @@ const MisSedes = () => {
   const handlePlaceSelect = () => {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace();
-      setUpdateSede({
-        ...UpdateSede,
+      setUpdateSedeData({
+        ...updateSedeData,
         location: place.formatted_address || "",
       });
     }
@@ -69,7 +70,6 @@ const MisSedes = () => {
     try {
       if (userData?.token) {
         await deleteSede(userData.token, sedeId);
-
         const updatedSedes = sedes.filter((sede) => sede.id !== sedeId);
         setSedes(updatedSedes);
         showSuccessAlert("Eliminado correctamente");
@@ -77,7 +77,6 @@ const MisSedes = () => {
         showErrorAlert(
           "Si quieres borrar la sede, primero tiene que borrar las canchas que tiene creada"
         );
-        console.error("Token de usuario no disponible.");
       }
     } catch (error) {
       showErrorAlert(
@@ -91,7 +90,7 @@ const MisSedes = () => {
     const sedeToUpdate = sedes.find((sede) => sede.id === id);
     if (sedeToUpdate) {
       setUpdateId(id);
-      setUpdateSede(sedeToUpdate);
+      setUpdateSedeData(sedeToUpdate);
       setIsModalOpen(true);
     }
   };
@@ -106,8 +105,8 @@ const MisSedes = () => {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { value, name } = event.target;
-    setUpdateSede({
-      ...UpdateSede,
+    setUpdateSedeData({
+      ...updateSedeData,
       [name]: value,
     });
   };
@@ -116,16 +115,15 @@ const MisSedes = () => {
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
+    setIsLoading(true);
 
     try {
-      setIsLoading(true); // Activar el loader
-
-      if (userData?.token && UpdateId) {
+      if (userData?.token && updateId) {
         const updatedFields = Object.fromEntries(
-          Object.entries(UpdateSede).filter(([_, value]) => value !== "")
+          Object.entries(updateSedeData).filter(([_, value]) => value !== "")
         );
         await updateSede(
-          UpdateId,
+          updateId,
           userData,
           updatedFields,
           dataFile || undefined
@@ -134,7 +132,7 @@ const MisSedes = () => {
         setIsModalOpen(false);
 
         const updatedSedes = sedes.map((sede) =>
-          sede.id === UpdateId ? { ...sede, ...updatedFields } : sede
+          sede.id === updateId ? { ...sede, ...updatedFields } : sede
         );
         setSedes(updatedSedes);
       } else {
@@ -144,7 +142,7 @@ const MisSedes = () => {
       console.error("Error al actualizar la sede:", error);
       showErrorAlert("Error al actualizar la sede");
     } finally {
-      setIsLoading(false); // Desactivar el loader, independientemente del resultado
+      setIsLoading(false);
     }
   };
 
@@ -205,7 +203,7 @@ const MisSedes = () => {
                   <input
                     type="text"
                     name="name"
-                    value={UpdateSede.name}
+                    value={updateSedeData.name}
                     onChange={handleUpdateChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
                   />
@@ -217,7 +215,7 @@ const MisSedes = () => {
                   <input
                     type="text"
                     name="description"
-                    value={UpdateSede.description}
+                    value={updateSedeData.description}
                     onChange={handleUpdateChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
                   />
@@ -233,7 +231,7 @@ const MisSedes = () => {
                     <input
                       type="text"
                       name="location"
-                      value={UpdateSede.location}
+                      value={updateSedeData.location}
                       onChange={handleUpdateChange}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-800"
                     />
@@ -259,18 +257,15 @@ const MisSedes = () => {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors"
+                    className="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600"
                   >
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors ${
-                      isLoading ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
-                    disabled={isLoading}
+                    className="py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600"
                   >
-                    {isLoading ? "Cargando..." : "Actualizar Sede"}
+                    {isLoading ? "Actualizando..." : "Actualizar"}
                   </button>
                 </div>
               </form>

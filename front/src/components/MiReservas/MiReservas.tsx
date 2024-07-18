@@ -9,12 +9,16 @@ import { ITurno } from "@/interface/ISedes";
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { fetchUserById } from "@/service/ApiUser";
+import { useSport } from "@/context/SportContext";
 
 const MiReservas = () => {
+  const { sport } = useSport();
+
   const [turnos, setTurnos] = useState<ITurno[]>();
   const [loading, setLoading] = useState(false);
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const { userData } = useUser();
+  const [openId, setOpenId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTurnos = async () => {
@@ -54,8 +58,19 @@ const MiReservas = () => {
     );
   };
 
+  const toggleOpen = (id: string) => {
+    setOpenId(openId === id ? null : id);
+  };
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg space-y-4 space-x-10 min-w-[60vw] text-black">
+    <div
+      className={`bg-white p-8 rounded-lg shadow-lg space-y-4 w-[80vw] sm:w-[60vw] lg:w-[50vw] text-black border-2 ${
+        sport == 2
+          ? "border-blue-400"
+          : sport == 3
+          ? "border-orange-400"
+          : "border-main"
+      }`}
+    >
       <h1 className="text-3xl font-bebas-neue font-semibold text-black">
         Mis Reservas
       </h1>
@@ -63,54 +78,98 @@ const MiReservas = () => {
         Esta es la sección de tus reservas.
       </p>
 
-      {/* {loading && <div className="flex justify-center items-center"><div className="spinner border-4 border-gray-200 border-t-4 border-t-teal-500 rounded-full w-8 h-8 animate-spin"></div></div>} */}
-
       {turnos && turnos.length > 0 ? (
-        <div className="flex flex-col gap-16 text-2xl">
+        <div className="flex flex-col w-full space-y-6 text-2xl">
           {turnos.map((turno: ITurno, index: number) => (
             <div
               key={index}
-              className="w-full rounded-sm shadow-xl hover:bg-main hover:text-white ease-in-out duration-300 p-4 space-y-4"
+              className={`border-2 rounded p-2  ${
+                sport == 2
+                  ? "border-blue-400"
+                  : sport == 3
+                  ? "border-orange-400"
+                  : "border-main"
+              } w-full`}
             >
-              <h2 className="font-bold text-3xl capitalize">
-                {turno?.cancha?.name}
-              </h2>
-              <p>{turno?.cancha.sede.name}</p>
-              <p>Hora: {turno.time}</p>
-              <p>Dirección: {turno?.cancha?.sede?.location}</p>
-              <p>Duración: 1 Hora</p>
+              <div className="flex flex-row w-full justify-between">
+                <h2 className="capitalize font-bold text-3xl">
+                  {turno?.cancha?.name}
+                </h2>
+                <button onClick={() => toggleOpen(turno.id)}>
+                  {openId !== turno.id ? (
+                    <svg
+                      className="duration-300 ease-in-out hover:cursor-pointer fill-black"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="27"
+                      height="16"
+                      viewBox="0 0 40 23"
+                    >
+                      <path d="M20 23L0 2.99995L2.8 0.199951L20 17.4L37.2 0.199951L40 2.99995L20 23Z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="duration-300 ease-in-out hover:cursor-pointer fill-black"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="27"
+                      height="16"
+                      viewBox="0 0 40 23"
+                      style={{ transform: "rotate(180deg)" }}
+                    >
+                      <path d="M20 23L0 2.99995L2.8 0.199951L20 17.4L37.2 0.199951L40 2.99995L20 23Z" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+              {openId === turno.id && (
+                <div className="bg-white m-2 flex-col flex text-sm sm:flex-col sm:text-lg">
+                  <p>
+                    <strong>{turno?.cancha.sede.name}</strong>
+                  </p>
+                  <p>
+                    <strong>Hora:</strong> {turno.time}
+                  </p>
+                  <p>
+                    <strong>Dirección:</strong> {turno?.cancha?.sede?.location}
+                  </p>
+                  <p>
+                    <strong>Duración:</strong> 1 Hora
+                  </p>
 
-              <p>
-                Estado:{" "}
-                {turno.status === "libre"
-                  ? "Cancelado"
-                  : turno.status === "ocupado"
-                  ? "Reservado"
-                  : turno.status === "pendiente"
-                  ? "Pendiente"
-                  : "Desconocido"}
-              </p>
+                  <p>
+                    <strong>Estado:</strong>{" "}
+                    {turno.status === "libre"
+                      ? "Cancelado"
+                      : turno.status === "ocupado"
+                      ? "Reservado"
+                      : turno.status === "pendiente"
+                      ? "Pendiente"
+                      : "Desconocido"}
+                  </p>
 
-              {turno.status != "libre" && (
-                <div className="flex justify-end mt-4">
-                  <button
-                    onClick={() => cancelarTurno(turno.id)}
-                    className={`bg-terciario text-white p-3 rounded-lg font-semibold hover:bg-white hover:text-terciario duration-200 ease-in-out ${
-                      loading && loadingId === turno.id
-                        ? "cursor-not-allowed opacity-50"
-                        : ""
-                    }`}
-                    disabled={loading && loadingId === turno.id}
-                  >
-                    {loading && loadingId === turno.id ? (
-                      <div className="flex items-center">
-                        <div className="spinner border-2 border-gray-200 border-t-2 border-t-teal-500 rounded-full w-4 h-4 animate-spin mr-2"></div>
-                        Cargando...
-                      </div>
-                    ) : (
-                      "Cancelar Reserva"
-                    )}
-                  </button>
+                  {turno.status != "libre" && (
+                    <div className="flex justify-end mt-4">
+                      <button
+                        onClick={() => cancelarTurno(turno.id)}
+                        className={` ${
+                          sport == 2
+                            ? "hover:bg-blue-400 border-blue-400 text-blue-400"
+                            : sport == 3
+                            ? "hover:bg-orange-500 border-orange-500 text-orange-500"
+                            : "hover:bg-main border-main text-main"
+                        }  md:text-lg p-3 rounded-lg border border-x-2 border-y-2  font-semibold  hover:text-white duration-200 ease-in-out`}
+                        disabled={loading && loadingId === turno.id}
+                      >
+                        {loading && loadingId === turno.id ? (
+                          <div className="flex items-center">
+                            <div className="spinner border-2 border-gray-200 border-t-2 border-t-teal-500 rounded-full w-4 h-4 animate-spin mr-2"></div>
+                            Cargando...
+                          </div>
+                        ) : (
+                          "Cancelar Reserva"
+                        )}
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
