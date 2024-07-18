@@ -126,6 +126,9 @@ const MiReservas = () => {
                     <strong>{turno?.cancha.sede.name}</strong>
                   </p>
                   <p>
+                    <strong>Dia:</strong> {turno.date}
+                  </p>
+                  <p>
                     <strong>Hora:</strong> {turno.time}
                   </p>
                   <p>
