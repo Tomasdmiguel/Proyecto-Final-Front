@@ -57,7 +57,6 @@ const FormCancha = ({ id }: { id: string }) => {
     });
   };
 
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
@@ -96,7 +95,6 @@ const FormCancha = ({ id }: { id: string }) => {
         setLoading(false);
       }
     } else {
-
       Swal.fire({
         icon: "warning",
         title: "Datos inválidos",
@@ -116,15 +114,17 @@ const FormCancha = ({ id }: { id: string }) => {
           }}
         ></div>
 
-        <div className="w-full lg:w-1/2 flex flex-col justify-center items-center"
-          style={{ backgroundImage: `url(fondoCreateForm.png)`, }}>
-
+        <div
+          className="w-full lg:w-1/2 flex flex-col justify-center items-center"
+          style={{ backgroundImage: `url(fondoCreateForm.png)` }}
+        >
           <div className=" p-8 lg:w-1/2 justify-center align-middle flex flex-col">
-
             <form onSubmit={handleSubmit}>
-
               <div className="mt-4">
-                <label htmlFor="sedeName" className="block text-gray-700 text-sm font-bold mb-2">
+                <label
+                  htmlFor="sedeName"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
                   Sede
                 </label>
                 <select
@@ -159,7 +159,10 @@ const FormCancha = ({ id }: { id: string }) => {
               </div>
 
               <div className="mt-4 flex flex-col justify-between">
-                <label htmlFor="sport" className="block text-gray-700 text-sm font-bold mb-2">
+                <label
+                  htmlFor="sport"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
                   Deporte
                 </label>
                 <select
@@ -177,7 +180,10 @@ const FormCancha = ({ id }: { id: string }) => {
 
               <div className="mt-4 flex flex-col justify-between">
                 <div className="flex justify-between">
-                  <label htmlFor="timeOpen" className="block text-gray-700 text-sm font-bold mb-2">
+                  <label
+                    htmlFor="timeOpen"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
                     Horario de apertura
                   </label>
                 </div>
@@ -192,7 +198,10 @@ const FormCancha = ({ id }: { id: string }) => {
 
               <div className="mt-4 flex flex-col justify-between">
                 <div className="flex justify-between">
-                  <label htmlFor="timeClose" className="block text-gray-700 text-sm font-bold mb-2">
+                  <label
+                    htmlFor="timeClose"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
                     Horario de cierre
                   </label>
                 </div>
@@ -206,7 +215,10 @@ const FormCancha = ({ id }: { id: string }) => {
               </div>
 
               <div className="mt-4 flex flex-col justify-between">
-                <label htmlFor="type" className="block text-gray-700 text-sm font-bold mb-2">
+                <label
+                  htmlFor="type"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
                   Tipo de cancha
                 </label>
                 <select
@@ -225,7 +237,10 @@ const FormCancha = ({ id }: { id: string }) => {
               </div>
 
               <div className="mt-4 flex flex-col justify-between">
-                <label htmlFor="price" className="block text-gray-700 text-sm font-bold mb-2">
+                <label
+                  htmlFor="price"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
                   Precio por jugador
                 </label>
                 <input
@@ -240,7 +255,10 @@ const FormCancha = ({ id }: { id: string }) => {
 
               <div className="mt-4 flex flex-col justify-between">
                 <div className="flex justify-between">
-                  <label htmlFor="player" className="block text-gray-700 text-sm font-bold mb-2">
+                  <label
+                    htmlFor="player"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
                     Cantidad de jugadores
                   </label>
                 </div>
@@ -254,8 +272,10 @@ const FormCancha = ({ id }: { id: string }) => {
               </div>
 
               <div className="mt-4 flex flex-col justify-between">
-
-                <label htmlFor="techado" className="block text-gray-700 text-sm font-bold mb-2">
+                <label
+                  htmlFor="techado"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
                   Techado
                 </label>
 
@@ -295,20 +315,16 @@ const FormCancha = ({ id }: { id: string }) => {
                   {loading ? (
                     <div className="flex justify-center items-center">
                       <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-                      <span className="ml-3">Creando sede...</span>
+                      <span className="ml-3">Creando cancha...</span>
                     </div>
                   ) : (
                     "Crear cancha"
                   )}
                 </button>
               </div>
-
             </form>
-
-
           </div>
         </div>
-
       </div>
     </div>
   );
